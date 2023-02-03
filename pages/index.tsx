@@ -1,4 +1,18 @@
+import { Inter } from '@next/font/google'
+// import styles from '@/styles/Home.module.css'
 import RodeoDashboard from "./Rodeos/RodeoDashboard"
+
+
+const inter = Inter({ subsets: ['latin'] })
+
+export default function Home() {
+  return (
+    <RodeoDashboard
+      rodeos={PLACEHOLDER_RODEOS}
+    />
+  )
+}
+
 
 const PLACEHOLDER_RODEOS = [
   {
@@ -111,12 +125,3 @@ const PLACEHOLDER_RODEOS = [
     ]
   }
 ]
-
-export default function App() {
-  return (
-    <RodeoDashboard
-      rodeos={PLACEHOLDER_RODEOS}
-    />
-  )
-
-}

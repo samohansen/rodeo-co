@@ -1,5 +1,5 @@
 import { Card, CardMedia, CardContent, CardActionArea, Typography } from '@mui/material';
-import logo from '../../src/logo.svg';
+import logo from "/public/vercel.svg";
 
 // Not sure how best to handle images for this guy. Putting it off for now. 
 const ActionAreaCard = ({onClick, title, bodyLine1, bodyLine2}) => {
