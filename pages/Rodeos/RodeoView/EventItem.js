@@ -1,6 +1,6 @@
 import {Chip} from '@mui/material'
 import {styled} from '@mui/material/styles'
-import EditIcon from '@mui/icons-material/Edit';
+// import EditIcon from '@mui/icons-material/Edit';
 import styles from './EventsList.module.css'
 
 const EventChip = styled(Chip)(() => ({
