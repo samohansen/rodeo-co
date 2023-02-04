@@ -1,4 +1,4 @@
-import TabPanel from '../../common/TabPanel';
+import TabPanel from '@common/TabPanel';
 import RodeoDetails from './RodeoDetails';
 import EventsList from './EventsList';
 import { useState } from 'react';

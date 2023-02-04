@@ -1,3 +1,7 @@
+:root {
+  --left-nav-width: 240px;
+}
+
 /* :root {
   --max-width: 1100px;
   --border-radius: 12px;
