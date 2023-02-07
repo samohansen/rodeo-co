@@ -14,7 +14,7 @@ const MainToolbar: React.FC<Props> = ({leftNavWidth}) => {
       sx={{ width: `calc(100% - ${leftNavWidth}px)`, ml: `${leftNavWidth}px` }}
     >
       <Toolbar>
-        breadcrumbs?
+        breadcrumbs
       </Toolbar>
     </AppBar>
   </>

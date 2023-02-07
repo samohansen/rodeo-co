@@ -18,7 +18,7 @@ const ActionAreaCard: React.FC<Props> = ({onClick, title, bodyLine1, bodyLine2})
         <CardMedia
           component="img"
           height="140"
-          // image={logo}
+          image={"hat-md.svg"}
           alt="green iguana"
         />
         <CardContent>

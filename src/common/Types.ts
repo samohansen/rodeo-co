@@ -1,7 +1,8 @@
 import { ReactNode } from "react";
 
 export type LeftNavMenuItem = {
-  text: string;
+  label: string;
+  path: string;
   icon: ReactNode;
 }
 
@@ -27,13 +28,13 @@ export type RodeoEvent = {
   participantEntries?: ParticipantEntry[];
 }
 
-type Participant = {
-  participantId: number;
-  name: string;
-}
-
 type ParticipantEntry = {
   participant: Participant;
   horse: string;
   time?: number;
+}
+
+type Participant = {
+  participantId: number;
+  name: string;
 }

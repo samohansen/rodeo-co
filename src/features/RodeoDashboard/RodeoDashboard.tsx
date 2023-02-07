@@ -16,10 +16,6 @@ const RodeoDashboard: React.FC<Props> = ({rodeos}) => {
   // }
   
   return (<>
-    {/* nav */}
-    <Button onClick={() => setViewRodeo(null)}>Rodeos</Button>
-
-    {/* content */}
     {!viewRodeo ? (
       <AllRodeosGrid
         rodeos={rodeos}

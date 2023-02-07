@@ -8,7 +8,7 @@ import Toolbar from '@mui/material/Toolbar';
 import HomeIcon from '@mui/icons-material/Home';
 import PeopleIcon from '@mui/icons-material/People';
 import RodeoDashboard from "@features/RodeoDashboard/RodeoDashboard";
-import { PLACEHOLDER_RODEOS } from "src/content/mockData";
+import { PLACEHOLDER_RODEOS } from "@common/content/mockData";
 
 const IndexPage: NextPage = () => {
   return (

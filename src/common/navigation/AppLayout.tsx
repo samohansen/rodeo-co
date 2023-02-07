@@ -10,22 +10,26 @@ import Toolbar from '@mui/material/Toolbar';
 import HomeIcon from '@mui/icons-material/Home';
 import PeopleIcon from '@mui/icons-material/People';
 import RodeoDashboard from "@features/RodeoDashboard/RodeoDashboard";
-import { PLACEHOLDER_RODEOS } from "src/content/mockData";
+import { PLACEHOLDER_RODEOS } from "@common/content/mockData";
+import { HatIcon } from "@common/content/mockData";
 
 type Props = {
-  children: ReactNode[];
+  children?: ReactNode | ReactNode[];
 }
 
 const AppLayout: React.FC<Props> = ({children}) => {
   const leftNavWidth: number = 240;
   const leftNavMenuItems: LeftNavMenuItem[] = [{
-    text: 'Home',
+    label: 'Home',
+    path: '/',
     icon: <HomeIcon/>
   }, {
-    text: 'Rodeos',
-    icon: <HomeIcon />
+    label: 'Rodeos',
+    path: '/rodeos',
+    icon: <HatIcon />
   }, {
-    text: 'Participants',
+    label: 'Participants',
+    path: '/participants',
     icon: <PeopleIcon />
   }]
 

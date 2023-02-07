@@ -6,10 +6,17 @@ type Props = {
 }
 
 const EventView: React.FC<Props> = ({event}) => {
+  const participantData = event.participantEntries.map(
+    entry => ({
+      name: entry.participant.name,
+      horse: entry.horse,
+      time: entry.time
+    })
+  )
   return (
     <BasicTable
-      head={['ID', 'Name', 'Horse', 'Time']}
-      data={event.participantEntries}
+      head={['Name', 'Horse', 'Time']}
+      data={participantData}
     />
   )
 }
