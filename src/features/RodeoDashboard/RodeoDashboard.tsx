@@ -1,22 +1,23 @@
 import { useState } from 'react';
+import type { Rodeo } from '@common/Types';
 import { Button } from "@mui/material";
 import AllRodeosGrid from './AllRodeosGrid';
 import RodeoView from './RodeoView/RodeoView';
 
-const RodeoDashboard = ({rodeos}) => {
-  const [viewRodeo, setViewRodeo] = useState(null)
+type Props = {
+  rodeos: Rodeo[]
+}
+
+const RodeoDashboard: React.FC<Props> = ({rodeos}) => {
+  const [viewRodeo, setViewRodeo] = useState<Rodeo>(null)
 
   // const handleCardClick = (rodeo) => {
   //   setViewRodeo(rodeo);
   // }
   
-  const handleRodeosHomeClick = () => {
-    setViewRodeo(null);
-  }
-
   return (<>
     {/* nav */}
-    <Button onClick={handleRodeosHomeClick}>Rodeos</Button>
+    <Button onClick={() => setViewRodeo(null)}>Rodeos</Button>
 
     {/* content */}
     {!viewRodeo ? (
@@ -24,9 +25,7 @@ const RodeoDashboard = ({rodeos}) => {
         rodeos={rodeos}
         onCardClick={setViewRodeo}
       />
-    ) : (
-      <RodeoView rodeo={viewRodeo} />
-    )}
+    ) : (<RodeoView rodeo={viewRodeo} />)}
   </>)
 }
 

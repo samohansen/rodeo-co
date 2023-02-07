@@ -11,7 +11,7 @@ export const PLACEHOLDER_RODEOS = [
       {
         eventId: 1,
         name: 'Barrel Race',
-        ageLimits: [6, 12],
+        // ageLimits: [6, 12],
         minAge: 6,
         maxAge: 12,
         participantEntries:
@@ -33,7 +33,7 @@ export const PLACEHOLDER_RODEOS = [
       {
         eventId: 2,
         name: 'Barrel Race',
-        ageLimits: [13, 17],
+        // ageLimits: [13, 17],
         minAge: 13,
         maxAge: 17,
         participantEntries:
@@ -55,7 +55,7 @@ export const PLACEHOLDER_RODEOS = [
       {
         eventId: 3,
         name: 'Barrel Race',
-        ageLimits: [18],
+        // ageLimits: [18],
         minAge: 18,
         participantEntries:
         [
@@ -87,7 +87,7 @@ export const PLACEHOLDER_RODEOS = [
       {
         eventId: 1,
         name: 'Barrel Race',
-        ageLimits: [6, 12],
+        // ageLimits: [6, 12],
         minAge: 6,
         maxAge: 12,
         participantEntries:

@@ -1,8 +1,8 @@
-import TabPanel from '@common/TabPanel';
+import TabPanel from '@common/display/TabPanel';
 import RodeoDetails from './RodeoDetails';
 import EventsList from './EventsList';
 import { useState } from 'react';
-import EventView from './EventView';
+import EventView from '../EventView/EventView';
 
 const RodeoView = ({rodeo}) => {
   const {rodeoDetails, rodeoEvents} = rodeo;

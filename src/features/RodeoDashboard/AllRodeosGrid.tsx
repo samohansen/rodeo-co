@@ -1,4 +1,4 @@
-import ActionAreaCard from "@common/ActionAreaCard";
+import ActionAreaCard from "@common/display/ActionAreaCard";
 import Grid from "@mui/material/Grid";
 
 const RodeoCard = ({rodeo, onClick}) => {

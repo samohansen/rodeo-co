@@ -2,6 +2,7 @@ import {Chip} from '@mui/material'
 import {styled} from '@mui/material/styles'
 // import EditIcon from '@mui/icons-material/Edit';
 import styles from './EventsList.module.css'
+import {buildEventAgeString} from '@common/utils'
 
 const EventChip = styled(Chip)(() => ({
   "& .MuiChip-icon": {
@@ -15,9 +16,9 @@ const EventChip = styled(Chip)(() => ({
 }))
 
 const EventItem = ({event, onEventClick}) => {
-  const {ageLimits, name} = event
-  const ageString = `${ageLimits[0]}${ageLimits[1] ?  `-${ageLimits[1]}` : '+'}`
-  const labelString = `${name} (${ageString})`
+  const {name} = event;
+  const ageString = buildEventAgeString(event);
+  const labelString = `${name} (${ageString})`;
 
   return (
     <EventChip 
