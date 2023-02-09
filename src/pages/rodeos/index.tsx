@@ -8,16 +8,38 @@ import Toolbar from '@mui/material/Toolbar';
 import HomeIcon from '@mui/icons-material/Home';
 import PeopleIcon from '@mui/icons-material/People';
 import RodeoDashboard from "@features/RodeoDashboard/RodeoDashboard";
-import { PLACEHOLDER_RODEOS } from "@common/content/mockData";
+import { PrismaClient } from '@prisma/client'
+import { formatDate } from "@common/utils";
 
-const IndexPage: NextPage = () => {
+const prisma = new PrismaClient()
+export async function getServerSideProps () {
+  const rodeos = await prisma.rodeo.findMany({
+    include: {
+      events: true,
+    }
+  });
+
+  return {
+    props: {
+      rodeos: JSON.parse(JSON.stringify(rodeos))
+      // rodeos: rodeos.map(rodeo => ({
+      //   ...rodeo,
+      //   date: formatDate(rodeo.date)
+      // })),
+    }
+  }
+}
+
+const RodeoIndex = ({rodeos = []}) => {
+  console.log(rodeos)
+
   return (
     <div>
       <RodeoDashboard
-        rodeos={PLACEHOLDER_RODEOS}
+        rodeos={rodeos}
       />
     </div>
   );
 };
 
-export default IndexPage;
+export default RodeoIndex;

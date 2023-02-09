@@ -1,4 +1,4 @@
-import type { Rodeo } from "@common/Types";
+// import type { Rodeo } from "@common/Types";
 import { SvgIcon } from "@mui/material";
 
 export function HatIcon(props) {
@@ -21,131 +21,131 @@ m174 -190 c45 -38 83 -106 83 -148 0 -15 -10 -37 -21 -48 -19 -19 -30 -21 -98
   );
 }
 
-export const PLACEHOLDER_RODEOS: Rodeo[] = [
-  {
-    rodeoId: 1,
-    rodeoDetails: {
-      name: 'West Valley County',
-      location: 'West Valley City, Utah',
-      date: 'May 13, 2023',
-      notes: 'sponsorships etc'
-    },
-    rodeoEvents: [
-      {
-        eventId: 1,
-        name: 'Barrel Race',
-        // ageLimits: [6, 12],
-        minAge: 6,
-        maxAge: 12,
-        participantEntries:
-        [
-          {
-            participant: {
-              participantId: 1,
-              name: 'Macy Hatter',
-            },
-            horse: 'Bullet',
-            time: 18.91,
-          },
-          {
-            participant: {
-              participantId: 2,
-              name: 'Cindy Potter',
-            },
-            horse: 'Midnight',
-            time: 20.21,
-          },
-        ],
-      },
-      {
-        eventId: 2,
-        name: 'Barrel Race',
-        // ageLimits: [13, 17],
-        minAge: 13,
-        maxAge: 17,
-        participantEntries:
-        [
-          {
-            participant: {
-              participantId: 1,
-              name: 'Teen Hatter',
-            },
-            horse: 'Bullet',
-            time: 18.91,
-          },
-          {
-            participant: {
-              participantId: 2,
-              name: 'Teen Potter',
-            },
-            horse: 'Midnight',
-            time: 20.21,
-          }
-        ]
-      },
-      {
-        eventId: 3,
-        name: 'Barrel Race',
-        // ageLimits: [18],
-        minAge: 18,
-        participantEntries:
-        [
-          {
-            participant: {
-              participantId: 1,
-              name: 'Adult Hatter',
-            },
-            horse: 'Bullet',
-            time: 18.91,
-          },
-          {
-            participant: {
-              participantId: 2,
-              name: 'Adult Potter',
-            },
-            horse: 'Midnight',
-            time: 20.21,
-          }
-        ]
-      }
-    ]
-  },
-  {
-    rodeoId: 2,
-    rodeoDetails: {
-      name: 'Tough Enough to Wear Pink',
-      location: 'Spanish Fork, Utah',
-      date: 'June 15, 2023',
-      notes: 'sponsorships etc'
-    },
-    rodeoEvents: [
-      {
-        eventId: 1,
-        name: 'Barrel Race',
-        // ageLimits: [6, 12],
-        minAge: 6,
-        maxAge: 12,
-        participantEntries:
-        [
-          {
-            participant: {
-              participantId: 1,
-              name: 'Macy Hatter',
-            },
-            horse: 'Bullet',
-            time: 18.91,
-          },
-          {
-            participant: {
-              participantId: 2,
-              name: 'Cindy Potter',
-            },
-            horse: 'Midnight',
-            time: 20.21,
-          }
-        ]
-      }
-    ]
-  }
-]
+// export const PLACEHOLDER_RODEOS: Rodeo[] = [
+//   {
+//     rodeoId: 1,
+//     rodeoDetails: {
+//       name: 'West Valley County',
+//       location: 'West Valley City, Utah',
+//       date: 'May 13, 2023',
+//       notes: 'sponsorships etc'
+//     },
+//     rodeoEvents: [
+//       {
+//         eventId: 1,
+//         name: 'Barrel Race',
+//         // ageLimits: [6, 12],
+//         minAge: 6,
+//         maxAge: 12,
+//         participantEntries:
+//         [
+//           {
+//             participant: {
+//               participantId: 1,
+//               name: 'Macy Hatter',
+//             },
+//             horse: 'Bullet',
+//             time: 18.91,
+//           },
+//           {
+//             participant: {
+//               participantId: 2,
+//               name: 'Cindy Potter',
+//             },
+//             horse: 'Midnight',
+//             time: 20.21,
+//           },
+//         ],
+//       },
+//       {
+//         eventId: 2,
+//         name: 'Barrel Race',
+//         // ageLimits: [13, 17],
+//         minAge: 13,
+//         maxAge: 17,
+//         participantEntries:
+//         [
+//           {
+//             participant: {
+//               participantId: 1,
+//               name: 'Teen Hatter',
+//             },
+//             horse: 'Bullet',
+//             time: 18.91,
+//           },
+//           {
+//             participant: {
+//               participantId: 2,
+//               name: 'Teen Potter',
+//             },
+//             horse: 'Midnight',
+//             time: 20.21,
+//           }
+//         ]
+//       },
+//       {
+//         eventId: 3,
+//         name: 'Barrel Race',
+//         // ageLimits: [18],
+//         minAge: 18,
+//         participantEntries:
+//         [
+//           {
+//             participant: {
+//               participantId: 1,
+//               name: 'Adult Hatter',
+//             },
+//             horse: 'Bullet',
+//             time: 18.91,
+//           },
+//           {
+//             participant: {
+//               participantId: 2,
+//               name: 'Adult Potter',
+//             },
+//             horse: 'Midnight',
+//             time: 20.21,
+//           }
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     rodeoId: 2,
+//     rodeoDetails: {
+//       name: 'Tough Enough to Wear Pink',
+//       location: 'Spanish Fork, Utah',
+//       date: 'June 15, 2023',
+//       notes: 'sponsorships etc'
+//     },
+//     rodeoEvents: [
+//       {
+//         eventId: 1,
+//         name: 'Barrel Race',
+//         // ageLimits: [6, 12],
+//         minAge: 6,
+//         maxAge: 12,
+//         participantEntries:
+//         [
+//           {
+//             participant: {
+//               participantId: 1,
+//               name: 'Macy Hatter',
+//             },
+//             horse: 'Bullet',
+//             time: 18.91,
+//           },
+//           {
+//             participant: {
+//               participantId: 2,
+//               name: 'Cindy Potter',
+//             },
+//             horse: 'Midnight',
+//             time: 20.21,
+//           }
+//         ]
+//       }
+//     ]
+//   }
+// ]
 

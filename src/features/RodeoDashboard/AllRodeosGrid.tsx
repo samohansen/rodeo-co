@@ -2,7 +2,9 @@ import ActionAreaCard from "@common/display/ActionAreaCard";
 import Grid from "@mui/material/Grid";
 
 const RodeoCard = ({rodeo, onClick}) => {
-  const {name, location, date} = rodeo.rodeoDetails
+  const {name, location, date} = rodeo
+
+  
   return (
     <ActionAreaCard 
       title={name}
@@ -19,7 +21,7 @@ const AllRodeosGrid = ({rodeos, onCardClick}) => {
       <h1>Rodeos</h1>
       <Grid container spacing={3}>
         {rodeos.map(rodeo => (
-          <Grid item xs={12} sm={4} key={rodeo.rodeoId}>
+          <Grid item xs={12} sm={4} key={rodeo.id}>
             <RodeoCard 
               rodeo={rodeo}
               onClick={() => onCardClick(rodeo)}
