@@ -7,7 +7,6 @@ type Props = {
 }
 
 const MainToolbar: React.FC<Props> = ({leftNavWidth}) => {
-
   return <>
     <AppBar
       position="fixed"

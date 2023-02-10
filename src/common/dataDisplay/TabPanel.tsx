@@ -43,5 +43,4 @@ const TabPanel: React.FC<Props> = ({tabNames, children}) => {
     </Box>
   );
 }
-
 export default TabPanel;
