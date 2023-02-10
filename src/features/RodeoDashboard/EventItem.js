@@ -18,7 +18,7 @@ const EventChip = styled(Chip)(() => ({
 const EventItem = ({event, onEventClick}) => {
   const {name} = event;
   const ageString = buildEventAgeString(event);
-  const labelString = `${name} (${ageString})`;
+  const labelString = `${name}${ageString}`;
 
   return (
     <EventChip 
