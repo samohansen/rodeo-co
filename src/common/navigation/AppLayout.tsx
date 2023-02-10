@@ -9,7 +9,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import HomeIcon from '@mui/icons-material/Home';
 import PeopleIcon from '@mui/icons-material/People';
-import { HatIcon } from "@common/content/mockData";
+import HatIcon from "@common/components/HatIcon";
 
 type Props = {
   children?: ReactNode | ReactNode[];
