@@ -1,7 +1,7 @@
 export function buildEventAgeString({minAge, maxAge}: {minAge: number | string, maxAge: number | string}): string {
-  if (minAge) {
-    return `${minAge}${maxAge ?  `-${maxAge}` : '+'}`
-  }
+  return minAge 
+    ? ` (${minAge}${maxAge ?  `-${maxAge}` : '+'})`
+    : ''
 }
 
 export function formatDate(date: Date): string {

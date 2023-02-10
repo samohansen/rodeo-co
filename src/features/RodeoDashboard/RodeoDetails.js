@@ -9,7 +9,6 @@ const RodeoDetails = ({location, date, notes}) => {
       <h1>{notes}</h1>
     </div>
   )
-
 }
 
 export default RodeoDetails;
