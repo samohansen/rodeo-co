@@ -5,14 +5,20 @@ const prisma = new PrismaClient();
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     try {
-      const info = req.body
+      const { name, location, date, notes } = req.body
       const rodeo = await prisma.rodeo.create({
         data: {
-          ...info
+          name, 
+          location, 
+          date, 
+          notes, 
+          admin: { 
+            connect: { email: 'admin@test.com'}
+          }
         }
       })
-  
       res.status(200).json(rodeo);
+      return res.data
     } catch (e) {
       res.status(500).json(e);
     }
