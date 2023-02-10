@@ -58,26 +58,26 @@ model User {
   // horses      Horse[]
 
   type        UserType          
-  admin       Admin?
-  participant Participant?
+  rodeos      Rodeo[]       // in practice, should be null for any users of UserType participant
+  entries     EventEntry[]  // in practice, should be null for any users of UserType admin
 
   accounts    Account[]
   sessions    Session[]
 }
 
-model Admin {
-  user    User    @relation(fields: [userId], references: [id])
-  userId  String  @id
+// model Admin {
+//   user    User    @relation(fields: [userId], references: [id])
+//   userId  String  @id
 
-  rodeos  Rodeo[]
-}
+//   rodeos  Rodeo[]
+// }
 
-model Participant {
-  user    User    @relation(fields: [userId], references: [id])
-  userId  String  @id
+// model Participant {
+//   user    User    @relation(fields: [userId], references: [id])
+//   userId  String  @id
 
-  entries EventEntry[]
-}
+//   entries EventEntry[]
+// }
 
 model Rodeo {
   id        String    @id @default(cuid())
@@ -87,7 +87,7 @@ model Rodeo {
   notes     String?
   events    RodeoEvent[]
 
-  admin     Admin     @relation(fields: [adminId], references: [userId])
+  admin     User     @relation(fields: [adminId], references: [id])
   adminId   String  
 }
 
@@ -106,7 +106,7 @@ model RodeoEvent {
 }
 
 model EventEntry {
-  participant   Participant @relation(fields: [participantId], references: [userId])
+  participant   User @relation(fields: [participantId], references: [id])
   participantId String
   event         RodeoEvent  @relation(fields: [eventId], references: [id])
   eventId       String

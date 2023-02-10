@@ -11,19 +11,12 @@ async function main() {
   
   // user and admin done in one transaction to get the userId with which to create the Admin
   await prisma.$transaction(async (prisma) => {
-    const user = await prisma.user.upsert({
+    const admin = await prisma.user.upsert({
       where: { email: 'admin@test.com'},
       update: {},
       create: {
         email: 'admin@test.com',
         type: 'admin',
-      },
-    });
-    const admin = await prisma.admin.upsert({
-      where: { userId: user.id },
-      update: {},
-      create: {
-        userId: user.id,
         rodeos: {
           create: [
             {
@@ -85,7 +78,7 @@ async function main() {
                   },{
                     name: 'Pole Bending',
                     time: new Date (2019, 0o4, 13, 17, 30),
-                    maxAge: 18,
+                    minAge: 18,
                     fee: 20,
                   },{
                     name: 'Goat Tying',
@@ -115,7 +108,7 @@ async function main() {
         }
       },
     });
-    console.log(user)
+    console.log(admin)
   });
 }
 
