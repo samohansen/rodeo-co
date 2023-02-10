@@ -1,45 +1,50 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import LeftNav from "@common/navigation/LeftNav";
-import MainToolbar from "@common/navigation/MainToolbar";
-import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import Toolbar from '@mui/material/Toolbar';
-import HomeIcon from '@mui/icons-material/Home';
-import PeopleIcon from '@mui/icons-material/People';
-import RodeoDashboard from "@features/RodeoDashboard/RodeoDashboard";
 import { PrismaClient } from '@prisma/client'
+import { useState } from "react";
 import { formatDate } from "@common/utils";
-
+import Grid from "@mui/material/Grid";
+import RodeoCard from '@features/RodeoDashboard/RodeoCard';
+import { useRouter } from 'next/router';
+import OpenModalButton from '@common/navigation/OpenModalButton';
+import CreateRodeoFormModal from '@features/RodeoDashboard/CreateRodeoFormModal';
+import RodeoContext from '@features/RodeoDashboard/RodeoContext'
 const prisma = new PrismaClient()
+
+const RodeoDashboard = ({initialRodeos = []}) => {
+  const [rodeos, setRodeos] = useState(initialRodeos);
+  const router = useRouter();
+
+  return (
+    <>
+      <RodeoContext.Provider value={{rodeos, setRodeos}}>
+        <h1>Rodeos</h1>
+        <Grid container spacing={3}>
+          {rodeos?.map(rodeo => (
+            <Grid item xs={12} sm={4} key={rodeo.id}>
+              <RodeoCard 
+                rodeo={rodeo}
+                onClick={() => router.push(`/rodeos/${encodeURIComponent(rodeo.id)}`)}
+              />
+            </Grid>
+          ))}
+        </Grid>
+        <OpenModalButton buttonText='Add new rodeo'>
+          <CreateRodeoFormModal/>
+        </OpenModalButton>
+      </RodeoContext.Provider>
+    </>
+  );
+};
+export default RodeoDashboard;
+
 export async function getServerSideProps () {
-  const rodeos = await prisma.rodeo.findMany({
-    include: {
-      events: true,
-    }
-  });
+  const rodeos = await prisma.rodeo.findMany();
 
   return {
     props: {
-      rodeos: JSON.parse(JSON.stringify(rodeos))
-      // rodeos: rodeos.map(rodeo => ({
-      //   ...rodeo,
-      //   date: formatDate(rodeo.date)
-      // })),
+      initialRodeos: rodeos.map(rodeo => ({
+        ...rodeo,
+        date: formatDate(rodeo.date)
+      })),
     }
   }
 }
-
-const RodeoIndex = ({rodeos = []}) => {
-  console.log(rodeos)
-
-  return (
-    <div>
-      <RodeoDashboard
-        rodeos={rodeos}
-      />
-    </div>
-  );
-};
-
-export default RodeoIndex;
