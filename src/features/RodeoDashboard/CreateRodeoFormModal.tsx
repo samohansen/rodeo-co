@@ -80,7 +80,7 @@ const CreateRodeoFormModal: React.FC<Props> = ({onClose}) => {
             label="Other info"
             name="notes"
             control={control}
-            inputProps={{multiline: true}}
+            textFieldProps={{multiline: true}}
           />
         </form>
       </DialogContent>

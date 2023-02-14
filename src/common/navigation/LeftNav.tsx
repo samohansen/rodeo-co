@@ -9,6 +9,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link'
 
 type Props = {
   width: number;
@@ -35,12 +36,15 @@ const LeftNav = ({width, menuItems}) => {
       <List>
         {menuItems.map((menuItem) => (
           <ListItem key={menuItem.label} disablePadding>
-            <ListItemButton onClick={() => router.push(menuItem.path)}>
-              <ListItemIcon>
-                {menuItem.icon}
-              </ListItemIcon>
-              <ListItemText primary={menuItem.label} />
-            </ListItemButton>
+            <Link href={menuItem.path}>
+              <ListItemButton>
+              {/* <ListItemButton onClick={() => router.push(menuItem.path)}> */}
+                <ListItemIcon>
+                  {menuItem.icon}
+                </ListItemIcon>
+                <ListItemText primary={menuItem.label} />
+              </ListItemButton>
+            </Link>
           </ListItem>
         ))}
       </List>
