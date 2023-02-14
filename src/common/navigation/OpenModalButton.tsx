@@ -8,7 +8,7 @@ type Props = {
 }
 
 // Use this component to activate a modal on the same page. 
-// The button should have one child that's a modal 
+// The button should have one child that's a modal or dialogue
 const OpenModalButton: React.FC<Props> = ({buttonText, children}) => {
   const [modalOpen, setModalOpen] = useState(false);
 
