@@ -19,7 +19,7 @@ const RodeoDashboard = ({initialRodeos = []}) => {
         <h1>Rodeos</h1>
         <Grid container spacing={3}>
           {rodeos?.map(rodeo => (
-            <Grid item xs={12} sm={4} key={rodeo.id}>
+            <Grid item xs={12} sm={6} md={4} key={rodeo.id}>
               <RodeoCard 
                 rodeo={rodeo}
                 onClick={() => router.push(`/rodeos/${encodeURIComponent(rodeo.id)}`)}
