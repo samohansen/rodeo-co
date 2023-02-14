@@ -1,12 +1,29 @@
+import styles from './RodeoDetails.module.css';
+
 const RodeoDetails = ({location, date, notes}) => {
   return (
     <div>
-      <h5>Location</h5>
-      <h1>{location}</h1>
-      <h5>Date</h5>
-      <h1>{date}</h1>
-      <h5>Notes</h5>
-      <h1>{notes}</h1>
+      <div className={styles.rodeoDetailsHeaders}>
+        Location
+      </div>
+      <div className={styles.rodeoDetailsData}>
+          {location}
+      </div>
+
+      <div className={styles.rodeoDetailsHeaders}>
+        Date
+      </div>
+      <div className={styles.rodeoDetailsData}>
+          {date}
+      </div>
+
+
+      <div className={styles.rodeoDetailsHeaders}>
+        Notes
+      </div>
+      <div className={styles.rodeoDetailsData}>
+          {notes}
+      </div>
     </div>
   )
 }
