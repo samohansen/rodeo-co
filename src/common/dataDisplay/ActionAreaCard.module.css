@@ -1,0 +1,59 @@
+.rodeoCard{
+    width: 525px;
+    height:300px;
+    left: 86px;
+    right: 86px;
+    top: 62px;
+
+    background: #7C96B8;
+    border-radius: 20px;
+}
+
+.rodeoCardImage{
+    width: 300px;
+    height: 150px;
+    left: 90px;
+    right: 90px;
+    top: 64.16px;
+    border-radius: 20px;
+
+}
+
+.rodeoTitleText{
+    width: 525px;
+    height: 50x;
+    left: 86px;
+    top: 90.12px;
+
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 36px;
+    /* or 900% */
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.1px;
+
+    color: #000000;
+}
+
+.rodeoText {
+    width: 500px;
+    left: 88px;
+    top: 99.86px;
+
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 36px;
+    /* or 1200% */
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.1px;
+
+    color: #000000;
+}

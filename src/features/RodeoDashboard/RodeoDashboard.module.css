@@ -1,0 +1,21 @@
+.newRodeoButton{
+    width: 125px;
+    height: 50px;
+    left:775px;
+    top: 25px;
+    background: #CF7F49;
+    border-radius: 50px;
+
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 36px;
+    /* or 900% */
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.1px;
+
+    color: #FFFFFF;
+}
