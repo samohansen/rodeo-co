@@ -1,6 +1,6 @@
 import { TextField, Checkbox, Select, MenuItem } from "@mui/material";
 import { Controller } from "react-hook-form";
-import React, {InputHTMLAttributes} from "react";
+import React from "react";
 import {FormControl, InputLabel} from "@mui/material";
 import type { RegisterOptions, Control, } from "react-hook-form";
 import type { TextFieldProps } from "@mui/material";
@@ -13,7 +13,7 @@ type Props = {
 }
 
 type TextInputProps = Props & {
-  inputProps?: TextFieldProps; // MUI TextField props like multiline, etc
+  textFieldProps?: TextFieldProps; // MUI TextField props like multiline, etc
 }
 
 type SelectInputProps = Props & {
@@ -28,7 +28,7 @@ export const TextInput: React.FC<TextInputProps> = ({
   control, 
   label, 
   rules, 
-  inputProps,
+  textFieldProps,
 }) => {
   return(
     <Controller
@@ -38,7 +38,7 @@ export const TextInput: React.FC<TextInputProps> = ({
       render={({field, fieldState}) => (
         <TextField 
           {...field} 
-          {...inputProps} // MUI TextField props like multiline, etc
+          {...textFieldProps} // MUI TextField props like multiline, etc
           label={label}
           error={!!fieldState.error}
           helperText={fieldState.error?.message}
