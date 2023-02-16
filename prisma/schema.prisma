@@ -55,6 +55,7 @@ model User {
   email       String  @unique
   firstName   String?
   lastName    String?
+  birthdate   DateTime?
   // horses      Horse[]
 
   type        UserType          
@@ -64,20 +65,6 @@ model User {
   accounts    Account[]
   sessions    Session[]
 }
-
-// model Admin {
-//   user    User    @relation(fields: [userId], references: [id])
-//   userId  String  @id
-
-//   rodeos  Rodeo[]
-// }
-
-// model Participant {
-//   user    User    @relation(fields: [userId], references: [id])
-//   userId  String  @id
-
-//   entries EventEntry[]
-// }
 
 model Rodeo {
   id        String    @id @default(cuid())

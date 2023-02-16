@@ -4,28 +4,45 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 async function main() {
-  // const user = await prisma.user.upsert({
-  //   // where: { email: ''}
-
-  // })
+  await prisma.user.createMany({
+    data: [
+      {
+        email: 'macy@test.com',
+        type: 'participant',
+        firstName: 'Macy',
+        lastName: 'Hatter',
+      },
+      {
+        email: 'cindy@test.com',
+        type: 'participant',
+        firstName: 'Cindy',
+        lastName: 'Potter'
+      },
+      {
+        email: 'riley@test.com',
+        type: 'participant',
+        firstName: 'Riley',
+        lastName: 'Schmid'
+      },
+    ]
+  })
   
-  // user and admin done in one transaction to get the userId with which to create the Admin
-  await prisma.$transaction(async (prisma) => {
-    const admin = await prisma.user.upsert({
-      where: { email: 'admin@test.com'},
-      update: {},
-      create: {
-        email: 'admin@test.com',
-        type: 'admin',
-        rodeos: {
-          create: [
-            {
-              name: 'West Valley County',
-              location: 'West Valley City, UT',
-              date: new Date ('2023-05-13'),
-              notes: 'sponsorships etc',
-              events: {
-                create: [
+  const admin = await prisma.user.create({
+    data: {
+      email: 'admin@test.com',
+      type: 'admin',
+      firstName: 'Admin',
+      lastName: 'Guy',
+      rodeos: {
+        create: [
+          {
+            name: 'West Valley County',
+            location: 'West Valley City, UT',
+            date: new Date ('2023-05-13'),
+            notes: 'sponsorships etc',
+            events: {
+              createMany: {
+                data: [
                   {
                     name: 'Barrel Race',
                     time: new Date (2019, 0o4, 13, 17),
@@ -63,13 +80,16 @@ async function main() {
                   }
                 ]
               }
-            }, {
-              name: 'Tough Enough to Wear Pink',
-              location: 'Spanish Fork, UT',
-              date: new Date ('2023-06-15'),
-              notes: 'sponsorships etc',
-              events: {
-                create: [
+            }
+          }, 
+          {
+            name: 'Tough Enough to Wear Pink',
+            location: 'Spanish Fork, UT',
+            date: new Date ('2023-06-15'),
+            notes: 'sponsorships etc',
+            events: {
+              createMany: {
+                data: [
                   {
                     name: 'Barrel Race',
                     time: new Date (2019, 0o4, 13, 17),
@@ -102,14 +122,52 @@ async function main() {
                     fee: 20,
                   }
                 ]
-              }
+              } 
             }
-          ]
+          }
+        ]
+    },
+    }
+  })
+
+  const rodeos = await prisma.rodeo.findMany({
+    where: {adminId: admin.id},
+    include: {
+      events: true,
+    }
+  })
+
+  const participants = await prisma.user.findMany({
+    where: {type: 'participant'}
+  })
+
+  rodeos.forEach(rodeo => {
+    rodeo.events.forEach(async event => {
+      await prisma.rodeoEvent.update({
+        where: {id: event.id},
+        data: {
+          entries: {
+            createMany: {
+              data: [
+                {
+                  participantId: participants[0].id,
+                  horseName: 'Bullet'
+                },
+                {
+                  participantId: participants[1].id,
+                  horseName: 'Midnight'
+                },
+                {
+                  participantId: participants[2].id,
+                  horseName: 'Boot'
+                },
+              ]
+            }
+          }
         }
-      },
+      })
     });
-    console.log(admin)
-  });
+  })
 }
 
 main()
