@@ -141,31 +141,33 @@ async function main() {
     where: {type: 'participant'}
   })
 
-  rodeos[0].events.forEach(async event => {
-    await prisma.rodeoEvent.update({
-      where: {id: event.id},
-      data: {
-        entries: {
-          createMany: {
-            data: [
-              {
-                participantId: participants[0].id,
-                horseName: 'Bullet'
-              },
-              {
-                participantId: participants[1].id,
-                horseName: 'Midnight'
-              },
-              {
-                participantId: participants[2].id,
-                horseName: 'Boot'
-              },
-            ]
+  rodeos.forEach(rodeo => {
+    rodeo.events.forEach(async event => {
+      await prisma.rodeoEvent.update({
+        where: {id: event.id},
+        data: {
+          entries: {
+            createMany: {
+              data: [
+                {
+                  participantId: participants[0].id,
+                  horseName: 'Bullet'
+                },
+                {
+                  participantId: participants[1].id,
+                  horseName: 'Midnight'
+                },
+                {
+                  participantId: participants[2].id,
+                  horseName: 'Boot'
+                },
+              ]
+            }
           }
         }
-      }
-    })
-  });
+      })
+    });
+  })
 }
 
 main()
