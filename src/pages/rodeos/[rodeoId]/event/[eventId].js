@@ -1,16 +1,17 @@
 import TabPanel from '@common/dataDisplay/TabPanel';
-import { PrismaClient } from '@prisma/client'
-import BasicTable from "@common/dataDisplay/BasicTable";
-
+import { PrismaClient } from '@prisma/client';
+import BasicTable from '@common/dataDisplay/BasicTable';
+import EventDetails from '@features/EventView/EventDetails';
 
 const EventView = ({event}) => {
   const participantData = event.entries.map(
     entry => ({
-      name: entry.participant.name,
-      horse: entry.horse,
+      name: `${entry.participant.firstName} ${entry.participant.lastName}`,
+      horse: entry.horseName,
       time: entry.time
     })
   )
+
   return (
     <TabPanel
       tabNames={['Entries', 'Rankings', 'Event details']}
@@ -22,14 +23,14 @@ const EventView = ({event}) => {
             data={participantData}
           />
         ) : (
-          "no participants have signed up for this event yet"
+          "No participants have signed up for this event yet"
         )
       }
       <div>
         [event rankings]
       </div>
       <div>
-        [event details]
+        <EventDetails event={event} />
       </div>
     </TabPanel>
   )
@@ -43,10 +44,9 @@ export async function getServerSideProps(context) {
   const event = await prisma.rodeoEvent.findUnique({
     where: {id: eventId},
     include: {
-      entries: true
-      // entries: {
-      //   include: {participant: true}
-      // }
+      entries: {
+        include: {participant: true}
+      }
     }
   });
 
