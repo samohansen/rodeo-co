@@ -1,10 +1,4 @@
-
-/* TailwindCSS (convert to MaterialUI)  */
-/* .imgStyle{
-    @apply bg-gradient-to-r from blue-500-to-indigo-500 rounded-l-md;
-    position: relative;
-    overflow: hidden;
-} */
+/* TailwindCSS (converted to MaterialUI)  */
 
 .cartoonImg{
     background:url('/img2.png') no-repeat;

@@ -1,11 +1,9 @@
 import NextAuth from 'next-auth';
-// import Providers from 'next-auth/providers'
 import { NextApiHandler } from 'next';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import prisma from 'src/prisma';
 import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
-
 
 
 const options = {
@@ -16,7 +14,14 @@ const options = {
     }),
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET
+      clientSecret: process.env.GOOGLE_SECRET,
+      authorization: {
+        params: {
+          prompt: "consent",
+          access_type: "offline",
+          response_type: "code"
+        }
+      }
     })
   ],
   adapter: PrismaAdapter(prisma),

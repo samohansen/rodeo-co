@@ -6,6 +6,10 @@
   --left-nav-width: 240px;
 }
 
+.test-class {
+  color: red;
+}
+
 /* :root {
   --max-width: 1100px;
   --border-radius: 12px;
