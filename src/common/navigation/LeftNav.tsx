@@ -10,6 +10,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link'
+import logo from '@../../public/logo.png';
 
 type Props = {
   width: number;
@@ -30,7 +31,11 @@ const LeftNav = ({width, menuItems}) => {
       }}
       variant="permanent"
       anchor="left"
-    >
+      >
+
+      {/* cant figure out how to link this logo image (found in public folder) */}
+      <img src={logo.src} alt="logo"/>
+
       <Toolbar />
       <Divider />
       <List>
