@@ -60,8 +60,8 @@ const CreateEventFormModal: React.FC<Props> = ({
             name="name"
             rules={{required: "Event name is required"}}
             control={control}
+            // defaultValue= ""
           />
-          {/* time input? */}
           <TextInput 
             label="Minimum age"
             name="minAge"
