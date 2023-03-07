@@ -9,7 +9,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import HomeIcon from '@mui/icons-material/Home';
 import PeopleIcon from '@mui/icons-material/People';
-import HatIcon from "@common/components/HatIcon";
+import HatIcon from "@common/components/HatIcon.js";
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 
 type Props = {
   children?: ReactNode | ReactNode[];
@@ -24,7 +25,7 @@ const AppLayout: React.FC<Props> = ({children}) => {
   }, {
     label: 'Rodeos',
     path: '/rodeos',
-    icon: <HatIcon />
+    icon: <EventAvailableIcon />
   }, {
     label: 'Participants',
     path: '/participants',
