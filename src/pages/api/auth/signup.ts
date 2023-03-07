@@ -43,3 +43,6 @@
 // res.status(500).json({ message: 'Something went wrong' });
 // }
 // }
+
+// empty export statement (temporary)
+export {};
