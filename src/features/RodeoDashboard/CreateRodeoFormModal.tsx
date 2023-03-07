@@ -59,11 +59,13 @@ const CreateRodeoFormModal: React.FC<Props> = ({onClose}) => {
           <TextInput 
             label="Location"
             name="location"
+            rules={{required: "Rodeo location is required"}}
             control={control}
           />
           <Controller 
             name="date"
             control={control}
+            rules={{required: "Rodeo date is required"}}
             defaultValue={new Date()}
             render={({field: {ref, ...fieldProps}}) => (
               <DatePicker 
