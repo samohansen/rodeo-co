@@ -36,15 +36,13 @@ const LeftNav = ({width, menuItems}) => {
       <List>
         {menuItems.map((menuItem) => (
           <ListItem key={menuItem.label} disablePadding>
-            <Link href={menuItem.path}>
-              <ListItemButton>
+              <ListItemButton href={menuItem.path}>
               {/* <ListItemButton onClick={() => router.push(menuItem.path)}> */}
                 <ListItemIcon>
                   {menuItem.icon}
                 </ListItemIcon>
                 <ListItemText primary={menuItem.label} />
               </ListItemButton>
-            </Link>
           </ListItem>
         ))}
       </List>
