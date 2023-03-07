@@ -4,6 +4,8 @@ export function buildEventAgeString({minAge, maxAge}: {minAge: number | string, 
     : ''
 }
 
+// null date? return empty string
 export function formatDate(date: Date): string {
-  return date.toLocaleDateString('en-us', { year:"numeric", month:"long", day:"numeric"})
+  if (!date) return '';
+  return date.toLocaleDateString('en-us', { year:"numeric", month:"long", day:"numeric"});
 }

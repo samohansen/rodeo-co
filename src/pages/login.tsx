@@ -6,16 +6,35 @@ import { Grid, TextField, Button, Typography } from '@mui/material/';
 import {HiFingerPrint, HiAtSymbol} from 'react-icons/hi';
 import { InputAdornment } from '@mui/material';
 import {useSession, signIn, signOut} from 'next-auth/react';
+import {useFormik} from 'formik';
+import { loginValidate } from '../lib/validate';
 
 
-// Google Handler Function
-async function handleGoogleSignin() {
-  signIn('google',{callbackUrl: 'http://localhost:3000'});
-}
-
-// NOTE: Make the form fields wider so they fill the white space a bit more
 
 export default function Login() {
+  // formik hook
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validate : loginValidate,
+    onSubmit: onSubmit
+  });
+
+  async function onSubmit(values){
+    console.log(values);
+  }
+  
+  // Google Handler Function
+  async function handleGoogleSignin() {
+    signIn('google',{callbackUrl: 'http://localhost:3000'});
+  }
+  // GitHub Handler Function
+  async function handleGithubSignin() {
+    signIn('github',{callbackUrl: 'http://localhost:3000'});
+  }
+
   return (
     <Layout>
       <Head>
@@ -42,7 +61,7 @@ export default function Login() {
           </Typography>
         </Grid>
         <Grid item xs={12} sx={{fontFamily:'Poppins, sans-serif'}}>
-          <form>
+          <form onSubmit={formik.handleSubmit}>
             <Grid container direction="column" spacing={2} sx={{fontFamily:'Poppins, sans-serif'}} >
               <Grid item xs={12}>
                 <TextField
@@ -58,7 +77,13 @@ export default function Login() {
                       </InputAdornment>
                     ),
                   }}
+                  {...formik.getFieldProps('email')}
                 />
+                {formik.errors.email && formik.touched.email ? (
+                  <Typography variant="caption" color="error">
+                    {formik.errors.email as string}
+                  </Typography>
+                ) : null}
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -75,10 +100,16 @@ export default function Login() {
                       </InputAdornment>
                     ),
                     }}
+                  {...formik.getFieldProps('password')}
                 />
+                {formik.errors.password && formik.touched.password ? (
+                  <Typography variant="caption" color="error">
+                    {formik.errors.password as string}
+                  </Typography>
+                ) : null}
               </Grid>
               <Grid item xs={12}>
-                <Button variant="contained" color="primary" fullWidth sx={{
+                <Button type="submit" variant="contained" color="primary" fullWidth sx={{
                     background: 'linear-gradient(to right, #3b82f6, #6366f1, #8b5cf6)',
                     color: 'white',
                     fontFamily: 'Poppins, sans-serif',
@@ -116,6 +147,7 @@ export default function Login() {
               </Grid>
               <Grid item xs={12}>
               <Button 
+                onClick={handleGithubSignin}
                 variant="outlined" 
                 fullWidth
                 sx={{

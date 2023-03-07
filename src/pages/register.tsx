@@ -7,8 +7,26 @@ import Button from '@mui/material/Button';
 import { HiAtSymbol, HiFingerPrint, HiUser } from 'react-icons/hi';
 import { InputAdornment } from '@mui/material';
 import Link from 'next/link';
+import { useFormik } from 'formik';
+import { registerValidate } from '../lib/validate';
 
 const Register = () => {
+
+    const formik = useFormik({
+        initialValues: {
+            username: '',
+            email: '',
+            password: '',
+            cpassword: '',
+        },
+        validate: registerValidate,
+        onSubmit: onSubmit
+    });
+
+    async function onSubmit(values) {
+        console.log(values);
+    }
+
     return (
         <Layout>
             <Head>
@@ -33,7 +51,7 @@ const Register = () => {
                     </Typography>
                 </Grid>
                 <Grid item xs={12}>
-                <form> 
+                <form onSubmit={formik.handleSubmit}> 
                 <Grid container direction="column" spacing={2} >
                     <Grid item xs={12}>
                         <TextField
@@ -48,7 +66,13 @@ const Register = () => {
                                 </InputAdornment>
                                 ),
                             }}
+                            {...formik.getFieldProps('username')}
                         />
+                        {formik.errors.username && formik.touched.username ? (
+                            <Typography variant="caption" color="error">
+                                {formik.errors.username as string}
+                            </Typography>
+                        ) : null}
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
@@ -59,11 +83,17 @@ const Register = () => {
                         InputProps={{
                             endAdornment:(
                             <InputAdornment position="start">
-                                <HiFingerPrint/>
+                                <HiAtSymbol/>
                             </InputAdornment>
                             ),
                         }}
+                        {...formik.getFieldProps('email')}
                         />
+                        {formik.errors.email && formik.touched.email ? (
+                            <Typography variant="caption" color="error">
+                                {formik.errors.email as string}
+                            </Typography>
+                        ) : null}
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
@@ -79,14 +109,20 @@ const Register = () => {
                             </InputAdornment>
                             ),
                             }}
+                        {...formik.getFieldProps('password')}
                         />
+                        {formik.errors.password && formik.touched.password ? (
+                            <Typography variant="caption" color="error">
+                                {formik.errors.password as string}
+                            </Typography>
+                        ) : null}
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
                         variant="outlined"
                         label="Confirm password"
                         name="cpassword"
-                        type="cpassword"
+                        type="password"
                         fullWidth
                         InputProps={{
                             endAdornment: (
@@ -95,15 +131,20 @@ const Register = () => {
                             </InputAdornment>
                             ),
                             }}
+                        {...formik.getFieldProps('cpassword')}
                         />
+                        {formik.errors.cpassword && formik.touched.cpassword ? (
+                            <Typography variant="caption" color="error">
+                                {formik.errors.cpassword as string}
+                            </Typography>
+                        ) : null}
                     </Grid>
                     <Grid item xs={12}>
-                        <Button variant="contained" color="primary" fullWidth sx={{
+                        <Button type="submit" variant="contained" color="primary" fullWidth sx={{
                             background: 'linear-gradient(to right, #3b82f6, #6366f1, #8b5cf6)',
                             color: 'white',
-                            // textTransform: 'none' // Set text transform to none so that the text is not capitalized
                             }}>
-                        Login
+                        Register
                         </Button>
                     </Grid>
                     <Grid item xs={12}>
