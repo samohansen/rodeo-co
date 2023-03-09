@@ -49,7 +49,7 @@ export default function Login() {
                 paddingTop: '4',
                 fontFamily: 'Poppins, sans-serif',
                 }}>
-            Login
+            Welcome to Rodeo Co
           </Typography>
           <Typography variant="body1" align="center" gutterBottom sx={{
             width: '75%',
@@ -57,7 +57,7 @@ export default function Login() {
             color: 'text.secondary',
             fontFamily: 'Poppins, sans-serif',
             }}>
-            Welcome to Rodeo Co. Please login to your account.
+            Happy to have you with us. Please login to your account to access all of Rodeo Co.
           </Typography>
         </Grid>
         <Grid item xs={12} sx={{fontFamily:'Poppins, sans-serif'}}>
@@ -103,16 +103,16 @@ export default function Login() {
                   {...formik.getFieldProps('password')}
                 />
                 {formik.errors.password && formik.touched.password ? (
-                  <Typography variant="caption" color="error">
+                  <Typography variant="caption" color="secondary">
                     {formik.errors.password as string}
                   </Typography>
                 ) : null}
               </Grid>
               <Grid item xs={12}>
-                <Button type="submit" variant="contained" color="primary" fullWidth sx={{
-                    background: 'linear-gradient(to right, #3b82f6, #6366f1, #8b5cf6)',
+                <Button type="submit" variant="contained" color="inherit" fullWidth sx={{
+                    ":hover": {backgroundColor: '#3C343B'},
+                    background: '#CF7F49',
                     color: 'white',
-                    fontFamily: 'Poppins, sans-serif',
                     // textTransform: 'none' // Set text transform to none so that the text is not capitalized
                     }}>
                   Login

@@ -1,64 +1,14 @@
-/* TailwindCSS (converted to MaterialUI)  */
-
-.cartoonImg{
-    background:url('/img2.png') no-repeat;
+.img{
+    background:url('/img.jpeg') no-repeat;
     position: absolute;
-    bottom: 0;left: 0;right:0; top:0;
     width: 100%;
     height: 100%;
-    background-size:cover;
-    background-position: 65% 100px;
-    z-index: 1;
+    background-size: cover;
+    background-position: center bottom;
 
 }
 
 .imgStyle {
-    background-image: linear-gradient(to right, #3b82f6, #6366f1, #8b5cf6);
-    border-top-left-radius: 0.375rem;
-    border-bottom-left-radius: 0.375rem;
     position: relative;
     overflow: hidden;
   }
-  
-.cloud_one{
-    background: url('/cloud_1.png') no-repeat;
-    position: absolute;
-    top: 65%; left: 10%;
-    width: 180px;
-    height: 100px;
-    background-size: contain;
-    z-index: 2;
-    transform: translateX(290%);
-    animation: cloud_one 25.5s ease-in 5.9s infinite;
-}
-
-.cloud_two{
-    background: url('/cloud_2.png') no-repeat;
-    position: absolute;
-    top: 49%; left: 50%;
-    width: 200px;
-    height: 100px;
-    background-size: contain;
-    z-index: 0;
-    transform: translateX(290%);
-    animation: cloud_two 18.5s ease-in 5.9s infinite;
-}
-
-/* css keyframes */
-@keyframes cloud_one{
-    0% {
-        transform: translateX(290%);
-    }
-    100% {
-        transform: translateX(-250%);
-    }
-}
-
-@keyframes cloud_two{
-    0% {
-        transform: translateX(160%);
-    }
-    100% {
-        transform: translateX(-250%);
-    }
-}

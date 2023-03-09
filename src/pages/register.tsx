@@ -39,15 +39,17 @@ const Register = () => {
                             fontSize: 'xl',
                             fontWeight: 'bold',
                             paddingTop: '4',
+                            fontFamily: 'Poppins, sans-serif',
                             }}>
-                        Register
+                        Register for Rodeo Co
                     </Typography>
                     <Typography variant="body1" align="center" gutterBottom sx={{
                         width: '75%',
                         margin: 'auto',
                         color: 'text.secondary',
+                        fontFamily: 'Poppins, sans-serif',
                         }}>
-                        Welcome to Rodeo Co. Please register here.
+                        Create an account to gain access to all the features of Rodeo Co.
                     </Typography>
                 </Grid>
                 <Grid item xs={12}>
@@ -141,7 +143,8 @@ const Register = () => {
                     </Grid>
                     <Grid item xs={12}>
                         <Button type="submit" variant="contained" color="primary" fullWidth sx={{
-                            background: 'linear-gradient(to right, #3b82f6, #6366f1, #8b5cf6)',
+                            ":hover": {backgroundColor: '#3C343B'},
+                            background: '#CF7F49',
                             color: 'white',
                             }}>
                         Register
@@ -153,7 +156,7 @@ const Register = () => {
                 </form>
                 </Grid>
                 <Grid item xs={12}>
-                <Typography variant="body1" align="center" gutterBottom sx={{color: 'text.secondary'}}>
+                <Typography variant="body1" align="center" gutterBottom sx={{color: 'text.secondary' ,fontFamily: 'Poppins, sans-serif',}}>
                     Already have an account?{' '}
                     <Link legacyBehavior href={'/login'}>
                     <a className='text-blue-700'>Login</a>
