@@ -33,7 +33,6 @@ const LeftNav = ({width, menuItems}) => {
       anchor="left"
       >
 
-      {/* cant figure out how to link this logo image (found in public folder) */}
       <img src={logo.src} alt="logo"/>
 
       <Toolbar />
