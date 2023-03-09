@@ -26,11 +26,14 @@ const LeftNav = ({width, menuItems}) => {
         '& .MuiDrawer-paper': {
           width: width,
           boxSizing: 'border-box',
+          color: 'black',
+          bgcolor: '#B9CFED'
         },
       }}
       variant="permanent"
       anchor="left"
-    >
+      >
+
       <Toolbar />
       <Divider />
       <List>

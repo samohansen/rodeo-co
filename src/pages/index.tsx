@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Box, Button, Container, Typography } from '@mui/material';
 import {useSession, signIn, signOut, getSession} from 'next-auth/react';
+import logo from '@../../public/Marketing.png';
 
 
 export default function Home() {
@@ -28,9 +29,9 @@ export default function Home() {
 // Non-authenticated Guest view
 function Guest(){
   return (
-    <Container sx={{ flex: 1, display: 'flex' }}>
-      <Typography variant="h3" sx={{ textAlign: 'center', mb: 5 }}>🏠 Home</Typography>
-
+    <Container >
+      <Typography variant="h5" sx={{ textAlign: 'left', mb: 5 }}>Host and Manage Your Rodeo Events Easily with Rodeo Co.</Typography>
+      <img src={logo.src} alt="logo" width='600' height='350' />
     </Container>
   )
 }
@@ -38,8 +39,8 @@ function Guest(){
 // Authenticated User view
 function User({session, handleSignOut}){
   return(
-    <Container sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-      <Typography variant="h3" sx={{ textAlign: 'center', mb: 5 }}>🏠 Home</Typography>
+    <Container>
+
 
       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 5 }}>
         <Typography variant="h5">{session.user.name}</Typography>
@@ -58,6 +59,9 @@ function User({session, handleSignOut}){
           <Button sx={{ px: 10, py: 1, borderRadius: 'sm', bgcolor: '#3F51B5', color: 'white' }}>Profile Page</Button>
         </Link>
       </Box>
+
+      <Typography variant="h5" sx={{ textAlign: 'left', mb: 5 }}>Host and Manage Your Rodeo Events Easily with Rodeo Co.</Typography>
+      <img src={logo.src} alt="logo" width='600' height='350' />
     </Container>
   )
 }
