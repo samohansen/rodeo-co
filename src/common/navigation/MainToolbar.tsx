@@ -34,7 +34,7 @@ const MainToolbar: React.FC<Props> = ({leftNavWidth}) => {
             >
             <MenuIcon />
         </IconButton> */}
-         <img src={logo.src} alt="logo" width="150" height="45" />
+        <a href='/'> <img src={logo.src} alt="logo" width="150" height="45" /></a> 
           breadcrumbs
           {/* If session, show user name and sign out button, else show sign in and sign up buttons */}
 
