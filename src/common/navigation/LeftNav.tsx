@@ -10,7 +10,6 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link'
-import logo from '@../../public/logo.png';
 
 type Props = {
   width: number;
@@ -27,13 +26,13 @@ const LeftNav = ({width, menuItems}) => {
         '& .MuiDrawer-paper': {
           width: width,
           boxSizing: 'border-box',
+          color: 'black',
+          bgcolor: '#B9CFED'
         },
       }}
       variant="permanent"
       anchor="left"
       >
-
-      <img src={logo.src} alt="logo"/>
 
       <Toolbar />
       <Divider />

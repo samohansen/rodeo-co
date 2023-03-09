@@ -7,6 +7,7 @@ import { useContext } from 'react';
 import Link from 'next/link';
 import Typography from '@mui/material/Typography';
 import { signOut } from 'next-auth/react';
+import logo from '@../../public/logo.png';
 
 
 type Props = {
@@ -21,7 +22,7 @@ const MainToolbar: React.FC<Props> = ({leftNavWidth}) => {
   return <>
     <AppBar
       position="fixed"
-      sx={{ width: `calc(100% - ${leftNavWidth}px)`, ml: `${leftNavWidth}px` }}
+      sx={{ width: `calc(100% - ${leftNavWidth}px)`, ml: `${leftNavWidth}px`, bgcolor:'white'}}
     >
       <Toolbar sx={{ justifyContent: 'space-between' }}>
         {/* <IconButton
@@ -33,14 +34,15 @@ const MainToolbar: React.FC<Props> = ({leftNavWidth}) => {
             >
             <MenuIcon />
         </IconButton> */}
+         <img src={logo.src} alt="logo" width="150" height="45" />
           breadcrumbs
           {/* If session, show user name and sign out button, else show sign in and sign up buttons */}
 
-          <Button href={'/login'} sx={{ marginLeft: 'auto', borderRadius: 'sm', color: 'white' }}>Sign In</Button>
+          <Button href={'/login'} sx={{ marginLeft: 'auto', borderRadius: 'sm', color: '#CF7F49' }}>Sign In</Button>
           |
-          <Button href={'/register'} sx={{ borderRadius: 'sm', color: 'white' }}>Sign Up</Button>
+          <Button href={'/register'} sx={{ borderRadius: 'sm', color: '#CF7F49' }}>Sign Up</Button>
           |
-          <Button onClick={handleSignOut} sx={{ borderRadius: 'sm', color: 'white' }}>Sign Out</Button>
+          <Button onClick={handleSignOut} sx={{ borderRadius: 'sm', color: '#CF7F49' }}>Sign Out</Button>
 
       </Toolbar>
     </AppBar>
