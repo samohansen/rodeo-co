@@ -27,7 +27,7 @@ const LeftNav = ({width, menuItems}) => {
           width: width,
           boxSizing: 'border-box',
           color: 'black',
-          bgcolor: '#B9CFED'
+          bgcolor: '#B9CFED' // #CCCCC1
         },
       }}
       variant="permanent"
