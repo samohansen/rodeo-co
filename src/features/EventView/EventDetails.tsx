@@ -1,35 +1,23 @@
-import { buildEventAgeString } from "@common/utils";
+import { buildEventAgeString, formatDate } from "@common/utils";
+import PageDetails from "@common/dataDisplay/PageDetails";
+import type { RodeoEvent } from "@prisma/client";
 
-const EventDetails = ({event}) => {
+type Props = {
+  event: RodeoEvent;
+}
+
+const EventDetails: React.FC<Props> = ({event}) => {
   const {time, minAge, maxAge, fee, prize} = event;
 
   return (
-    <div>
-      <h2>
-        Scheduled Time
-      </h2>
-      <h5>
-        {time}
-      </h5>
-      <h2>
-        Age limits
-      </h2>
-      <h5>
-        {buildEventAgeString({minAge, maxAge})}
-      </h5>
-      <h2>
-        Entry fee
-      </h2>
-      <h5>
-        ${fee}
-      </h5>
-      <h2>
-        Prize pot 
-      </h2>
-      <h5>
-        {prize}
-      </h5>
-    </div>
+    <PageDetails
+      headers={['Scheduled time', 'Age limits', 'Entry fee', 'Prize pot']}
+    >
+      <p>{formatDate(time)}</p>
+      <p>{buildEventAgeString({minAge, maxAge})}</p>
+      <p>${fee}</p>
+      <p>${prize}</p>
+    </PageDetails>
   )
 }
 

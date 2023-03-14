@@ -1,5 +1,4 @@
 import { Card, CardMedia, CardContent, CardActionArea, Typography } from '@mui/material';
-import styles from './ActionAreaCard.module.css';
 import AspectRatio from '@mui/joy/AspectRatio';
 
 type Props = {
@@ -12,7 +11,7 @@ type Props = {
 // Not sure how best to handle images for this guy. Putting it off for now. 
 const ActionAreaCard: React.FC<Props> = ({onClick, title, bodyLine1, bodyLine2}) => {
   return (
-    <Card className={styles.rodeoCard}>
+    <Card>
       <CardActionArea
         onClick={onClick}
       >
@@ -24,13 +23,13 @@ const ActionAreaCard: React.FC<Props> = ({onClick, title, bodyLine1, bodyLine2})
           />
         </AspectRatio>
         <CardContent>
-          <Typography className={styles.rodeoTitleText} gutterBottom variant="h5" component="div">
+          <Typography gutterBottom variant="h5" component="div">
             {title}
           </Typography>
-          <Typography className={styles.rodeoText} variant="body2" color="text.secondary">
+          <Typography variant="body2" color="text.secondary">
             {bodyLine1}
           </Typography>
-          <Typography className={styles.rodeoText} variant="body2" color="text.secondary">
+          <Typography variant="body2" color="text.secondary">
             {bodyLine2}
           </Typography>
         </CardContent>

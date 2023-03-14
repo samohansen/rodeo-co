@@ -7,11 +7,15 @@ import { useRouter } from 'next/router';
 import OpenModalButton from '@common/navigation/OpenModalButton';
 import CreateRodeoFormModal from '@features/RodeoDashboard/CreateRodeoFormModal';
 import RodeoContext from '@features/RodeoDashboard/RodeoContext'
-const prisma = new PrismaClient()
+import type { nRodeo } from '@common/types';
 
-const RodeoDashboard = ({initialRodeos = []}) => {
-  const [rodeos, setRodeos] = useState(initialRodeos);
+type Props = {
+  initialRodeos: nRodeo[];
+}
+
+const RodeoDashboard: React.FC<Props> = ({initialRodeos = []}) => {
   const router = useRouter();
+  const [rodeos, setRodeos] = useState(initialRodeos);
 
   return (
     <>
@@ -27,7 +31,9 @@ const RodeoDashboard = ({initialRodeos = []}) => {
             </Grid>
           ))}
         </Grid>
-        <OpenModalButton buttonText='Add new rodeo'>
+        <OpenModalButton 
+          buttonText='Add new rodeo'
+        >
           <CreateRodeoFormModal/>
         </OpenModalButton>
       </RodeoContext.Provider>
@@ -36,6 +42,7 @@ const RodeoDashboard = ({initialRodeos = []}) => {
 };
 export default RodeoDashboard;
 
+const prisma = new PrismaClient()
 export async function getServerSideProps () {
   const rodeos = await prisma.rodeo.findMany();
 

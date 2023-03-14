@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import type { NextPage } from "next";
-import type { LeftNavMenuItem } from "@common/Types";
+import type { LeftNavMenuItem } from "@common/types";
 import Head from "next/head";
 import LeftNav from "@common/navigation/LeftNav";
 import MainToolbar from "@common/navigation/MainToolbar";
