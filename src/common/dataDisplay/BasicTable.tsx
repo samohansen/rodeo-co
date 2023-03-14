@@ -14,7 +14,7 @@ type Props = {
 
 // Takes a head array with column labels
 // and a data array with objects filled into rows
-  // head and data objects must have the same number of values—else the table will be janky
+// Head and data objects must have the same number of values—else the table will be janky
 const BasicTable: React.FC<Props> = ({head, data}) => {
   return (
     <TableContainer component={Paper}>
