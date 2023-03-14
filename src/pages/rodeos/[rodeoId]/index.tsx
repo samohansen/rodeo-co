@@ -5,20 +5,27 @@ import { PrismaClient } from '@prisma/client'
 import OpenModalButton from '@common/navigation/OpenModalButton';
 import CreateEventFormModal from '@features/RodeoDashboard/CreateEventFormModal'
 import { useState } from 'react';
+import type { nRodeo } from '@common/types';
 
-const RodeoView = ({initialRodeo, initialEvents}) => {
-  const [rodeo, setRodeo] = useState(initialRodeo)
-  const [events, setEvents] = useState(initialEvents);
+type Props = {
+  rodeo: nRodeo;
+}
+
+const RodeoView: React.FC<Props> = ({rodeo}) => {
+  const [events, setEvents] = useState(JSON.parse(JSON.stringify(rodeo.events)));
 
   return (<>
     <h1>{rodeo.name}</h1>
     <TabPanel
-      tabNames={["Events List", "Information"]}
+      tabNames={['Events List', 'Information']}
     >
       <>
-        <EventsList {...rodeo}/>
-        <OpenModalButton buttonText="Add new event">
+        <EventsList id={rodeo.id} events={events}/>
+        <OpenModalButton 
+          buttonText='Add new event'
+        >
           <CreateEventFormModal
+            parentRodeo={rodeo.id}
             events={events}
             setEvents={setEvents}
           />
@@ -26,8 +33,7 @@ const RodeoView = ({initialRodeo, initialEvents}) => {
       </>
       <RodeoDetails {...rodeo} />
     </TabPanel>
-  </>
-  )
+  </>)
 }
 export default RodeoView;
 
@@ -42,8 +48,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      initialRodeo: JSON.parse(JSON.stringify(rodeo)),
-      initialEvents: JSON.parse(JSON.stringify(rodeo.events))
+      rodeo: JSON.parse(JSON.stringify(rodeo)),
     }
   }
 }

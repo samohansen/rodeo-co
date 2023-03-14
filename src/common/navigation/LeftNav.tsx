@@ -1,5 +1,5 @@
 import * as React from 'react';
-import type { LeftNavMenuItem } from '@common/Types';
+import type { LeftNavMenuItem } from '@common/types';
 import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
