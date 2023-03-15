@@ -10,20 +10,21 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import { useForm, Controller } from "react-hook-form";
 import { useContext } from 'react';
-import RodeoContext from './RodeoContext';
 import { formatDate } from '@common/utils';
-import type { RodeoEvent } from '@prisma/client';
+import type { RodeoEvent, Rodeo } from '@prisma/client';
 
 type Props = {
   events: RodeoEvent[];
   setEvents: (events: RodeoEvent[]) => void;
+  parentRodeo: Rodeo['id'];
   onClose?: () => void;
 }
 
 const CreateEventFormModal: React.FC<Props> = ({
-  events, 
+  events, // only passed to update the full list of events
   setEvents, 
-  onClose
+  parentRodeo,
+  onClose,
 }) => {
   const { control, handleSubmit, formState: {errors} } = useForm({
     mode: "onBlur"
@@ -37,7 +38,7 @@ const CreateEventFormModal: React.FC<Props> = ({
       fee: parseInt(data.fee),
       prize: parseInt(data.prize),
     }
-    axios.post('/api/[rodeoId]', parsedData)
+    axios.post(`/api/rodeos/${parentRodeo}`, parsedData)
       .then(res => {
         setEvents([
           ...events, 

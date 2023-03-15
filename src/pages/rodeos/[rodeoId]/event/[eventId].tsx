@@ -2,8 +2,33 @@ import TabPanel from '@common/dataDisplay/TabPanel';
 import { PrismaClient } from '@prisma/client';
 import BasicTable from '@common/dataDisplay/BasicTable';
 import EventDetails from '@features/EventView/EventDetails';
+import type { nRodeoEvent } from '@common/types';
 
-const EventView = ({event}) => {
+type Props = {
+  event: nRodeoEvent;
+}
+
+const prisma = new PrismaClient()
+export async function getServerSideProps(context) {
+  const {eventId} = context.query;
+
+  const event = await prisma.rodeoEvent.findUnique({
+    where: {id: eventId},
+    include: {
+      entries: {
+        include: {participant: true}
+      }
+    }
+  });
+
+  return {
+    props: {
+      event: JSON.parse(JSON.stringify(event))
+    }
+  }
+}
+
+const EventView: React.FC<Props> = ({event}) => {
   const participantData = event.entries.map(
     entry => ({
       name: `${entry.participant.firstName} ${entry.participant.lastName}`,
@@ -35,24 +60,5 @@ const EventView = ({event}) => {
     </TabPanel>
   )
 }
+
 export default EventView;
-
-const prisma = new PrismaClient()
-export async function getServerSideProps(context) {
-  const {eventId} = context.query;
-
-  const event = await prisma.rodeoEvent.findUnique({
-    where: {id: eventId},
-    include: {
-      entries: {
-        include: {participant: true}
-      }
-    }
-  });
-
-  return {
-    props: {
-      event: JSON.parse(JSON.stringify(event))
-    }
-  }
-}

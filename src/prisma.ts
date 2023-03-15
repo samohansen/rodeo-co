@@ -1,8 +1,6 @@
-// lib/prisma.ts
 import { PrismaClient } from '@prisma/client';
 
 let prisma: PrismaClient;
-
 if (process.env.NODE_ENV === 'production') {
   prisma = new PrismaClient();
 } else {
@@ -13,6 +11,3 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 export default prisma;
-
-
-// whenever you need access to your database you can import the prisma instance into the file where it's needed.

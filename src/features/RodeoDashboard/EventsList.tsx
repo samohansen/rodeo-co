@@ -1,9 +1,14 @@
 import styles from './EventsList.module.css'
 import EventItem from './EventItem'
 import { useRouter } from 'next/router';
+import type { RodeoEvent, Rodeo } from '@prisma/client';
 
+type Props = {
+  id: Rodeo['id'];
+  events: RodeoEvent[];
+}
 
-const EventsList = ({id, events}) => {
+const EventsList: React.FC<Props> = ({id, events}) => {
   const router = useRouter();
 
   return (
