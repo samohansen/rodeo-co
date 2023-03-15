@@ -1,9 +1,9 @@
-import styles from '../styles/Layout.module.css';
+import styles from './LoginLayout.module.css';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
-const Layout = ({ children }) => {
+const LoginLayout = ({ children }) => {
   return (
     <Box sx={{ display: 'flex', height: '90vh', backgroundColor: '#CCCCC1'}}>
       <Box
@@ -22,7 +22,7 @@ const Layout = ({ children }) => {
         <Box className={styles.imgStyle}>
             <div className={styles.img}></div>
         </Box>
-        <Paper sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}> {/*justifyContent: 'space-between' */}
+        <Paper sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
           <Box sx={{ textAlign: 'center', py: '10'}}>
             <Typography fontFamily={'Poppins, sans-serif'} variant="h6">{children}</Typography>
           </Box>
@@ -32,4 +32,4 @@ const Layout = ({ children }) => {
   );
 };
 
-export default Layout;
+export default LoginLayout;
