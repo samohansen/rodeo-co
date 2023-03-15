@@ -6,6 +6,9 @@ import OpenModalButton from '@common/navigation/OpenModalButton';
 import CreateEventFormModal from '@features/RodeoDashboard/CreateEventFormModal'
 import { useState } from 'react';
 import type { nRodeo } from '@common/types';
+import type { NextPageWithLayout } from '@common/types';
+import LeftNavLayout from '@common/layouts/LeftNavLayout'
+import type { ReactElement } from 'react';
 
 type Props = {
   rodeo: nRodeo;
@@ -27,7 +30,7 @@ export async function getServerSideProps(context) {
   }
 }
 
-const RodeoView: React.FC<Props> = ({rodeo}) => {
+const RodeoView: NextPageWithLayout<Props> = ({rodeo}) => {
   const [events, setEvents] = useState(JSON.parse(JSON.stringify(rodeo.events)));
 
   return (<>
@@ -51,5 +54,13 @@ const RodeoView: React.FC<Props> = ({rodeo}) => {
     </TabPanel>
   </>)
 }
+
+RodeoView.getLayout = function getLayout(page: ReactElement) {
+  return (
+    <LeftNavLayout>
+      {page}
+    </LeftNavLayout>
+  )
+};
 
 export default RodeoView;

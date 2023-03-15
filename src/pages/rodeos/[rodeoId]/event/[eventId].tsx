@@ -3,6 +3,9 @@ import { PrismaClient } from '@prisma/client';
 import BasicTable from '@common/dataDisplay/BasicTable';
 import EventDetails from '@features/EventView/EventDetails';
 import type { nRodeoEvent } from '@common/types';
+import type { NextPageWithLayout } from '@common/types';
+import LeftNavLayout from '@common/layouts/LeftNavLayout'
+import type { ReactElement } from 'react';
 
 type Props = {
   event: nRodeoEvent;
@@ -28,7 +31,7 @@ export async function getServerSideProps(context) {
   }
 }
 
-const EventView: React.FC<Props> = ({event}) => {
+const EventView: NextPageWithLayout<Props> = ({event}) => {
   const participantData = event.entries.map(
     entry => ({
       name: `${entry.participant.firstName} ${entry.participant.lastName}`,
@@ -60,5 +63,13 @@ const EventView: React.FC<Props> = ({event}) => {
     </TabPanel>
   )
 }
+
+EventView.getLayout = function getLayout(page: ReactElement) {
+  return (
+    <LeftNavLayout>
+      {page}
+    </LeftNavLayout>
+  )
+};
 
 export default EventView;
