@@ -11,6 +11,22 @@ type Props = {
   rodeo: nRodeo;
 }
 
+const prisma = new PrismaClient()
+export async function getServerSideProps(context) {
+  const {rodeoId} = context.query;
+
+  const rodeo = await prisma.rodeo.findUnique({
+    where: {id: rodeoId},
+    include: {events: true}
+  });
+
+  return {
+    props: {
+      rodeo: JSON.parse(JSON.stringify(rodeo)),
+    }
+  }
+}
+
 const RodeoView: React.FC<Props> = ({rodeo}) => {
   const [events, setEvents] = useState(JSON.parse(JSON.stringify(rodeo.events)));
 
@@ -35,20 +51,5 @@ const RodeoView: React.FC<Props> = ({rodeo}) => {
     </TabPanel>
   </>)
 }
+
 export default RodeoView;
-
-const prisma = new PrismaClient()
-export async function getServerSideProps(context) {
-  const {rodeoId} = context.query;
-
-  const rodeo = await prisma.rodeo.findUnique({
-    where: {id: rodeoId},
-    include: {events: true}
-  });
-
-  return {
-    props: {
-      rodeo: JSON.parse(JSON.stringify(rodeo)),
-    }
-  }
-}
