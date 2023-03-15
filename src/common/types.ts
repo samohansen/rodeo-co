@@ -1,5 +1,6 @@
-import { ReactNode } from "react";
-import type { RodeoEvent, Rodeo } from '@prisma/client';
+import type { ReactElement, ReactNode } from 'react'
+import type { NextPage } from 'next'
+import type { RodeoEvent, Rodeo, EventEntry, User } from '@prisma/client';
  
 export type LeftNavMenuItem = {
   label: string;
@@ -9,6 +10,18 @@ export type LeftNavMenuItem = {
 
 // The following schema objects are manually typed because Prisma's 
 // generated types don't include relations. They otherwise inherit from prisma
-export type nRodeo = {
+export type nRodeo = Rodeo & {
   events: RodeoEvent[] 
-} & Rodeo;
+};
+export type nRodeoEvent = RodeoEvent & {
+  entries: nEventEntry[]
+}
+export type nEventEntry = EventEntry & {
+  participant: User;
+  event: RodeoEvent;
+}
+
+// Next.js type for reactive layouts
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode
+}
