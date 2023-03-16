@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import { useSession, signOut } from 'next-auth/react';
 import logo from 'public/logo.png';
 import { Divider } from '@mui/material';
+import BasicBreadcrumbs from '@common/navigation/Breadcrumbs'
 
 const MainToolbar: React.FC = () => {
   const {data: session} = useSession();
@@ -11,13 +12,13 @@ const MainToolbar: React.FC = () => {
   return <>
     <AppBar position="fixed" sx={{bgcolor:'white', zIndex: (theme) => theme.zIndex.drawer + 1}}>
       <Toolbar sx={{ justifyContent: 'space-between' }}>
-        <a href='/'> <img src={logo.src} alt="logo" width="150" height="45" /></a> 
-        <Divider
+        <a href='/'> <img src={logo.src} alt="logo" width="150" height="45" /></a>
+        {/* <Divider
           orientation='vertical'
           flexItem
-          sx={{width: '66px'}}
-        />
-        breadcrumbs
+          sx={{width: '66px'}} // todo: this is a hack
+        /> */}
+        {/* <BasicBreadcrumbs/> */}
         {session ? (
           <>
             {session.user.name || ''}

@@ -10,7 +10,7 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import { useForm, Controller } from "react-hook-form";
 import { useContext } from 'react';
-import RodeoContext from './RodeoContext';
+import RodeosContext from './RodeosContext';
 import { formatDate } from '@common/utils';
 
 type Props = {
@@ -30,7 +30,7 @@ const CreateRodeoFormModal: React.FC<Props> = ({onClose}) => {
     // resolver: yupResolver(validationSchema),
   });
 
-  const {rodeos, setRodeos} = useContext(RodeoContext);
+  const {rodeos, setRodeos} = useContext(RodeosContext);
   const handleFormSubmit = (data) => {
     axios.post('/api/rodeos', data)
       .then(res => {

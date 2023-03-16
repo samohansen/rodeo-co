@@ -1,11 +1,12 @@
-import TabPanel from '@common/dataDisplay/TabPanel';
-import { PrismaClient } from '@prisma/client';
-import BasicTable from '@common/dataDisplay/BasicTable';
-import EventDetails from '@features/EventView/EventDetails';
+import type { ReactElement } from 'react';
 import type { nRodeoEvent } from '@common/types';
 import type { NextPageWithLayout } from '@common/types';
+import { PrismaClient } from '@prisma/client';
+import TabPanel from '@common/dataDisplay/TabPanel';
+import BasicTable from '@common/dataDisplay/BasicTable';
+import EventDetails from '@features/RodeoDashboard/EventView/EventDetails';
 import LeftNavLayout from '@common/layouts/LeftNavLayout'
-import type { ReactElement } from 'react';
+import RodeoDashBoardLayout from '@features/RodeoDashboard/RodeoDashboardLayout'
 
 type Props = {
   event: nRodeoEvent;
@@ -42,10 +43,11 @@ const EventView: NextPageWithLayout<Props> = ({event}) => {
 
   return (
     <TabPanel
-      tabNames={['Entries', 'Rankings', 'Event details']}
+      tabNames={['Event details', `Entries (${participantData.length})`, 'Rankings']}
     >
+      <EventDetails event={event} />
       {
-        !!event.entries.length ? (
+        !!participantData.length ? (
           <BasicTable
             head={['Name', 'Horse', 'Time']}
             data={participantData}
@@ -57,9 +59,6 @@ const EventView: NextPageWithLayout<Props> = ({event}) => {
       <div>
         [event rankings]
       </div>
-      <div>
-        <EventDetails event={event} />
-      </div>
     </TabPanel>
   )
 }
@@ -67,7 +66,9 @@ const EventView: NextPageWithLayout<Props> = ({event}) => {
 EventView.getLayout = function getLayout(page: ReactElement) {
   return (
     <LeftNavLayout>
-      {page}
+      <RodeoDashBoardLayout>
+        {page}
+      </RodeoDashBoardLayout>
     </LeftNavLayout>
   )
 };

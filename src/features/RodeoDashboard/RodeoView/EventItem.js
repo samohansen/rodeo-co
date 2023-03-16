@@ -1,8 +1,9 @@
 import {Chip} from '@mui/material'
 import {styled} from '@mui/material/styles'
-// import EditIcon from '@mui/icons-material/Edit';
+import EditIcon from '@mui/icons-material/Edit';
 import styles from './EventsList.module.css'
 import {buildEventAgeString} from '@common/utils'
+import axios from 'axios';
 
 const EventChip = styled(Chip)(() => ({
   "& .MuiChip-icon": {
@@ -15,18 +16,23 @@ const EventChip = styled(Chip)(() => ({
   }
 }))
 
-const EventItem = ({event, onEventClick}) => {
-  const {name} = event;
-  const ageString = buildEventAgeString(event);
-  const labelString = `${name}${ageString}`;
+const EventItem = ({event, onEventClick, setEvents, events, editingEvents}) => {
+  const handleDelete = async () => {
+    await axios.delete(`/api/rodeos/${event.rodeoId}/${event.id}`)
+      .then(res => {
+        setEvents(events.filter(e => e.id != event.id))
+      })
+  }
 
   return (
     <EventChip 
       className={styles.eventChip}
-      label={labelString}
+      label={`${event.name}${buildEventAgeString(event)}`}
       onClick={() => onEventClick(event)}
-      // onDelete={()=>{}}
-      // icon={<EditIcon onClick={() => {}} />}
+      {...(editingEvents && {
+        onDelete: () => handleDelete(), 
+        icon: <EditIcon onClick={() => {}} />
+      })}
     />
   )
 }
