@@ -26,7 +26,7 @@ const MainToolbar: React.FC = () => {
         ) : (
           <>
             <Button href={'/login'} sx={{ marginLeft: 'auto', borderRadius: 'sm', color: '#CF7F49' }}>Log in</Button>
-            <Button href={'/register'} sx={{ borderRadius: 'sm', color: '#CF7F49' }}>Register</Button>
+            <Button href={'/register'} sx={{ borderRadius: 'sm', color: '#CF7F49' }}>Sign up</Button>
           </>
         )}
       </Toolbar>

@@ -1,11 +1,11 @@
+import type { ReactElement } from 'react';
 import Head from 'next/head'
 import Link from 'next/link'
 import { Grid, Typography } from '@mui/material/';
 import {useRouter} from 'next/router';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
-import LoginLayout from '@common/layouts/LoginLayout';
-import type { ReactElement } from 'react';
+import LoginLayout from './LoginLayout';
 import PageLayout from '@common/layouts/PageLayout';
 
 const LoginView = () => {
@@ -49,7 +49,7 @@ const LoginView = () => {
             {isLoginPage ? <>
               Don't have an account yet?{' '}
               <Link legacyBehavior href={'/register'}>
-                <a className='text-blue-700'>Sign Up</a>
+                <a className='text-blue-700'>Sign up</a>
               </Link>
             </> : <>
               Already have an account?{' '}
