@@ -6,11 +6,12 @@ import RodeoCard from '@features/RodeoDashboard/RodeoCard';
 import { useRouter } from 'next/router';
 import OpenModalButton from '@common/navigation/OpenModalButton';
 import CreateRodeoFormModal from '@features/RodeoDashboard/CreateRodeoFormModal';
-import RodeoContext from '@features/RodeoDashboard/RodeoContext'
+import RodeosContext from '@features/RodeoDashboard/RodeosContext'
 import type { nRodeo } from '@common/types';
 import type { NextPageWithLayout } from '@common/types';
 import LeftNavLayout from '@common/layouts/LeftNavLayout'
 import type { ReactElement } from 'react';
+import RodeoDashBoardLayout from '@features/RodeoDashboard/RodeoDashboardLayout'
 
 type Props = {
   initialRodeos: nRodeo[];
@@ -35,8 +36,7 @@ const RodeoDashboard: NextPageWithLayout<Props> = ({initialRodeos = []}) => {
   const [rodeos, setRodeos] = useState(initialRodeos);
 
   return (<>
-    <RodeoContext.Provider value={{rodeos, setRodeos}}>
-      <h1>Rodeos</h1>
+    <RodeosContext.Provider value={{rodeos, setRodeos}}>
       <Grid container spacing={3}>
         {rodeos?.map(rodeo => (
           <Grid item xs={12} sm={6} md={4} key={rodeo.id}>
@@ -52,14 +52,16 @@ const RodeoDashboard: NextPageWithLayout<Props> = ({initialRodeos = []}) => {
       >
         <CreateRodeoFormModal/>
       </OpenModalButton>
-    </RodeoContext.Provider>
+    </RodeosContext.Provider>
   </>);
 };
 
 RodeoDashboard.getLayout = function getLayout(page: ReactElement) {
   return (
     <LeftNavLayout>
-      {page}
+      <RodeoDashBoardLayout>
+        {page}
+      </RodeoDashBoardLayout>
     </LeftNavLayout>
   )
 };

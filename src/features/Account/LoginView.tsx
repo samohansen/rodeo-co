@@ -16,7 +16,7 @@ const LoginView = () => {
     <>
       <Head>
         <title>
-          {isLoginPage ? 'Log in' : 'Register'}
+          {isLoginPage ? 'Log in' : 'RodeoCo - Register'}
         </title>
       </Head>
       <Grid container direction="column" alignItems="center" spacing={3}>

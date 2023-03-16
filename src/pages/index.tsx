@@ -26,7 +26,7 @@ const Home: NextPageWithLayout = () => {
   return (
     <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Head>
-        <title>Home Page</title>
+        <title>Home</title>
       </Head>
       <Container>
         {session ? (

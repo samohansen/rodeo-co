@@ -1,14 +1,16 @@
-import TabPanel from '@common/dataDisplay/TabPanel';
-import RodeoDetails from '@features/RodeoDashboard/RodeoDetails';
-import EventsList from '@features/RodeoDashboard/EventsList';
-import { PrismaClient } from '@prisma/client'
-import OpenModalButton from '@common/navigation/OpenModalButton';
-import CreateEventFormModal from '@features/RodeoDashboard/CreateEventFormModal'
+import type { ReactElement } from 'react';
 import { useState } from 'react';
+import { PrismaClient } from '@prisma/client'
 import type { nRodeo } from '@common/types';
 import type { NextPageWithLayout } from '@common/types';
+import TabPanel from '@common/dataDisplay/TabPanel';
+import RodeoDetails from '@features/RodeoDashboard/RodeoView/RodeoDetails';
+import EventsList from '@features/RodeoDashboard/RodeoView/EventsList';
+import OpenModalButton from '@common/navigation/OpenModalButton';
+import CreateEventFormModal from '@features/RodeoDashboard/RodeoView/CreateEventFormModal'
 import LeftNavLayout from '@common/layouts/LeftNavLayout'
-import type { ReactElement } from 'react';
+import RodeoDashBoardLayout from '@features/RodeoDashboard/RodeoDashboardLayout'
+import Button from '@mui/material/Button';
 
 type Props = {
   rodeo: nRodeo;
@@ -32,14 +34,14 @@ export async function getServerSideProps(context) {
 
 const RodeoView: NextPageWithLayout<Props> = ({rodeo}) => {
   const [events, setEvents] = useState(JSON.parse(JSON.stringify(rodeo.events)));
+  const [editingEvents, setEditingEvents] = useState(false);
 
   return (<>
-    <h1>{rodeo.name}</h1>
     <TabPanel
       tabNames={['Events List', 'Information']}
     >
       <>
-        <EventsList id={rodeo.id} events={events}/>
+        <EventsList id={rodeo.id} events={events} setEvents={setEvents} editingEvents={editingEvents}/>
         <OpenModalButton 
           buttonText='Add new event'
         >
@@ -49,6 +51,11 @@ const RodeoView: NextPageWithLayout<Props> = ({rodeo}) => {
             setEvents={setEvents}
           />
         </OpenModalButton>
+        <Button 
+          onClick={() => setEditingEvents(!editingEvents)}
+        >
+          {editingEvents ? 'Done editing' : 'Edit events'}
+        </Button>
       </>
       <RodeoDetails {...rodeo} />
     </TabPanel>
@@ -58,7 +65,9 @@ const RodeoView: NextPageWithLayout<Props> = ({rodeo}) => {
 RodeoView.getLayout = function getLayout(page: ReactElement) {
   return (
     <LeftNavLayout>
-      {page}
+      <RodeoDashBoardLayout>
+        {page}
+      </RodeoDashBoardLayout>
     </LeftNavLayout>
   )
 };

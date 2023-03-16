@@ -14,7 +14,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-const LEFT_NAV_WIDTH = 240;
+const LEFT_NAV_WIDTH = 220;
 const ADMIN_MENU_ITEMS: LeftNavMenuItem[] = [{
   label: 'Home',
   path: '/',
