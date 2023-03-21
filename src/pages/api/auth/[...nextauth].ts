@@ -15,17 +15,10 @@ const options = {
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
-      authorization: {
-        params: {
-          prompt: "consent",
-          access_type: "offline",
-          response_type: "code"
-        }
-      }
     })
   ],
   adapter: PrismaAdapter(prisma),
-  secret: process.env.SECRET,
+  // secret: process.env.SECRET,
 };
 
 const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options);

@@ -22,11 +22,11 @@ const LoginForm = () => {
   
   // Google Handler Function
   async function handleGoogleSignin() {
-    signIn('google',{callbackUrl: 'https://www.rodeoco.live/'});
+    signIn('google',{callbackUrl: 'https://www.rodeoco.live'});
   }
   // GitHub Handler Function
   async function handleGithubSignin() {
-    signIn('github',{callbackUrl: 'https://www.rodeoco.live/'});
+    signIn('github',{callbackUrl: 'https://www.rodeoco.live'});
   }
 
   return (
