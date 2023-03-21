@@ -2,7 +2,10 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { Box, Button, Container, Typography } from '@mui/material';
 import {useSession, signOut} from 'next-auth/react';
-import logo from 'public/marketing.png';
+import marketing1 from 'public/marketing1.png';
+import marketing2 from 'public/marketing2.png';
+import marketing3 from 'public/marketing3.png';
+import cubra from 'public/cubra.png';
 import type { NextPageWithLayout } from '@common/types';
 import type { ReactElement } from 'react';
 import LeftNavLayout from '@common/layouts/LeftNavLayout'
@@ -28,6 +31,27 @@ const Home: NextPageWithLayout = () => {
       <Head>
         <title>Home</title>
       </Head>
+
+      <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 5 }}>
+        <Typography variant="h3" >Rodeo Co.</Typography>
+        <Typography variant="h5" >Plan, manage, and wrangle your rodeos with ease - all in one place!</Typography>
+        <img src={marketing3.src} alt="marketing1" width='600' height='350' /> 
+      </Container>
+
+      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'right', mb: 5 }}>
+          <img src={marketing1.src} alt="marketing1" width='600' height='350' /> 
+          <img src={marketing2.src} alt="marketing2" width='150' height='250' />
+      </Box>
+
+      <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 5 }}>
+        <Typography variant="h3" >Rodeo Co is a simple solution to your Rodeo planning needs, from entries to ranking calculations.</Typography>
+      </Container>
+
+      <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'right', mb: 5 }}>
+        <Typography variant="h6" sx={{ textAlign: 'cneter', mb: 5 }}>Rodeo Co. works with local youth rodeo clubs to ensure we have the best product possible.</Typography>
+        <img src={cubra.src} alt="cubra" width='200' height='150' />
+      </Container>
+
       <Container>
         {session ? (
           <>
@@ -49,8 +73,6 @@ const Home: NextPageWithLayout = () => {
             </Box>
           </>
         ) : null}
-        <Typography variant="h5" sx={{ textAlign: 'left', mb: 5 }}>Host rodeos easily with RodeoCo</Typography>
-        <img src={logo.src} alt="logo" width='600' height='350' />
       </Container>
     </Box>
   )
