@@ -14,7 +14,7 @@ const OpenModalButton: React.FC<Props> = ({buttonText, children}) => {
 
   return (
     <>
-      <Button onClick={() => setModalOpen(!modalOpen)}>
+      <Button onClick={() => setModalOpen(!modalOpen)} variant='contained'>
         {buttonText}
       </Button>
       {modalOpen 
