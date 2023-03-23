@@ -6,6 +6,11 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import BreadcrumbsContext from '@common/navigation/BreadcrumbsContext';
 
+function handleClick(event) {
+  event.preventDefault();
+  console.info('You clicked a breadcrumb.');
+}
+
 const BasicBreadcrumbs = () => {
   const router = useRouter();
   const {breadcrumbs, setBreadcrumbs} = useContext(BreadcrumbsContext);
