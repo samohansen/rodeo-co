@@ -20,7 +20,7 @@ const EventItem = ({event, onEventClick, setEvents, events, editingEvents}) => {
   const handleDelete = async () => {
     await axios.delete(`/api/rodeos/${event.rodeoId}/${event.id}`)
       .then(res => {
-        setEvents(events.filter(e => e.id != event.id)) // (is filter not needed? is the deleted event already omitted from the results?)
+        setEvents(events.filter(e => e.id != event.id)) // (todo: is filter not needed? is the deleted event already omitted from the results?)
       })
   }
 

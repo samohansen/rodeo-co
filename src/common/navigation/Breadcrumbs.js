@@ -11,6 +11,8 @@ function handleClick(event) {
   console.info('You clicked a breadcrumb.');
 }
 
+// this is just a placeholder and empty, btw
+// and also will probably work from the router, not with manual updates as it's set up for now
 const BasicBreadcrumbs = () => {
   const router = useRouter();
   const {breadcrumbs, setBreadcrumbs} = useContext(BreadcrumbsContext);

@@ -11,7 +11,6 @@ import { buildEventTitleString } from "@common/utils";
 
 type Props = {
   event: nRodeoEvent;
-  rodeoName: string;
 }
 
 const prisma = new PrismaClient()
