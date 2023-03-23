@@ -14,7 +14,8 @@ export type nRodeo = Rodeo & {
   events: RodeoEvent[] 
 };
 export type nRodeoEvent = RodeoEvent & {
-  entries: nEventEntry[]
+  rodeo: Rodeo;
+  entries: nEventEntry[];
 }
 export type nEventEntry = EventEntry & {
   participant: User;

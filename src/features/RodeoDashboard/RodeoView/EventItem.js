@@ -2,7 +2,7 @@ import {Chip} from '@mui/material'
 import {styled} from '@mui/material/styles'
 import EditIcon from '@mui/icons-material/Edit';
 import styles from './EventsList.module.css'
-import {buildEventAgeString} from '@common/utils'
+import {buildEventTitleString} from '@common/utils'
 import axios from 'axios';
 
 const EventChip = styled(Chip)(() => ({
@@ -20,14 +20,14 @@ const EventItem = ({event, onEventClick, setEvents, events, editingEvents}) => {
   const handleDelete = async () => {
     await axios.delete(`/api/rodeos/${event.rodeoId}/${event.id}`)
       .then(res => {
-        setEvents(events.filter(e => e.id != event.id))
+        setEvents(events.filter(e => e.id != event.id)) // (is filter not needed? is the deleted event already omitted from the results?)
       })
   }
 
   return (
     <EventChip 
       className={styles.eventChip}
-      label={`${event.name}${buildEventAgeString(event)}`}
+      label={buildEventTitleString(event)}
       onClick={() => onEventClick(event)}
       {...(editingEvents && {
         onDelete: () => handleDelete(), 
