@@ -16,7 +16,7 @@ const LoginView = () => {
     <>
       <Head>
         <title>
-          {isLoginPage ? 'Log in' : 'RodeoCo - Register'}
+          {isLoginPage ? 'Log in' : 'Rodeo Co - Register'}
         </title>
       </Head>
       <Grid container direction="column" alignItems="center" spacing={3}>
@@ -29,7 +29,7 @@ const LoginView = () => {
               fontFamily: 'Poppins, sans-serif',
             }}
           >
-            Welcome to RodeoCo
+            Welcome to Rodeo Co
           </Typography>
           <Typography variant="body1" align="center" gutterBottom sx={{
               width: '75%',
