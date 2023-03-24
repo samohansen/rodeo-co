@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { Box, Button, Container, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import {useSession, signOut} from 'next-auth/react';
 import type { NextPageWithLayout } from '@common/types';
 import type { ReactElement } from 'react';
@@ -13,6 +13,7 @@ const Home: NextPageWithLayout = () => {
 
   return (
 <>  
+    {/* FIRST SECTION */}
     <Box
       sx={{
         height: 'calc(100vh / 2.75)',
@@ -34,6 +35,7 @@ const Home: NextPageWithLayout = () => {
       }}
       >
       <Box
+        // Sam was trying to make the text fit within a certain width inside the img
         sx={{
           mt: 3,
           width: '100%',
