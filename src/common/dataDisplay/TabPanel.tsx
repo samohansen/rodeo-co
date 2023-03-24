@@ -25,7 +25,7 @@ const TabPanel: React.FC<Props> = ({tabNames, children}) => {
 
   return (
     <Box>
-      <Box>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider'}}>
         <Tabs value={tabIndex} onChange={(handleTabChange)}>
           {
             tabNames.map((tabName, i) => <Tab label={tabName} key={i} />)

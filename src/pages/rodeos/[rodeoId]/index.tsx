@@ -9,7 +9,7 @@ import EventsList from '@features/RodeoDashboard/RodeoView/EventsList';
 import OpenModalButton from '@common/navigation/OpenModalButton';
 import CreateEventFormModal from '@features/RodeoDashboard/RodeoView/CreateEventFormModal'
 import LeftNavLayout from '@common/layouts/LeftNavLayout'
-import RodeoDashBoardLayout from '@features/RodeoDashboard/RodeoDashboardLayout'
+import RodeoDashboardLayout from '@features/RodeoDashboard/RodeoDashboardLayout'
 import Button from '@mui/material/Button';
 
 type Props = {
@@ -36,38 +36,44 @@ const RodeoView: NextPageWithLayout<Props> = ({rodeo}) => {
   const [events, setEvents] = useState(JSON.parse(JSON.stringify(rodeo.events)));
   const [editingEvents, setEditingEvents] = useState(false);
 
-  return (<>
-    <TabPanel
-      tabNames={['Events List', 'Information']}
+  return (
+    <RodeoDashboardLayout
+      pageTitle={rodeo.name}
+      back={{
+        path: '/rodeos',
+        text: 'All rodeos',
+      }}
     >
-      <>
-        <EventsList id={rodeo.id} events={events} setEvents={setEvents} editingEvents={editingEvents}/>
-        <OpenModalButton 
-          buttonText='Add new event'
-        >
-          <CreateEventFormModal
-            parentRodeo={rodeo.id}
-            events={events}
-            setEvents={setEvents}
-          />
-        </OpenModalButton>
-        <Button 
-          onClick={() => setEditingEvents(!editingEvents)}
-        >
-          {editingEvents ? 'Done editing' : 'Edit events'}
-        </Button>
-      </>
-      <RodeoDetails {...rodeo} />
-    </TabPanel>
-  </>)
+      <TabPanel
+        tabNames={['Events List', 'Information']}
+      >
+        <>
+          <EventsList events={events} setEvents={setEvents} editingEvents={editingEvents}/>
+          <OpenModalButton 
+            buttonText='Add new event'
+          >
+            <CreateEventFormModal
+              parentRodeo={rodeo.id}
+              events={events}
+              setEvents={setEvents}
+            />
+          </OpenModalButton>
+          <Button 
+            onClick={() => setEditingEvents(!editingEvents)}
+          >
+            {editingEvents ? 'Done editing' : 'Edit events'}
+          </Button>
+        </>
+        <RodeoDetails {...rodeo} />
+      </TabPanel>
+    </RodeoDashboardLayout>
+  )
 }
 
 RodeoView.getLayout = function getLayout(page: ReactElement) {
   return (
     <LeftNavLayout>
-      <RodeoDashBoardLayout>
-        {page}
-      </RodeoDashBoardLayout>
+      {page}
     </LeftNavLayout>
   )
 };

@@ -4,13 +4,12 @@ import { useRouter } from 'next/router';
 import type { RodeoEvent, Rodeo } from '@prisma/client';
 
 type Props = {
-  id: Rodeo['id'];
   events: RodeoEvent[];
   setEvents: any;
   editingEvents: boolean;
 }
 
-const EventsList: React.FC<Props> = ({id, events, setEvents, editingEvents}) => {
+const EventsList: React.FC<Props> = ({events, setEvents, editingEvents}) => {
   const router = useRouter();
 
   return (
@@ -19,7 +18,7 @@ const EventsList: React.FC<Props> = ({id, events, setEvents, editingEvents}) => 
         <li key={event.id} className={styles.eventChip}>
           <EventItem 
             event={event}
-            onEventClick={() => router.push(`/rodeos/${encodeURIComponent(id)}/${encodeURIComponent(event.id)}`)}
+            onEventClick={() => router.push(`/rodeos/${encodeURIComponent(event.rodeoId)}/${encodeURIComponent(event.id)}`)}
             setEvents={setEvents} events={events} editingEvents={editingEvents}
           />
         </li>

@@ -13,12 +13,14 @@ const MainToolbar: React.FC = () => {
     <AppBar position="fixed" sx={{bgcolor:'white', zIndex: (theme) => theme.zIndex.drawer + 1}}>
       <Toolbar sx={{ justifyContent: 'space-between' }}>
         <a href='/'> <img src={logo.src} alt="logo" width="150" height="45" /></a>
-        {/* <Divider
+        <Divider
           orientation='vertical'
           flexItem
-          sx={{width: '66px'}} // todo: this is a hack
-        /> */}
-        {/* <BasicBreadcrumbs/> */}
+          sx={{width: '46px'}} // todo: this is a hack
+        />
+        <span>
+          <BasicBreadcrumbs/>
+        </span>
         {session ? (
           <>
             {session.user.name || ''}
