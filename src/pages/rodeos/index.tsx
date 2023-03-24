@@ -37,6 +37,14 @@ const RodeoDashboard: NextPageWithLayout<Props> = ({initialRodeos = []}) => {
 
   return (<>
     <RodeosContext.Provider value={{rodeos, setRodeos}}>
+      <div>
+      <OpenModalButton
+          buttonText='Add new rodeo'
+        > 
+          <CreateRodeoFormModal/>
+        </OpenModalButton>
+      </div>
+      
       <Grid container spacing={3}>
         {rodeos?.map(rodeo => (
           <Grid item xs={12} sm={6} md={4} key={rodeo.id}>
@@ -47,11 +55,7 @@ const RodeoDashboard: NextPageWithLayout<Props> = ({initialRodeos = []}) => {
           </Grid>
         ))}
       </Grid>
-      <OpenModalButton 
-        buttonText='Add new rodeo'
-      >
-        <CreateRodeoFormModal/>
-      </OpenModalButton>
+  
     </RodeosContext.Provider>
   </>);
 };

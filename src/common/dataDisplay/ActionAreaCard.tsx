@@ -6,10 +6,13 @@ type Props = {
   title: string;
   bodyLine1?: string;
   bodyLine2?: string;
+  imagePath?: string;
 }
 
+
+
 // Not sure how best to handle images for this guy. Putting it off for now. 
-const ActionAreaCard: React.FC<Props> = ({onClick, title, bodyLine1, bodyLine2}) => {
+const ActionAreaCard: React.FC<Props> = ({onClick, title, bodyLine1, bodyLine2, imagePath = '7.png'}) => {
   return (
     <Card>
       <CardActionArea
@@ -18,7 +21,7 @@ const ActionAreaCard: React.FC<Props> = ({onClick, title, bodyLine1, bodyLine2})
         <AspectRatio minHeight={140} maxHeight={200} ratio="3/2">
           <CardMedia
             component="img"
-            image="saddlebronc.png"
+            image={imagePath}
             alt="rodeo image"
           />
         </AspectRatio>
@@ -37,5 +40,7 @@ const ActionAreaCard: React.FC<Props> = ({onClick, title, bodyLine1, bodyLine2})
     </Card>
   );
 }
+
+
 
 export default ActionAreaCard;
