@@ -7,7 +7,8 @@ import TabPanel from '@common/dataDisplay/TabPanel';
 import RodeoDetails from '@features/RodeoDashboard/RodeoView/RodeoDetails';
 import EventsList from '@features/RodeoDashboard/RodeoView/EventsList';
 import OpenModalButton from '@common/navigation/OpenModalButton';
-import CreateEventFormModal from '@features/RodeoDashboard/RodeoView/CreateEventFormModal'
+import CreateEventFormInterface from '@features/RodeoDashboard/RodeoForms/CreateEventFormInterface';
+import CreateRodeoFormInterface from '@features/RodeoDashboard/RodeoForms/CreateRodeoFormInterface';
 import LeftNavLayout from '@common/layouts/LeftNavLayout'
 import RodeoDashboardLayout from '@features/RodeoDashboard/RodeoDashboardLayout'
 import Button from '@mui/material/Button';
@@ -33,8 +34,8 @@ export async function getServerSideProps(context) {
 }
 
 const RodeoView: NextPageWithLayout<Props> = ({rodeo}) => {
-  const [events, setEvents] = useState(JSON.parse(JSON.stringify(rodeo.events)));
   const [editingEvents, setEditingEvents] = useState(false);
+  const events = JSON.parse(JSON.stringify(rodeo.events)); // todo: don't need to stringify and parse?
 
   return (
     <RodeoDashboardLayout
@@ -43,28 +44,37 @@ const RodeoView: NextPageWithLayout<Props> = ({rodeo}) => {
         path: '/rodeos',
         text: 'All rodeos',
       }}
+      rightHeaderComponent={''
+      }
     >
       <TabPanel
         tabNames={['Events List', 'Information']}
       >
         <>
-          <EventsList events={events} setEvents={setEvents} editingEvents={editingEvents}/>
+          <EventsList events={events} editingEvents={editingEvents}/>
           <OpenModalButton 
             buttonText='Add new event'
+            buttonProps={{disabled: editingEvents}}
           >
-            <CreateEventFormModal
-              parentRodeo={rodeo.id}
-              events={events}
-              setEvents={setEvents}
+            <CreateEventFormInterface rodeoId={rodeo.id}/>
+          </OpenModalButton>
+          {!!events.length ? (
+            <Button onClick={() => setEditingEvents(!editingEvents)} >
+              {editingEvents ? 'Done editing' : 'Edit events'}
+            </Button>
+          ) : null}
+        </>
+        <>
+          <RodeoDetails {...rodeo} />
+          <OpenModalButton 
+            buttonText='Edit rodeo'
+          >
+            <CreateRodeoFormInterface
+              editing={true}
+              rodeo={rodeo}
             />
           </OpenModalButton>
-          <Button 
-            onClick={() => setEditingEvents(!editingEvents)}
-          >
-            {editingEvents ? 'Done editing' : 'Edit events'}
-          </Button>
         </>
-        <RodeoDetails {...rodeo} />
       </TabPanel>
     </RodeoDashboardLayout>
   )
