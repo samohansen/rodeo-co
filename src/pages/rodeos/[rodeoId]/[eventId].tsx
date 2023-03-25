@@ -52,7 +52,7 @@ const EventView: NextPageWithLayout<Props> = ({event}) => {
       pageTitle={buildEventTitleString(event)}
       back={{
         path: `/rodeos/${encodeURIComponent(event.rodeoId)}`,
-        text: event.rodeo.name,
+        linkText: event.rodeo.name,
       }}
     >
       <TabPanel
@@ -69,16 +69,14 @@ const EventView: NextPageWithLayout<Props> = ({event}) => {
             />
           </OpenModalButton>
         </>
-        {
-          !!participantData.length ? (
+        {!!participantData.length ? (
             <BasicTable
               head={['Name', 'Horse', 'Time']}
               data={participantData}
             />
           ) : (
             "No participants have signed up for this event yet"
-          )
-        }
+          )}
         <div>
           [event rankings]
         </div>

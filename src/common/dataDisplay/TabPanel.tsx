@@ -26,19 +26,15 @@ const TabPanel: React.FC<Props> = ({tabNames, children}) => {
   return (
     <Box>
       <Box sx={{ borderBottom: 1, borderColor: 'divider'}}>
-        <Tabs value={tabIndex} onChange={(handleTabChange)}>
-          {
-            tabNames.map((tabName, i) => <Tab label={tabName} key={i} />)
-          }
+        <Tabs value={tabIndex} onChange={handleTabChange}>
+          {tabNames.map((tabName, i) => <Tab label={tabName} key={i}/> )}
         </Tabs>
       </Box>
       <Box sx={{ padding: 2 }}>
-        {
-          children.map((child, i) => (
-            // tabIndex.toString() === child.key && (child)
-            tabIndex === i && (child)
-          ))
-        }
+        {children.map((child, i) => (
+          // tabIndex.toString() === child.key && (child)
+          tabIndex === i && (child)
+        ))}
       </Box>
     </Box>
   );

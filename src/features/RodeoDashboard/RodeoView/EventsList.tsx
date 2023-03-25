@@ -1,8 +1,7 @@
-import styles from './EventsList.module.css'
-import EventItem from './EventItem'
+import Stack from '@mui/material/Stack';
 import { useRouter } from 'next/router';
-import type { RodeoEvent, Rodeo } from '@prisma/client';
-import { PrismaClient } from '@prisma/client';
+import type { RodeoEvent } from '@prisma/client';
+import EventItem from './EventItem'
 
 type Props = {
   events: RodeoEvent[];
@@ -13,9 +12,9 @@ const EventsList: React.FC<Props> = ({events, editingEvents}) => {
   const router = useRouter();
 
   return (
-    <ul className={styles.ul}>
+    <Stack>
       {events.map(event => (
-        <li key={event.id} className={styles.eventChip}>
+        <li key={event.id} style={{listStyleType: 'none'}}>
           <EventItem 
             event={event}
             onEventClick={() => router.push(`/rodeos/${encodeURIComponent(event.rodeoId)}/${encodeURIComponent(event.id)}`)}
@@ -23,7 +22,7 @@ const EventsList: React.FC<Props> = ({events, editingEvents}) => {
           />
         </li>
       ))}
-    </ul>
+    </Stack>
   )
 }
 

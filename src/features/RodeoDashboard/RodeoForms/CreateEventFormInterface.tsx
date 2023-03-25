@@ -45,7 +45,7 @@ const CreateEventFormInterface: React.FC<Props> = ({editing = false, event, rode
     name: data?.name || '',
     minAge: data?.minAge || '',
     maxAge: data?.maxAge || '',
-    fee: data?.fee || '',
+    fee: data?.fee || 0,
     // prizePot: data?.prizePot || '',
   }
 

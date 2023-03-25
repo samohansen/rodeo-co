@@ -31,3 +31,13 @@ export const partitionRodeos = (rodeos: nRodeo[]): [nRodeo[], nRodeo[]] => {
 
   return [pastRodeos, futureRodeos];
 }
+
+export const compareObjNames = (a, b) => {
+  const nameA = a.name.toLowerCase();
+  const nameB = b.name.toLowerCase();
+  return nameA < nameB 
+    ? -1
+    : nameA > nameB 
+    ? 1
+    : 0
+}

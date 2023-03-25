@@ -9,9 +9,14 @@ import ChevronLeft from '@mui/icons-material/ChevronLeft';
 type Props = {
   pageTitle: string;
   back?: {
+    linkText?: string;
+  } & ({
     path: string;
-    text?: string;
-  }
+    onClick?: never;
+  } | {
+    path?: never;
+    onClick: () => void;
+  })
   rightHeaderComponent?: any;
   children?: ReactNode | ReactNode[];
 }
@@ -23,10 +28,13 @@ const RodeoDashboardLayout: React.FC<Props> = ({children, pageTitle, back, right
         <Stack direction='row' justifyContent='space-between' alignItems='center'>
           <Box>
             {back ? (
-              <Link href={back.path} underline="hover" variant='body2'>
+              <Link underline="hover" variant='body2' {...(
+                back.path && {href: back.path} || 
+                back.onClick && {onClick: back.onClick, component: 'button'}
+              )}>
                 <Stack direction="row" alignItems="center">
                   <ChevronLeft/>
-                  {back.text}
+                  {back.linkText}
                 </Stack>
               </Link>
             ) : null}
