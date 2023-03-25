@@ -12,6 +12,7 @@ import CreateRodeoFormInterface from '@features/RodeoDashboard/RodeoForms/Create
 import LeftNavLayout from '@common/layouts/LeftNavLayout'
 import RodeoDashboardLayout from '@features/RodeoDashboard/RodeoDashboardLayout'
 import Button from '@mui/material/Button';
+import DeleteRodeoModal from '@features/RodeoDashboard/RodeoForms/DeleteRodeoModal';
 
 type Props = {
   rodeo: nRodeo;
@@ -66,13 +67,14 @@ const RodeoView: NextPageWithLayout<Props> = ({rodeo}) => {
         </>
         <>
           <RodeoDetails {...rodeo} />
-          <OpenModalButton 
-            buttonText='Edit rodeo'
-          >
-            <CreateRodeoFormInterface
+          <OpenModalButton buttonText='Edit rodeo'>
+            <CreateRodeoFormInterface 
               editing={true}
               rodeo={rodeo}
             />
+          </OpenModalButton>
+          <OpenModalButton buttonText='Delete rodeo'>
+            <DeleteRodeoModal rodeo={rodeo}/>
           </OpenModalButton>
         </>
       </TabPanel>

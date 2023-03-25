@@ -40,8 +40,18 @@ export default async function handler(req, res) {
       res.status(500).json({message: "Couldn't update the rodeo"})
     }
   }
+  else if (req.method === 'DELETE') {
+    try {
+      const rodeo = await prisma.rodeo.delete({
+        where: {id: rodeoId}
+      });
+      res.status(200).json(rodeo);
+    } catch (err) {
+      res.status(500).json({message: 'failed to delete rodeo'})
+    }
+  }
   else {
-    res.setHeader('Allow', ['POST', 'PATCH']);
+    res.setHeader('Allow', ['POST', 'DELETE', 'PATCH' ]);
     res
       .status(405)
       .json({ message: `HTTP method ${req.method} is not supported.` });

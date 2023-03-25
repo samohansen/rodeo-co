@@ -9,8 +9,6 @@ type Props = {
   imagePath?: string;
 }
 
-
-
 // Not sure how best to handle images for this guy. Putting it off for now. 
 const ActionAreaCard: React.FC<Props> = ({onClick, title, bodyLine1, bodyLine2, imagePath = '7.png'}) => {
   return (
@@ -40,7 +38,5 @@ const ActionAreaCard: React.FC<Props> = ({onClick, title, bodyLine1, bodyLine2, 
     </Card>
   );
 }
-
-
 
 export default ActionAreaCard;

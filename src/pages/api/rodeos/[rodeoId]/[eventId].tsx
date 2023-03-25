@@ -24,7 +24,7 @@ export default async function handler(req, res) {
         where: {id: eventId}
       });
       res.status(200).json(event);
-    } catch (e) {
+    } catch (err) {
       res.status(500).json({message: 'something went wrong'});
     }
   }
