@@ -7,18 +7,31 @@ First, install the project and run the development server:
 
 ```bash
 git clone https://github.com/samohansen/rodeo.git
+
 npm install
+
 npm run dev
 ```
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 (Set up a database connection in .env?)
 
+## Prisma
 
-Run `npx prisma studio` to open db connection in your browser locally
+Run `npx prisma studio` and open [http://localhost:5555](http://localhost:5555) to interact with the database
 
-`npx prisma db seed` to reseed the db
+`npx prisma db seed` to seed/reseed the db
 
-`npx prisma db push --force-reset && npx prisma db seed` to reseed the db spicily 
+`npx prisma db push --force-reset && npx prisma db seed` to reseed the db spicily
+
+##
+
+.
+
+.
+
+.
+
+## 
 
 ## Next.js info
 
