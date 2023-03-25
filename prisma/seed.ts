@@ -40,6 +40,7 @@ async function main() {
             location: 'West Valley City, UT',
             date: new Date ('2023-05-13'),
             notes: 'sponsorships etc',
+            imgSrc: '/1.png',
             events: {
               createMany: {
                 data: [
@@ -87,6 +88,7 @@ async function main() {
             location: 'Spanish Fork, UT',
             date: new Date ('2023-06-15'),
             notes: 'sponsorships etc',
+            imgSrc: '/2.png',
             events: {
               createMany: {
                 data: [
@@ -118,6 +120,45 @@ async function main() {
                   },{
                     name: 'Team Roping',
                     time: new Date (2019, 0o4, 13, 19, 30),
+                    minAge: 18,
+                    fee: 20,
+                  }
+                ]
+              } 
+            }
+          },
+          {
+            name: 'Binkying Bunny Rodeo',
+            location: 'jasom house, UT',
+            date: new Date ('2023-06-05'),
+            notes: 'bunnies are cute (oh, chinchillas too)',
+            imgSrc: 'https://i.imgur.com/xNOdcGE.jpeg',
+            events: {
+              createMany: {
+                data: [
+                  {
+                    name: 'Bunny Hop',
+                    time: new Date (2019, 0o4, 13, 17),
+                    minAge: 18,
+                    fee: 20,
+                  },{
+                    name: 'Binky Trot',
+                    time: new Date (2019, 0o4, 13, 17, 30),
+                    minAge: 18,
+                    fee: 20,
+                  },{
+                    name: 'Lettuce Shredding',
+                    time: new Date (2019, 0o4, 13, 18),
+                    minAge: 18,
+                    fee: 20,
+                  }, {
+                    name: 'Speed Renovation',
+                    time: new Date (2019, 0o4, 13, 18, 30),
+                    minAge: 18,
+                    fee: 20,
+                  },{
+                    name: 'Flopping',
+                    time: new Date (2019, 0o4, 13, 19),
                     minAge: 18,
                     fee: 20,
                   }

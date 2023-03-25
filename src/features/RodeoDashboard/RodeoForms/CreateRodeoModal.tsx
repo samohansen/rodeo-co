@@ -6,10 +6,11 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import { TextField } from "@mui/material";
 import DatePicker from "@common/components/DatePicker";
-import {TextInput} from '@common/components/RhfFormComponents'
+import {TextInput, SelectInput} from '@common/components/RhfFormComponents'
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import {rodeoImageUrls} from '@common/utils';
 
 type Props = {
   defaultValues: RodeoFormModel;
@@ -23,6 +24,7 @@ const CreateRodeoModal: React.FC<Props> = ({defaultValues, onSubmit, onClose}) =
     location: yup.string().required('Rodeo location is required'),
     date: yup.date().required('Date is required'),
     notes: yup.string(),
+    imgSrc: yup.string(),
   });
 
   const {formState: { errors, isSubmitting }, control, handleSubmit, } = useForm<RodeoFormModel>({
@@ -69,6 +71,24 @@ const CreateRodeoModal: React.FC<Props> = ({defaultValues, onSubmit, onClose}) =
             name="notes"
             control={control}
             textFieldProps={{multiline: true}}
+          />
+          <SelectInput 
+            label="Rodeo card image"
+            name="imgSrc"
+            control={control}
+            menuItems={[
+              {label: 'Imgur 1', value: rodeoImageUrls[9]},
+              {label: 'Bunny 1', value: rodeoImageUrls[10]},
+              {label: 'Rodeo 1', value: rodeoImageUrls[0]},
+              {label: 'Rodeo 2', value: rodeoImageUrls[1]},
+              {label: 'Rodeo 3', value: rodeoImageUrls[2]},
+              {label: 'Rodeo 4', value: rodeoImageUrls[3]},
+              {label: 'Rodeo 5', value: rodeoImageUrls[4]},
+              {label: 'Rodeo 6', value: rodeoImageUrls[5]},
+              {label: 'Rodeo 7', value: rodeoImageUrls[6]},
+              {label: 'Rodeo 8', value: rodeoImageUrls[7]},
+              {label: 'Rodeo 9', value: rodeoImageUrls[8]},
+            ]}
           />
         </form>
       </DialogContent>
