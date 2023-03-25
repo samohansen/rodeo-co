@@ -13,8 +13,11 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 (Set up a database connection in .env?)
 
+
 Run `npx prisma studio` to open db connection in your browser locally
+
 `npx prisma db seed` to reseed the db
+
 `npx prisma db push --force-reset && npx prisma db seed` to reseed the db spicily 
 
 ## Next.js info
