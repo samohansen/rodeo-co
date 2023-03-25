@@ -1,0 +1,36 @@
+.chip {
+  margin: .4em 0;
+  width: 250px;
+  height: 50px;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 36px;
+  color: #000000;
+  background-color: rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  text-transform: none;
+  font-family: 'Poppins', sans-serif;
+  padding-inline: 13px;
+  justify-content: space-between;
+}
+
+.chip:hover {
+  background-color: rgba(0, 0, 0, 0.14);
+}
+
+.chipIcon {
+  color: rgba(0, 0, 0, 0.26);
+  cursor: pointer;
+  font-size: 22px;
+}
+
+.chipIcon:hover {
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.chipText {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: auto;
+}
