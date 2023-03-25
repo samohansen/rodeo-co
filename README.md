@@ -1,5 +1,8 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-Also [Prisma](https://www.prisma.io/docs/getting-started)
+
+Also, [Prisma](https://www.prisma.io/docs/getting-started) for the database/ORM
+
+##
 
 ## Getting Started
 
