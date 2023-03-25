@@ -8,6 +8,8 @@ import EventDetails from '@features/RodeoDashboard/EventView/EventDetails';
 import LeftNavLayout from '@common/layouts/LeftNavLayout'
 import RodeoDashboardLayout from '@features/RodeoDashboard/RodeoDashboardLayout'
 import { buildEventTitleString } from "@common/utils";
+import OpenModalButton from '@common/navigation/OpenModalButton';
+import CreateEventFormInterface from '@features/RodeoDashboard/RodeoForms/CreateEventFormInterface';
 
 type Props = {
   event: nRodeoEvent;
@@ -56,7 +58,17 @@ const EventView: NextPageWithLayout<Props> = ({event}) => {
       <TabPanel
         tabNames={['Event details', `Entries (${participantData.length})`, 'Rankings']}
       >
-        <EventDetails event={event} />
+        <>
+          <EventDetails event={event} />
+          <OpenModalButton 
+            buttonText='Edit event'
+          >
+            <CreateEventFormInterface
+              editing={true}
+              event={event}
+            />
+          </OpenModalButton>
+        </>
         {
           !!participantData.length ? (
             <BasicTable
