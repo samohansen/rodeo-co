@@ -36,19 +36,26 @@ const CreateRodeoModal: React.FC<Props> = ({defaultValues, onSubmit, onClose}) =
       <DialogTitle>Create rodeo</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Here is the create rodeo form
+          Create a new rodeo. You will be able to add events later.
         </DialogContentText>
         <form>
+          <div>
           <TextInput 
             label="Rodeo name"
             name="name"
             control={control}
           />
+          </div>
+          <br></br>
+          <div>
           <TextInput 
             label="Location"
             name="location"
             control={control}
           />
+          </div>
+          <br></br>
+          <div>
           <Controller 
             name="date"
             control={control}
@@ -64,12 +71,16 @@ const CreateRodeoModal: React.FC<Props> = ({defaultValues, onSubmit, onClose}) =
               />
             )}
           />
+          </div>
+          <br></br>
+          <div>
           <TextInput
             label="Other info"
             name="notes"
             control={control}
             textFieldProps={{multiline: true}}
           />
+          </div>
         </form>
       </DialogContent>
       <DialogActions>

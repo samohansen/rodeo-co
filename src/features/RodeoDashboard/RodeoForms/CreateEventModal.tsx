@@ -35,20 +35,27 @@ const CreateEventModal: React.FC<Props> = ({defaultValues, onSubmit, onClose}) =
       <DialogTitle>Create event</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Here is the create event form
+          Add events to your rodeo.
         </DialogContentText>
         <form>
+          <div>
           <TextInput 
             label="Event name"
             name="name"
             control={control}
           />
+          </div>
+          <br></br>
+          <div>
           <TextInput 
             label="Minimum age"
             name="minAge"
             control={control}
             textFieldProps={{ inputProps: {inputMode: 'numeric'} }} // causes keyboard to default to numeric
           />
+          </div>
+          <br></br>
+          <div>
           <TextInput 
             label="Maximum age"
             name="maxAge"
@@ -62,6 +69,9 @@ const CreateEventModal: React.FC<Props> = ({defaultValues, onSubmit, onClose}) =
               }
             }}
           />
+          </div>
+          <br></br>
+          <div>
           <TextInput 
             label="Entry fee"
             name="fee"
@@ -73,6 +83,7 @@ const CreateEventModal: React.FC<Props> = ({defaultValues, onSubmit, onClose}) =
               }
             }}
           />
+          </div>
         </form>
       </DialogContent>
       <DialogActions>
