@@ -37,9 +37,7 @@ const RodeoDashboard: NextPageWithLayout<Props> = ({rodeos = []}) => {
     <RodeoDashboardLayout
       pageTitle='Rodeos'
       rightHeaderComponent={
-        <OpenModalButton 
-          buttonText='Add new rodeo'
-        >
+        <OpenModalButton buttonText='Add new rodeo'>
           <CreateRodeoFormInterface/>
         </OpenModalButton>
       }

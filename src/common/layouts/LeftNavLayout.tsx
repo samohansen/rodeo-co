@@ -10,10 +10,7 @@ type Props = {
 const LeftNavLayout: React.FC<Props> = ({children}) => {
   return (<>
     <LeftNav/>
-    <Box
-      component="main"
-      sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
-    >
+    <Box component="main" sx={{ flexGrow: 1, bgcolor: 'background.default'}} >
       <Toolbar/>
       <main>{children}</main>
     </Box>

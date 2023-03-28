@@ -5,7 +5,7 @@ const RodeoCard = ({rodeo, onClick}) => {
   const {name, location, date} = rodeo
 
   return (
-    <ActionAreaCard 
+    <ActionAreaCard
       title={name}
       bodyLine1={location}
       bodyLine2={formatDate(date)}
