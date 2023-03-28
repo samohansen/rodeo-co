@@ -26,6 +26,9 @@ Run `npx prisma studio` and open [http://localhost:5555](http://localhost:5555) 
 
 `npx prisma db push --force-reset && npx prisma db seed` to reseed the db spicily
 
+Important: You need to re-run the `prisma generate` command after every change that's made to your Prisma schema to update the generated Prisma Client code.
+*(I am not sure when to use generate vs seed, look into it)
+
 ##
 
 .
