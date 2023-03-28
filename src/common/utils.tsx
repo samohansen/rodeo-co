@@ -1,5 +1,19 @@
 import { nRodeo } from "./types";
 
+export const rodeoImageUrls = [
+  '/1.png',
+  '/2.png',
+  '/3.png',
+  '/4.png',
+  '/5.png',
+  '/6.png',
+  '/7.png',
+  '/8.png',
+  '/9.png',
+  'https://i.imgur.com/PpVyL0c.png',
+  'https://i.imgur.com/xNOdcGE.jpeg',
+]
+
 export function buildEventAgeString({minAge, maxAge}: {minAge: number | string, maxAge: number | string}): string {
   return minAge 
     ? ` (${minAge}${maxAge ?  `-${maxAge}` : '+'})`

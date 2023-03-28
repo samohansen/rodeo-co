@@ -24,7 +24,7 @@ type Props = {
 const RodeoDashboardLayout: React.FC<Props> = ({children, pageTitle, back, rightHeaderComponent}) => {
   return (
     <Box>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider', paddingBottom: 2}}>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider', marginInline: 3, paddingTop: 3, paddingBottom: 2}}>
         <Stack direction='row' justifyContent='space-between' alignItems='center'>
           <Box>
             {back ? (
@@ -45,7 +45,7 @@ const RodeoDashboardLayout: React.FC<Props> = ({children, pageTitle, back, right
           </Box>
         </Stack>
       </Box>
-      <Box sx={{padding: 2}}> 
+      <Box> 
         {children}
       </Box>
     </Box>

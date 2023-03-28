@@ -2,12 +2,14 @@ import axios from 'axios';
 import CreateRodeoModal from "./CreateRodeoModal";
 import type { Rodeo } from '@prisma/client';
 import { useRouter, usePathname }  from 'next/navigation';
+import {rodeoImageUrls} from '@common/utils';
 
 export type RodeoFormModel = {
   name: string;
   location: string;
   date: Date;
   notes: string;
+  imgSrc: string;
 }
 
 type Props = {
@@ -43,6 +45,7 @@ const CreateRodeoFormInterface: React.FC<Props> = ({editing = false, rodeo, onCl
     location: data?.location || '',
     date: new Date(data?.date) || new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // todo: make this actually work
     notes: data?.notes || '',
+    imgSrc: data?.imgSrc || rodeoImageUrls[Math.floor(Math.random() * 11)]
   }
 
   // make appropriate api call, handle page changes

@@ -80,6 +80,8 @@ model Rodeo {
   notes     String?
   events    RodeoEvent[]
 
+  imgSrc    String?
+  
   admin     User     @relation(fields: [adminId], references: [id])
   adminId   String  
 }
