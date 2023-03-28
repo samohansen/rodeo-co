@@ -1,4 +1,4 @@
-import { Button, Dialog } from '@mui/material';
+import { Button, Container, Dialog } from '@mui/material';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -38,24 +38,34 @@ const CreateEventModal: React.FC<Props> = ({defaultValues, onSubmit, onClose}) =
           Add events to your rodeo.
         </DialogContentText>
         <form>
-          <div>
+          <Container
+          sx={{
+            display: 'flex',
+            gap: '10px', /* row-gap column gap */
+            rowGap: '10px',
+            columnGap: '20px',
+        }} >
           <TextInput 
             label="Event name"
             name="name"
             control={control}
           />
-          </div>
-          <br></br>
-          <div>
           <TextInput 
             label="Minimum age"
             name="minAge"
             control={control}
             textFieldProps={{ inputProps: {inputMode: 'numeric'} }} // causes keyboard to default to numeric
           />
-          </div>
+          </Container>
           <br></br>
-          <div>
+        
+          <Container
+          sx={{
+            display: 'flex',
+            gap: '10px', /* row-gap column gap */
+            rowGap: '10px',
+            columnGap: '20px',
+        }} >
           <TextInput 
             label="Maximum age"
             name="maxAge"
@@ -69,9 +79,6 @@ const CreateEventModal: React.FC<Props> = ({defaultValues, onSubmit, onClose}) =
               }
             }}
           />
-          </div>
-          <br></br>
-          <div>
           <TextInput 
             label="Entry fee"
             name="fee"
@@ -83,7 +90,7 @@ const CreateEventModal: React.FC<Props> = ({defaultValues, onSubmit, onClose}) =
               }
             }}
           />
-          </div>
+           </Container>
         </form>
       </DialogContent>
       <DialogActions>

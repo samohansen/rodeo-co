@@ -1,5 +1,5 @@
 import type { RodeoFormModel } from "./CreateRodeoFormInterface";
-import { Button, Dialog } from '@mui/material';
+import { Button, Dialog, Container } from '@mui/material';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -39,23 +39,35 @@ const CreateRodeoModal: React.FC<Props> = ({defaultValues, onSubmit, onClose}) =
           Create a new rodeo. You will be able to add events later.
         </DialogContentText>
         <form>
-          <div>
+        <Container
+          sx={{
+            display: 'flex',
+            gap: '10px', /* row-gap column gap */
+            rowGap: '10px',
+            columnGap: '20px',
+        }} >
           <TextInput 
             label="Rodeo name"
             name="name"
             control={control}
           />
-          </div>
-          <br></br>
-          <div>
+          
           <TextInput 
             label="Location"
             name="location"
             control={control}
           />
-          </div>
+          </Container>
+
           <br></br>
-          <div>
+
+          <Container
+          sx={{
+            display: 'flex',
+            gap: '10px', /* row-gap column gap */
+            rowGap: '10px',
+            columnGap: '20px',
+        }} >
           <Controller 
             name="date"
             control={control}
@@ -71,16 +83,13 @@ const CreateRodeoModal: React.FC<Props> = ({defaultValues, onSubmit, onClose}) =
               />
             )}
           />
-          </div>
-          <br></br>
-          <div>
           <TextInput
             label="Other info"
             name="notes"
             control={control}
             textFieldProps={{multiline: true}}
           />
-          </div>
+          </Container>
         </form>
       </DialogContent>
       <DialogActions>
