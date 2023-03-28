@@ -111,10 +111,10 @@ const Home: NextPageWithLayout = () => {
           <img src="/icon1.png" alt="icon1" width={80} height={80} />
         </Box>
         <Typography variant="h6" sx={{ mb: 1, fontWeight: 'bold', color: 'text.secondary', fontFamily: 'inherit' }}>
-          Create Rodeos and Add Events
+          View Event Rankings
         </Typography>
         <Typography variant="body1" sx={{ mb: 2, fontFamily: 'inherit' }}>
-          Have full control over the events you create
+          See how participants ranked in real time
         </Typography>
       </Box>
 
@@ -127,7 +127,7 @@ const Home: NextPageWithLayout = () => {
           Easy to Apply
         </Typography>
         <Typography variant="body1" sx={{ mb: 2, fontFamily: 'inherit' }}>
-          Participants can join your rodeos from the site. No work from you is required.
+          Participants can join rodeos from the site.
         </Typography>
       </Box>
 
