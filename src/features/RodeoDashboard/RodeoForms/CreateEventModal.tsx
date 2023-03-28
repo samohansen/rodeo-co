@@ -41,6 +41,7 @@ const CreateEventModal: React.FC<Props> = ({defaultValues, onSubmit, onClose}) =
           <Container
           sx={{
             display: 'flex',
+            flexWrap: 'wrap',
             gap: '10px', /* row-gap column gap */
             rowGap: '10px',
             columnGap: '20px',
@@ -56,16 +57,7 @@ const CreateEventModal: React.FC<Props> = ({defaultValues, onSubmit, onClose}) =
             control={control}
             textFieldProps={{ inputProps: {inputMode: 'numeric'} }} // causes keyboard to default to numeric
           />
-          </Container>
-          <br></br>
-        
-          <Container
-          sx={{
-            display: 'flex',
-            gap: '10px', /* row-gap column gap */
-            rowGap: '10px',
-            columnGap: '20px',
-        }} >
+          
           <TextInput 
             label="Maximum age"
             name="maxAge"

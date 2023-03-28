@@ -42,6 +42,7 @@ const CreateRodeoModal: React.FC<Props> = ({defaultValues, onSubmit, onClose}) =
         <Container
           sx={{
             display: 'flex',
+            flexWrap: 'wrap',
             gap: '10px', /* row-gap column gap */
             rowGap: '10px',
             columnGap: '20px',
@@ -57,17 +58,6 @@ const CreateRodeoModal: React.FC<Props> = ({defaultValues, onSubmit, onClose}) =
             name="location"
             control={control}
           />
-          </Container>
-
-          <br></br>
-
-          <Container
-          sx={{
-            display: 'flex',
-            gap: '10px', /* row-gap column gap */
-            rowGap: '10px',
-            columnGap: '20px',
-        }} >
           <Controller 
             name="date"
             control={control}
