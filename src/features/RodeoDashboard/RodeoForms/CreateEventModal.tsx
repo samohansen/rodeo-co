@@ -1,4 +1,4 @@
-import { Button, Dialog } from '@mui/material';
+import { Button, Container, Dialog } from '@mui/material';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -35,9 +35,17 @@ const CreateEventModal: React.FC<Props> = ({defaultValues, onSubmit, onClose}) =
       <DialogTitle>Create event</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Here is the create event form
+          Add events to your rodeo.
         </DialogContentText>
         <form>
+          <Container
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '10px', /* row-gap column gap */
+            rowGap: '10px',
+            columnGap: '20px',
+        }} >
           <TextInput 
             label="Event name"
             name="name"
@@ -49,6 +57,7 @@ const CreateEventModal: React.FC<Props> = ({defaultValues, onSubmit, onClose}) =
             control={control}
             textFieldProps={{ inputProps: {inputMode: 'numeric'} }} // causes keyboard to default to numeric
           />
+          
           <TextInput 
             label="Maximum age"
             name="maxAge"
@@ -73,6 +82,7 @@ const CreateEventModal: React.FC<Props> = ({defaultValues, onSubmit, onClose}) =
               }
             }}
           />
+           </Container>
         </form>
       </DialogContent>
       <DialogActions>

@@ -1,5 +1,5 @@
 import type { RodeoFormModel } from "./CreateRodeoFormInterface";
-import { Button, Dialog } from '@mui/material';
+import { Button, Dialog, Container } from '@mui/material';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -33,63 +33,66 @@ const CreateRodeoModal: React.FC<Props> = ({defaultValues, onSubmit, onClose}) =
     resolver: yupResolver(validationSchema)
   })
 
+  
   return (
     <Dialog open={true} onClose={onClose}>
       <DialogTitle>Create rodeo</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Here is the create rodeo form
+          Create a new rodeo. You will be able to add events later.
         </DialogContentText>
         <form>
-          <TextInput 
-            label="Rodeo name"
-            name="name"
-            control={control}
-          />
-          <TextInput 
-            label="Location"
-            name="location"
-            control={control}
-          />
-          <Controller 
-            name="date"
-            control={control}
-            // defaultValue={new Date(Date.now() + 7*24*60*60*1000)} \\ todo: get this to actually work
-            render={({field: {ref, ...fieldProps}}) => (
-              <DatePicker 
-                {...fieldProps}
-                value={fieldProps.value}
-                onChange={e => fieldProps.onChange(e)}
-                label="Date"
-                inputRef={ref}
-                renderInput={(params) => <TextField {...params} />}
-              />
-            )}
-          />
-          <TextInput
-            label="Other info"
-            name="notes"
-            control={control}
-            textFieldProps={{multiline: true}}
-          />
-          <SelectInput 
-            label="Rodeo card image"
-            name="imgSrc"
-            control={control}
-            menuItems={[
-              {label: 'Imgur 1', value: rodeoImageUrls[9]},
-              {label: 'Bunny 1', value: rodeoImageUrls[10]},
-              {label: 'Rodeo 1', value: rodeoImageUrls[0]},
-              {label: 'Rodeo 2', value: rodeoImageUrls[1]},
-              {label: 'Rodeo 3', value: rodeoImageUrls[2]},
-              {label: 'Rodeo 4', value: rodeoImageUrls[3]},
-              {label: 'Rodeo 5', value: rodeoImageUrls[4]},
-              {label: 'Rodeo 6', value: rodeoImageUrls[5]},
-              {label: 'Rodeo 7', value: rodeoImageUrls[6]},
-              {label: 'Rodeo 8', value: rodeoImageUrls[7]},
-              {label: 'Rodeo 9', value: rodeoImageUrls[8]},
-            ]}
-          />
+          <Container sx={{display: 'flex', flexDirection: 'column', gap: '10px', rowGap: '10px', columnGap: '20px'}} >
+            <TextInput 
+              label="Rodeo name"
+              name="name"
+              control={control}
+            />
+            <TextInput 
+              label="Location"
+              name="location"
+              control={control}
+            />
+            <Controller 
+              name="date"
+              control={control}
+              // defaultValue={new Date(Date.now() + 7*24*60*60*1000)} \\ todo: get this to actually work
+              render={({field: {ref, ...fieldProps}}) => (
+                <DatePicker 
+                  {...fieldProps}
+                  value={fieldProps.value}
+                  onChange={e => fieldProps.onChange(e)}
+                  label="Date"
+                  inputRef={ref}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              )}
+            />
+            <TextInput
+              label="Other info"
+              name="notes"
+              control={control}
+              textFieldProps={{multiline: true}}
+            />
+            <SelectInput 
+              label="Rodeo card image"
+              name="imgSrc"
+              control={control}
+              menuItems={[
+                {label: 'Imgur 1', value: rodeoImageUrls[9]},
+                {label: 'Bunny 1', value: rodeoImageUrls[10]},
+                {label: 'Rodeo 1', value: rodeoImageUrls[0]},
+                {label: 'Rodeo 2', value: rodeoImageUrls[1]},
+                {label: 'Rodeo 3', value: rodeoImageUrls[2]},
+                {label: 'Rodeo 4', value: rodeoImageUrls[3]},
+                {label: 'Rodeo 5', value: rodeoImageUrls[4]},
+                {label: 'Rodeo 6', value: rodeoImageUrls[5]},
+                {label: 'Rodeo 7', value: rodeoImageUrls[6]},
+                {label: 'Rodeo 8', value: rodeoImageUrls[7]},
+                {label: 'Rodeo 9', value: rodeoImageUrls[8]},
+              ]}
+            />
+          </Container>
         </form>
       </DialogContent>
       <DialogActions>
