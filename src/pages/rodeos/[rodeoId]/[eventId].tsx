@@ -6,7 +6,10 @@ import TabPanel from '@common/dataDisplay/TabPanel';
 import BasicTable from '@common/dataDisplay/BasicTable';
 import EventDetails from '@features/RodeoDashboard/EventView/EventDetails';
 import LeftNavLayout from '@common/layouts/LeftNavLayout'
-import RodeoDashBoardLayout from '@features/RodeoDashboard/RodeoDashboardLayout'
+import RodeoDashboardLayout from '@features/RodeoDashboard/RodeoDashboardLayout'
+import { buildEventTitleString } from "@common/utils";
+import OpenModalButton from '@common/navigation/OpenModalButton';
+import CreateEventFormInterface from '@features/RodeoDashboard/RodeoForms/CreateEventFormInterface';
 
 type Props = {
   event: nRodeoEvent;
@@ -21,13 +24,16 @@ export async function getServerSideProps(context) {
     include: {
       entries: {
         include: {participant: true}
+      },
+      rodeo: {
+        select: {name: true}
       }
     }
   });
 
   return {
     props: {
-      event: JSON.parse(JSON.stringify(event))
+      event: JSON.parse(JSON.stringify(event)),
     }
   }
 }
@@ -42,33 +48,47 @@ const EventView: NextPageWithLayout<Props> = ({event}) => {
   )
 
   return (
-    <TabPanel
-      tabNames={['Event details', `Entries (${participantData.length})`, 'Rankings']}
+    <RodeoDashboardLayout
+      pageTitle={buildEventTitleString(event)}
+      back={{
+        path: `/rodeos/${encodeURIComponent(event.rodeoId)}`,
+        linkText: event.rodeo.name,
+      }}
     >
-      <EventDetails event={event} />
-      {
-        !!participantData.length ? (
-          <BasicTable
-            head={['Name', 'Horse', 'Time']}
-            data={participantData}
-          />
-        ) : (
-          "No participants have signed up for this event yet"
-        )
-      }
-      <div>
-        [event rankings]
-      </div>
-    </TabPanel>
+      <TabPanel
+        tabNames={['Event details', `Entries (${participantData.length})`, 'Rankings']}
+      >
+        <>
+          <EventDetails event={event} />
+          <OpenModalButton 
+            buttonText='Edit event'
+          >
+            <CreateEventFormInterface
+              editing={true}
+              event={event}
+            />
+          </OpenModalButton>
+        </>
+        {!!participantData.length ? (
+            <BasicTable
+              head={['Name', 'Horse', 'Time']}
+              data={participantData}
+            />
+          ) : (
+            "No participants have signed up for this event yet"
+          )}
+        <div>
+          [event rankings]
+        </div>
+      </TabPanel>
+    </RodeoDashboardLayout>
   )
 }
 
 EventView.getLayout = function getLayout(page: ReactElement) {
   return (
     <LeftNavLayout>
-      <RodeoDashBoardLayout>
-        {page}
-      </RodeoDashBoardLayout>
+      {page}
     </LeftNavLayout>
   )
 };

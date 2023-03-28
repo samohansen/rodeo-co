@@ -20,7 +20,7 @@ const LoginLayout = ({ children }) => {
         }}
       >
         <Box className={styles.imgStyle}>
-            <div className={styles.img}></div>
+          <div className={styles.img}></div>
         </Box>
         <Paper sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
           <Box sx={{ textAlign: 'center', py: '10'}}>

@@ -1,67 +1,60 @@
-import { PrismaClient } from '@prisma/client'
-import { useState } from "react";
-import { formatDate } from "@common/utils";
-import Grid from "@mui/material/Grid";
-import RodeoCard from '@features/RodeoDashboard/RodeoCard';
-import { useRouter } from 'next/router';
-import OpenModalButton from '@common/navigation/OpenModalButton';
-import CreateRodeoFormModal from '@features/RodeoDashboard/CreateRodeoFormModal';
-import RodeosContext from '@features/RodeoDashboard/RodeosContext'
-import type { nRodeo } from '@common/types';
-import type { NextPageWithLayout } from '@common/types';
-import LeftNavLayout from '@common/layouts/LeftNavLayout'
 import type { ReactElement } from 'react';
-import RodeoDashBoardLayout from '@features/RodeoDashboard/RodeoDashboardLayout'
+import type { nRodeo, NextPageWithLayout } from '@common/types';
+import { PrismaClient } from '@prisma/client'
+import { useMemo } from "react";
+import { partitionRodeos } from "@common/utils";
+import OpenModalButton from '@common/navigation/OpenModalButton';
+import LeftNavLayout from '@common/layouts/LeftNavLayout'
+import TabPanel from '@common/dataDisplay/TabPanel';
+import RodeoDashboardLayout from '@features/RodeoDashboard/RodeoDashboardLayout'
+import CreateRodeoFormInterface from '@features/RodeoDashboard/RodeoForms/CreateRodeoFormInterface';
+import RodeosGrid from '@features/RodeoDashboard/RodeosGrid';
 
 type Props = {
-  initialRodeos: nRodeo[];
+  rodeos: nRodeo[];
 }
 
 const prisma = new PrismaClient()
 export async function getServerSideProps () {
-  const rodeos = await prisma.rodeo.findMany();
+  const rodeos = await prisma.rodeo.findMany({
+    orderBy: { date: 'asc' }
+  });
 
   return {
     props: {
-      initialRodeos: rodeos.map(rodeo => ({
-        ...rodeo,
-        date: formatDate(rodeo.date)
-      })),
+      rodeos: JSON.parse(JSON.stringify(rodeos))
     }
   }
 }
 
-const RodeoDashboard: NextPageWithLayout<Props> = ({initialRodeos = []}) => {
-  const router = useRouter();
-  const [rodeos, setRodeos] = useState(initialRodeos);
+const RodeoDashboard: NextPageWithLayout<Props> = ({rodeos = []}) => {
+  const [pastRodeos, futureRodeos] = useMemo(
+    () => partitionRodeos(rodeos), 
+    [rodeos]
+  );
 
-  return (<>
-    <RodeosContext.Provider value={{rodeos, setRodeos}}>
-      <Grid container spacing={3}>
-        {rodeos?.map(rodeo => (
-          <Grid item xs={12} sm={6} md={4} key={rodeo.id}>
-            <RodeoCard 
-              rodeo={rodeo}
-              onClick={() => router.push(`/rodeos/${encodeURIComponent(rodeo.id)}`)}
-            />
-          </Grid>
-        ))}
-      </Grid>
-      <OpenModalButton 
-        buttonText='Add new rodeo'
-      >
-        <CreateRodeoFormModal/>
-      </OpenModalButton>
-    </RodeosContext.Provider>
-  </>);
+  return (
+    <RodeoDashboardLayout
+      pageTitle='Rodeos'
+      rightHeaderComponent={
+        <OpenModalButton buttonText='Add new rodeo'>
+          <CreateRodeoFormInterface/>
+        </OpenModalButton>
+      }
+    >
+      <TabPanel tabNames={['Upcoming', 'Past', 'All']}>
+        <RodeosGrid rodeos={futureRodeos}/>
+        <RodeosGrid rodeos={pastRodeos?.reverse()}/>
+        <RodeosGrid rodeos={rodeos}/>
+      </TabPanel>
+    </RodeoDashboardLayout>
+  );
 };
 
 RodeoDashboard.getLayout = function getLayout(page: ReactElement) {
   return (
     <LeftNavLayout>
-      <RodeoDashBoardLayout>
-        {page}
-      </RodeoDashBoardLayout>
+      {page}
     </LeftNavLayout>
   )
 };

@@ -8,7 +8,7 @@ import type { TextFieldProps } from "@mui/material";
 type Props = {
   name: string;
   label: string
-  control: Control;
+  control: Control | any;
   rules?: RegisterOptions;
 }
 

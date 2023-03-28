@@ -1,6 +1,6 @@
 import PageDetails from "@common/dataDisplay/PageDetails";
 import type { Rodeo } from "@prisma/client";
-import { buildEventAgeString, formatDate } from "@common/utils";
+import { formatDate } from "@common/utils";
 
 type Props = {
   location: Rodeo['location'];

@@ -2,41 +2,53 @@ import { ReactNode } from "react";
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from '@mui/material/Link';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import ChevronLeft from '@mui/icons-material/ChevronLeft';
 
 type Props = {
+  pageTitle: string;
+  back?: {
+    linkText?: string;
+  } & ({
+    path: string;
+    onClick?: never;
+  } | {
+    path?: never;
+    onClick: () => void;
+  })
+  rightHeaderComponent?: any;
   children?: ReactNode | ReactNode[];
 }
 
-// this is all the grossest possible hack
-const RodeoDashboardLayout: React.FC<Props> = ({children}) => {
-  const router = useRouter();
-  const [breadcrumbs, setBreadcrumbs] = useState(null);
-
-  useEffect(() => {
-    if (router) {
-      const linkPath = router.pathname.split('/');
-      linkPath.shift();
-      linkPath.shift(); // clear base "rodeo" out
-
-      const pathArray = linkPath.map((path, i) => {
-        return { breadcrumb: path, href: '/' + linkPath.slice(0, i + 1).join('/') };
-      });
-
-      setBreadcrumbs(pathArray);
-    }
-  }, [router]);
-  return (<>
-    {
-      !breadcrumbs || breadcrumbs.length === 0 ? (
-        <h1>Rodeos</h1>
-      ) : breadcrumbs.length === 1 ? (
-        <h1>[rodeoName]</h1>
-      ) : breadcrumbs.length === 2 ? (
-        <h1><Link>[rodeoName]</Link> {'>'} [EventName]</h1>
-      ) : null
-    }
-    {children}
-  </>
+const RodeoDashboardLayout: React.FC<Props> = ({children, pageTitle, back, rightHeaderComponent}) => {
+  return (
+    <Box>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider', marginInline: 3, paddingTop: 3, paddingBottom: 2}}>
+        <Stack direction='row' justifyContent='space-between' alignItems='center'>
+          <Box>
+            {back ? (
+              <Link underline="hover" variant='body2' {...(
+                back.path && {href: back.path} || 
+                back.onClick && {onClick: back.onClick, component: 'button'}
+              )}>
+                <Stack direction="row" alignItems="center">
+                  <ChevronLeft/>
+                  {back.linkText}
+                </Stack>
+              </Link>
+            ) : null}
+            <h1 style={{margin: 0}}>{pageTitle}</h1>
+          </Box>
+          <Box>
+            {rightHeaderComponent}
+          </Box>
+        </Stack>
+      </Box>
+      <Box> 
+        {children}
+      </Box>
+    </Box>
   );
 };
 
