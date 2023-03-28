@@ -31,6 +31,7 @@ const CreateRodeoModal: React.FC<Props> = ({defaultValues, onSubmit, onClose}) =
     resolver: yupResolver(validationSchema)
   })
 
+  
   return (
     <Dialog open={true} onClose={onClose}>
       <DialogTitle>Create rodeo</DialogTitle>
