@@ -41,7 +41,7 @@ const CreateEventModal: React.FC<Props> = ({defaultValues, onSubmit, onClose}) =
           <Container
           sx={{
             display: 'flex',
-            flexWrap: 'wrap',
+            flexDirection: 'column',
             gap: '10px', /* row-gap column gap */
             rowGap: '10px',
             columnGap: '20px',
