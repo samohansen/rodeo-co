@@ -24,7 +24,7 @@ const ADMIN_MENU_ITEMS: LeftNavMenuItem[] = [{
   path: '/rodeos',
   icon: <EventAvailableIcon />
 }, {
-  label: 'Participants',
+  label: 'Participants - Coming Soon!',
   path: '/participants',
   icon: <PeopleIcon />
 }];
