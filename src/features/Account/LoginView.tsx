@@ -26,7 +26,7 @@ const LoginView = () => {
               fontSize: 'xl',
               fontWeight: 'bold',
               paddingTop: '4',
-              fontFamily: 'Poppins, sans-serif',
+              fontFamily: 'inherit',
             }}
           >
             Welcome to Rodeo Co
@@ -35,7 +35,7 @@ const LoginView = () => {
               width: '75%',
               margin: 'auto',
               color: 'text.secondary',
-              fontFamily: 'Poppins, sans-serif',
+              fontFamily: 'inherit',
             }}
           >
             {isLoginPage ? 'Log in' : 'Register'} to browse or create rodeos and events.
@@ -45,7 +45,7 @@ const LoginView = () => {
           {isLoginPage ? <LoginForm/> : <RegisterForm/>}
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="body1" align="center" gutterBottom sx={{color: 'text.secondary'}}>
+          <Typography variant="body1" align="center" gutterBottom sx={{color: 'text.secondary', fontFamily: 'inherit'}}>
             {isLoginPage ? <>
               Don't have an account yet?{' '}
               <Link legacyBehavior href={'/register'}>

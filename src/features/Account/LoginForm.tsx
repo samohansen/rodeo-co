@@ -1,9 +1,12 @@
 import Image from 'next/image'
-import { Grid, Button } from '@mui/material/';
+import { Grid, TextField, Button, Typography } from '@mui/material/';
+import {HiFingerPrint, HiAtSymbol} from 'react-icons/hi';
+import { InputAdornment } from '@mui/material';
 import {useSession, signIn, signOut} from 'next-auth/react';
 import {useFormik} from 'formik';
 import { loginValidate } from './validate';
 import { buttonStyle } from './loginTheme';
+
 
 const LoginForm = () => {
   const formik = useFormik({
@@ -16,101 +19,115 @@ const LoginForm = () => {
   });
 
   async function onSubmit(values){
+    alert(values.email + " " + values.password);
     console.log(values);
+    // add login logic here
+
+    // include some hardcoded test accounts
   }
   
-  // Handler Functions (Google, GitHub, etc.)
-  async function handleGoogleSignin() { signIn('google', {callbackUrl: 'https://www.rodeoco.live'}); }
-  async function handleGithubSignin() { signIn('github', {callbackUrl: 'https://www.rodeoco.live'}); }
-  async function handleAppleSignin() { signIn('apple', {callbackUrl: 'https://www.rodeoco.live'}); }
-  async function handleFacebookSignin() { signIn('facebook', {callbackUrl: 'https://www.rodeoco.live'}); }
-  async function handleAuth0Signin() { signIn('auth0', {callbackUrl: 'https://www.rodeoco.live'}); }
-
+  // Google Handler Function
+  async function handleGoogleSignin() {
+    signIn('google',{callbackUrl: 'https://www.rodeoco.live/'});
+  }
+  // GitHub Handler Function
+  async function handleGithubSignin() {
+    signIn('github',{callbackUrl: 'https://www.rodeoco.live/'});
+  }
 
   return (
+    <form onSubmit={formik.handleSubmit}>
       <Grid container direction="column" spacing={2} sx={{fontFamily:'Poppins, sans-serif'}} >
-       
-       {/* Google Sign In Button */}
+        {/* Email field */}
+        <Grid item xs={12}>
+          <TextField
+            error= {formik.errors.email && formik.touched.email ? true : false}
+            variant="outlined"
+            label="Email"
+            name="email"
+            fullWidth
+            sx={{fontFamily:'Poppins, sans-serif'}}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <HiAtSymbol />
+                </InputAdornment>
+              ),
+            }}
+            {...formik.getFieldProps('email')}
+          />
+        </Grid>
+
+        {/* Password field */}
+        <Grid item xs={12}>
+          <TextField
+            error= {formik.errors.password && formik.touched.password ? true : false}
+            variant="outlined"
+            label="Password"
+            name="password"
+            type="password"
+            fullWidth
+            sx={{fontFamily:'Poppins, sans-serif'}}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <HiFingerPrint />
+                </InputAdornment>
+              ),
+              }}
+            {...formik.getFieldProps('password')}
+          />
+        </Grid>
+
+        {/* Login Button */}
         <Grid item xs={12}>
           <Button 
-            size = "large"
+            type="submit" 
+            variant="contained" 
+            color="inherit" fullWidth 
+            sx={{
+              ":hover": {backgroundColor: '#9b5729'},
+              background: '#CF7F49',
+              color: 'white',
+              }}>
+            Login
+          </Button>
+        </Grid>
+        
+        {/* Google Sign In Button */}
+        <Grid item xs={12}>
+          <Button 
             onClick={handleGoogleSignin}
+            size = "large"
             variant="outlined" 
             fullWidth
-            sx={ buttonStyle }
-              >
+            sx= { buttonStyle }
+            >
               <Image src={'/google.svg'} alt="Google" width={20} height={20} />
               &nbsp;
               Sign In with Google 
-          </Button>
-        </Grid>
-
-        {/* Apple Sign In Button */}
-        <Grid item xs={12}>
-          <Button 
-            size = "large"
-            onClick={handleAppleSignin}
-            variant="outlined" 
-            fullWidth
-            sx={ buttonStyle }
-              >
-              <Image src={'/apple.svg'} alt="Apple" width={22} height={22} />
-              &nbsp;
-              Sign In with Apple   
-              &nbsp;
-          </Button>
-        </Grid>
-
-        {/* Facebook Sign In Button */}
-        <Grid item xs={12}>
-          <Button 
-            size = "large"
-            onClick={handleFacebookSignin}
-            variant="outlined" 
-            fullWidth
-            sx={ buttonStyle }
-              >
-              <Image src={'/facebook.svg'} alt="Facebook" width={20} height={20} />
-              &nbsp;
-              Sign In with Facebook   
               &nbsp;
           </Button>
         </Grid>
 
         {/* GitHub Sign In Button */}
         <Grid item xs={12}>
-          <Button 
-            size = "large"
-            onClick={handleGithubSignin}
-            variant="outlined" 
-            fullWidth
-            sx={ buttonStyle }
-            >
+        <Button 
+          onClick={handleGithubSignin}
+          size = "large"
+          variant="outlined" 
+          fullWidth
+          sx={ buttonStyle }
+          >
             <Image src={'/github.svg'} alt="Git" width={25} height={25} />
             &nbsp;
             Sign In with Github 
-          </Button>
-        </Grid>
-
-        {/* Auth0 Sign In Button */}
-        <Grid item xs={12}>
-          <Button 
-            size = "large"
-            onClick={handleAuth0Signin}
-            variant="outlined" 
-            fullWidth
-            sx={ buttonStyle }
-              >
-              <Image src={'/auth0.svg'} alt="Auth0" width={22} height={22} />
-              &nbsp;
-              Sign In with Auth0   
-              &nbsp;
+            &nbsp;
           </Button>
         </Grid>
 
       </Grid>
-
-      
+    </form>
   );
 }
 
