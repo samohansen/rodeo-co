@@ -5,56 +5,44 @@ import prisma from 'src/prisma';
 import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
-// NEED TO IMPLEMENT:
-import FacebookProvider from 'next-auth/providers/facebook';
-import Auth0Provider from 'next-auth/providers/auth0';
-
+import { compare } from 'bcryptjs';
 
 const options = {
     
   providers: [
     CredentialsProvider({
       // The name to display on the sign in form (e.g. 'Sign in with...')
-      name: 'Rodeo Co',
-      // The credentials is used to generate a suitable form on the sign in page.
-      // You can specify whatever fields you are expecting to be submitted.
-      // e.g. domain, username, password, 2FA token, etc.
-      // You can pass any HTML attribute to the <input> tag through the object.
+      name: 'credentials',
       credentials: {
-        email: {
-          label: 'email',
-          type: 'email',
-          placeholder: 'jsmith@example.com',
-        },
-        password: { label: 'Password', type: 'password' }
+        email: { label: "Email", type: "text" },
+        password: {  label: "Password", type: "password" }
       },
-      async authorize(credentials, req) {
-        const payload = {
-          email: credentials.email,
-          password: credentials.password,
-        };
+      async authorize(credentials) {
+        console.log('authorize method called');
+        if (!prisma) { throw new Error('Prisma connection not established'); }
 
-        const res = await fetch('https://cloudcoders.azurewebsites.net/api/tokens', {
-          method: 'POST',
-          body: JSON.stringify(payload),
-          headers: {
-            'Content-Type': 'application/json',
-          },
+        // check user exists
+        const user = await prisma.user.findUnique({
+          where: { email: credentials.email, },
         });
-
-        const user = await res.json();
-        if (!res.ok) {
-          throw new Error(user.message);
-        }
-        // If no error and we have user data, return it
-        if (res.ok && user) {
-          return user;
+        
+        if(!user) {
+          throw new Error('User not found');
         }
 
-        // Return null if user data could not be retrieved
-        return null;
-      },
-    }),
+        // compare password
+        const checkPassword = await compare(credentials.password, user.password);
+        if (checkPassword) {
+          console.log('password correct (matches DB hash)');
+        }
+
+        // incorrect password
+        if(!checkPassword || user.email !== credentials.email) {
+          throw new Error('Username & password do not match');
+        }
+
+        return user;
+      }}),
 
     GitHubProvider({
       clientId: process.env.GITHUB_ID,
@@ -70,19 +58,11 @@ const options = {
           response_type: "code"
         }
       }
-    }),
-    FacebookProvider({
-      clientId: process.env.FACEBOOK_ID,
-      clientSecret: process.env.FACEBOOK_SECRET,
-    }),
-    Auth0Provider({
-      clientId: process.env.AUTH0_CLIENT_ID,
-      clientSecret: process.env.AUTH0_CLIENT_SECRET,
-      issuer: process.env.AUTH0_ISSUER
     })
-
   ],
-    
+  pages: {
+    signIn: '../../login',
+  },
   adapter: PrismaAdapter(prisma),
   secret: process.env.NEXTAUTH_SECRET,
 };

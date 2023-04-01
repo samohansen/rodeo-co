@@ -2,10 +2,11 @@ import Image from 'next/image'
 import { Grid, TextField, Button, Typography } from '@mui/material/';
 import {HiFingerPrint, HiAtSymbol} from 'react-icons/hi';
 import { InputAdornment } from '@mui/material';
-import {useSession, signIn, signOut} from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import {useFormik} from 'formik';
 import { loginValidate } from './validate';
 import { buttonStyle } from './loginTheme';
+import { getSession } from 'next-auth/react';
 
 
 const LoginForm = () => {
@@ -19,12 +20,20 @@ const LoginForm = () => {
   });
 
   async function onSubmit(values){
-    alert(values.email + " " + values.password);
-    console.log(values);
-    // add login logic here
+    console.log(`onSubmit function called. values: \n ${values.email} \n ${values.password}`);
 
-    // include some hardcoded test accounts
+    const status = await signIn('credentials', {
+      // redirect: false,
+      email: values.email,
+      password: values.password,
+      callbackUrl: 'http://localhost:3000/',
+    });
+
+    console.log(`NextAuth signIn function finished. Status:`);
+    console.log(status);
   }
+  // "email": "samuelhansen16@gmail.com",
+  // "password": "admin123"
   
   // Google Handler Function
   async function handleGoogleSignin() {
@@ -38,6 +47,7 @@ const LoginForm = () => {
   return (
     <form onSubmit={formik.handleSubmit}>
       <Grid container direction="column" spacing={2} sx={{fontFamily:'Poppins, sans-serif'}} >
+        
         {/* Email field */}
         <Grid item xs={12}>
           <TextField

@@ -1,48 +1,43 @@
-// import { PrismaClient } from '@prisma/client';
-// import { hash } from 'bcryptjs';
+import { PrismaClient } from '@prisma/client';
+import { hash } from 'bcryptjs';
 
-// const prisma = new PrismaClient();
 
-// export default async function handler(req, res) {
-// try {
-// // only post method is accepted
-// if (req.method !== 'POST') {
-// return res.status(405).json({ message: 'HTTP method not valid only POST Accepted' });
-// }
+export default async function handler(req, res) {
+    const prisma = new PrismaClient();
 
-// if (!req.body) {
-//   return res.status(404).json({ error: "Don't have form data...!" });
-// }
+    if (req.method !== 'POST') {
+        return res.status(405).json({message: 'HTTP method not valid only POST Accepted'});
+    }
 
-// const { username, email, password } = req.body;
+    if (!req.body) {
+        return res.status(404).json({error: "Don't have form data."});
+    }
 
-// // check duplicate users
-// const checkexisting = await prisma.user.findUnique({
-//   where: {
-//     email,
-//   },
-// });
+    const {username, email, password} = req.body;
 
-// if (checkexisting) {
-//   return res.status(422).json({ message: 'User Already Exists...!' });
-// }
+    // check duplicate email
+    const checkexisting = await prisma.user.findUnique({
+        where: {
+            email,
+        },
+    });
 
-// // hash password
-// const hashedPassword = await hash(password, 12);
-// const newUser = await prisma.user.create({
-//   data: {
-//     username,
-//     email,
-//     password: hashedPassword,
-//   },
-// });
+    if (checkexisting) {
+        return res.status(422).json({message: 'Email Already Exists.'});
+    }
 
-// res.status(201).json({ status: true, user: newUser });
-// } catch (error) {
-// console.error(error);
-// res.status(500).json({ message: 'Something went wrong' });
-// }
-// }
 
-// empty export statement (temporary)
-export {};
+    // hash password
+    const hashedPassword = await hash(password, 12);
+
+    const newUser = await prisma.user.create({
+        data: {
+            name: username,
+            email: email,
+            password: hashedPassword,
+        }
+    });
+
+    res.status(201).json({status: true, user: newUser});
+
+}
