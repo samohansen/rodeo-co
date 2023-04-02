@@ -9,7 +9,7 @@ import BasicBreadcrumbs from '@common/navigation/Breadcrumbs'
 const MainToolbar: React.FC = () => {
   const { data: session, status } = useSession();
 
-  return <>
+  return (
     <AppBar position="fixed" sx={{bgcolor:'white', zIndex: (theme) => theme.zIndex.drawer + 1}}>
       <Toolbar sx={{ justifyContent: 'space-between' }}>
         <a href='/'> <img src={logo.src} alt="logo" width="150" height="45" /></a>
@@ -34,7 +34,7 @@ const MainToolbar: React.FC = () => {
         )}
       </Toolbar>
     </AppBar>
-  </>
-}
+  )
+};
 
 export default MainToolbar;

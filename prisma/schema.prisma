@@ -80,7 +80,7 @@ model Rodeo {
 
   imgSrc    String?
   
-  admin     User     @relation(fields: [adminId], references: [id])
+  admin     User      @relation(fields: [adminId], references: [id], onDelete: Cascade) // deleting an Admin will also delete all related Rodeos
   adminId   String  
 }
 
@@ -94,19 +94,18 @@ model RodeoEvent {
   prize     Int?
   entries   EventEntry[]
 
-  rodeo     Rodeo     @relation(fields: [rodeoId], references: [id])
+  rodeo     Rodeo     @relation(fields: [rodeoId], references: [id], onDelete: Cascade) // deleting a Rodeo will also delete all related Events
   rodeoId   String
 }
 
 model EventEntry {
-  participant   User @relation(fields: [participantId], references: [id])
+  participant   User @relation(fields: [participantId], references: [id], onDelete: Cascade) // deleting a Participant will also delete all related Entries
   participantId String
-  event         RodeoEvent  @relation(fields: [eventId], references: [id])
+  event         RodeoEvent  @relation(fields: [eventId], references: [id], onDelete: Cascade) // deleting an Event will also delete all related Entries
   eventId       String
-  horseName String
-
-  time      Decimal?
-  feePaid   Boolean?  @default(false)
+  horseName     String
+  time          Decimal?
+  feePaid       Boolean?  @default(false)
 
   @@id([participantId, eventId, horseName])
 }
