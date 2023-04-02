@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 
 type Props = {
   tabNames: string[];
+  disabled?: boolean;
   children: ReactNode[];
 }
 
@@ -16,7 +17,7 @@ type Props = {
 // have a key that matches the index of the corresponding tabName (the child components become the "children" prop)
 //   *Only one child component per key. If you want multiple components on a tab, 
 //   *they need to be wrapped and the wrapper given the key
-const TabPanel: React.FC<Props> = ({tabNames, children}) => {
+const TabPanel: React.FC<Props> = ({tabNames, disabled, children}) => {
   const [tabIndex, setTabIndex] = React.useState<number>(0);
 
   const handleTabChange = (event, newTabIndex) => {
@@ -27,7 +28,7 @@ const TabPanel: React.FC<Props> = ({tabNames, children}) => {
     <Box>
       <Box sx={{ borderBottom: 1, borderColor: 'divider', padding: 3, paddingBottom: 0}} >
         <Tabs value={tabIndex} onChange={handleTabChange}>
-          {tabNames.map((tabName, i) => <Tab label={tabName} key={i}/> )}
+          {tabNames.map((tabName) => <Tab label={tabName} key={tabName} disabled={disabled}/> )}
         </Tabs>
       </Box>
       <Box sx={{ padding: 3 }}>

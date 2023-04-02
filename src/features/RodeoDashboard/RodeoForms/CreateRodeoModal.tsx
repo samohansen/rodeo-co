@@ -38,20 +38,22 @@ const CreateRodeoModal: React.FC<Props> = ({defaultValues, onSubmit, onClose}) =
     <Dialog open={true} onClose={onClose}>
       <DialogTitle>Create rodeo</DialogTitle>
       <DialogContent>
-        <DialogContentText>
-          Create a new rodeo. You will be able to add events later.
+        <DialogContentText paddingBottom={2}>
+          Enter key rodeo information here; you'll be able to add events later.
         </DialogContentText>
         <form>
-          <Container sx={{display: 'flex', flexDirection: 'column', gap: '10px', rowGap: '10px', columnGap: '20px'}} >
+          <Container sx={{display: 'flex', flexDirection: 'column', gap: 3, width: '250px'}} >
             <TextInput 
               label="Rodeo name"
               name="name"
               control={control}
+              textFieldProps={{required: true}}
             />
             <TextInput 
               label="Location"
               name="location"
               control={control}
+              textFieldProps={{required: true}}
             />
             <Controller 
               name="date"
@@ -62,20 +64,14 @@ const CreateRodeoModal: React.FC<Props> = ({defaultValues, onSubmit, onClose}) =
                   {...fieldProps}
                   value={fieldProps.value}
                   onChange={e => fieldProps.onChange(e)}
-                  label="Date"
+                  label="Date *"
                   inputRef={ref}
                   renderInput={(params) => <TextField {...params} />}
                 />
               )}
             />
-            <TextInput
-              label="Other info"
-              name="notes"
-              control={control}
-              textFieldProps={{multiline: true}}
-            />
             <SelectInput 
-              label="Rodeo card image"
+              label="Rodeo card image *"
               name="imgSrc"
               control={control}
               menuItems={[
@@ -92,12 +88,18 @@ const CreateRodeoModal: React.FC<Props> = ({defaultValues, onSubmit, onClose}) =
                 {label: 'Rodeo 9', value: rodeoImageUrls[8]},
               ]}
             />
+            <TextInput
+              label="Other info"
+              name="notes"
+              control={control}
+              textFieldProps={{multiline: true}}
+            />
           </Container>
         </form>
       </DialogContent>
-      <DialogActions>
+      <DialogActions sx={{paddingInline: 2, paddingBlockEnd: 2}}>
         <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={handleSubmit(onSubmit)} disabled={isSubmitting}>Submit</Button>
+        <Button onClick={handleSubmit(onSubmit)} disabled={isSubmitting} variant='contained'>Submit</Button>
       </DialogActions>
     </Dialog>
   )
