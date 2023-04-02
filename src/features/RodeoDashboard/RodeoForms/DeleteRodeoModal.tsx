@@ -29,10 +29,10 @@ const DeleteRodeoModal: React.FC<Props> = ({rodeo, onClose}) => {
       <DialogTitle>Delete rodeo</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Deleting a rodeo is risky
+          Are you sure you want to delete this rodeo? It can't be undone!
+          <br/>
+          <strong>Any events and their entries will also be permanently removed.</strong>
         </DialogContentText>
-        are you sure you want to delete this rodeo? It can't be undone
-        [if participants have entered, warnings, etc]
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>

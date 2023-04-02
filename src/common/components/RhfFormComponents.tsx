@@ -63,7 +63,7 @@ export const SelectInput: React.FC<SelectInputProps> = ({
       render={({ field }) => (
         <FormControl>
           <InputLabel id={label}>{label}</InputLabel>
-          <Select {...field} labelId={label}>
+          <Select {...field} labelId={label} label={label}>
             {menuItems.map(menuItem => (
               <MenuItem key={menuItem.value} value={menuItem.value}>
                 {menuItem.label}

@@ -60,7 +60,7 @@ const RodeoView: NextPageWithLayout<Props> = ({rodeo, prevHref}) => {
       }}
       rightHeaderComponent={''}
     >
-      <TabPanel tabNames={['Events List', 'Information']} >
+      <TabPanel tabNames={['Events List', 'Information']} disabled={editingEvents}>
         <>
           <EventsList events={events} editingEvents={editingEvents}/>
           <OpenModalButton buttonText='Add new event' buttonProps={{disabled: editingEvents}} >
@@ -81,7 +81,7 @@ const RodeoView: NextPageWithLayout<Props> = ({rodeo, prevHref}) => {
           <OpenModalButton buttonText='Edit rodeo'>
             <CreateRodeoFormInterface editing={true} rodeo={rodeo} />
           </OpenModalButton>
-          <OpenModalButton buttonText='Delete rodeo'>
+          <OpenModalButton buttonText='Delete rodeo' buttonProps={{color: 'error'}}>
             <DeleteRodeoModal rodeo={rodeo}/>
           </OpenModalButton>
         </>
