@@ -3,11 +3,11 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import { useSession, signOut } from 'next-auth/react';
 import logo from 'public/logo.png';
-import { Divider } from '@mui/material';
+import { Divider, Typography } from '@mui/material';
 import BasicBreadcrumbs from '@common/navigation/Breadcrumbs'
 
 const MainToolbar: React.FC = () => {
-  const {data: session} = useSession();
+  const { data: session, status } = useSession();
 
   return (
     <AppBar position="fixed" sx={{bgcolor:'white', zIndex: (theme) => theme.zIndex.drawer + 1}}>
@@ -23,12 +23,12 @@ const MainToolbar: React.FC = () => {
         </span>
         {session ? (
           <>
-            {session.user.name || ''}
+            <Typography sx={{color: 'black'}}>Session: {session.user.name || ''}</Typography>
             <Button onClick={() => signOut()} sx={{ borderRadius: 'sm', color: '#CF7F49' }}>Sign out</Button>
           </>
         ) : (
           <>
-            <Button href={'/login'} sx={{ marginLeft: 'auto', borderRadius: 'sm', color: '#CF7F49' }}>Log in</Button>
+            <Button href={'/api/auth/signin'} sx={{ marginLeft: 'auto', borderRadius: 'sm', color: '#CF7F49' }}>Log in</Button>
             <Button href={'/register'} sx={{ borderRadius: 'sm', color: '#CF7F49' }}>Sign up</Button>
           </>
         )}

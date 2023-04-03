@@ -1,15 +1,17 @@
-import Head from 'next/head';
-import Link from 'next/link';
 import { Box, Button, Typography } from '@mui/material';
-import {useSession, signOut} from 'next-auth/react';
+import {getSession, useSession, signOut} from 'next-auth/react';
 import type { NextPageWithLayout } from '@common/types';
 import type { ReactElement } from 'react';
 import LeftNavLayout from '@common/layouts/LeftNavLayout';
-import classes from  '../styles/Home.module.css';
 
+const session = getSession();
+
+if (session) {
+  console.log('index.tsx session: ');
+  console.log(session);
+}
 
 const Home: NextPageWithLayout = () => {
-  const {data: session} = useSession();
 
   return (
 <>  

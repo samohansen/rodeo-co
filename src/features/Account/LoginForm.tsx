@@ -2,9 +2,12 @@ import Image from 'next/image'
 import { Grid, TextField, Button, Typography } from '@mui/material/';
 import {HiFingerPrint, HiAtSymbol} from 'react-icons/hi';
 import { InputAdornment } from '@mui/material';
-import {useSession, signIn, signOut} from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import {useFormik} from 'formik';
 import { loginValidate } from './validate';
+import { buttonStyle } from './loginTheme';
+import { getSession } from 'next-auth/react';
+
 
 const LoginForm = () => {
   const formik = useFormik({
@@ -17,8 +20,20 @@ const LoginForm = () => {
   });
 
   async function onSubmit(values){
-    console.log(values);
+    console.log(`onSubmit function called. values: \n ${values.email} \n ${values.password}`);
+
+    const status = await signIn('credentials', {
+      // redirect: false,
+      email: values.email,
+      password: values.password,
+      callbackUrl: '/',
+    });
+
+    console.log(`NextAuth signIn function finished. Status:`);
+    console.log(status);
   }
+  // "email": "samuelhansen16@gmail.com",
+  // "password": "admin123"
   
   // Google Handler Function
   async function handleGoogleSignin() {
@@ -32,8 +47,11 @@ const LoginForm = () => {
   return (
     <form onSubmit={formik.handleSubmit}>
       <Grid container direction="column" spacing={2} sx={{fontFamily:'Poppins, sans-serif'}} >
+        
+        {/* Email field */}
         <Grid item xs={12}>
           <TextField
+            error= {formik.errors.email && formik.touched.email ? true : false}
             variant="outlined"
             label="Email"
             name="email"
@@ -48,14 +66,12 @@ const LoginForm = () => {
             }}
             {...formik.getFieldProps('email')}
           />
-          {formik.errors.email && formik.touched.email ? (
-            <Typography variant="caption" color="error">
-              {formik.errors.email as string}
-            </Typography>
-          ) : null}
         </Grid>
+
+        {/* Password field */}
         <Grid item xs={12}>
           <TextField
+            error= {formik.errors.password && formik.touched.password ? true : false}
             variant="outlined"
             label="Password"
             name="password"
@@ -71,72 +87,55 @@ const LoginForm = () => {
               }}
             {...formik.getFieldProps('password')}
           />
-          {formik.errors.password && formik.touched.password ? (
-            <Typography variant="caption" color="secondary">
-              {formik.errors.password as string}
-            </Typography>
-          ) : null}
         </Grid>
+
+        {/* Login Button */}
         <Grid item xs={12}>
-          <Button type="submit" variant="contained" color="inherit" fullWidth sx={{
-              ":hover": {backgroundColor: '#3C343B'},
+          <Button 
+            type="submit" 
+            variant="contained" 
+            color="inherit" fullWidth 
+            sx={{
+              ":hover": {backgroundColor: '#9b5729'},
               background: '#CF7F49',
               color: 'white',
-              // textTransform: 'none' // Set text transform to none so that the text is not capitalized
               }}>
             Login
           </Button>
         </Grid>
+        
+        {/* Google Sign In Button */}
         <Grid item xs={12}>
-        <Button 
-          onClick={handleGoogleSignin}
-          variant="outlined" 
-          fullWidth
-          sx={{
-              width: '100%',
-              border: '1px solid',
-              borderColor: 'divider',
-              paddingY: '3',
-              display: 'flex',
-              justifyContent: 'center',
-              gap: '2',
-              color: 'text.primary',
-              fontFamily: 'Poppins, sans-serif',
-              textTransform: 'none', // Set text transform to none so that the text is not capitalized
-              '&:hover': {
-              backgroundColor: 'background.paper'
-              }
-          }}
-          >
-            Sign In with Google &nbsp;
-            <Image src={'/google.svg'} alt="Google" width={20} height={20} />
+          <Button 
+            onClick={handleGoogleSignin}
+            size = "large"
+            variant="outlined" 
+            fullWidth
+            sx= { buttonStyle }
+            >
+              <Image src={'/google.svg'} alt="Google" width={20} height={20} />
+              &nbsp;
+              Sign In with Google 
+              &nbsp;
           </Button>
         </Grid>
+
+        {/* GitHub Sign In Button */}
         <Grid item xs={12}>
         <Button 
           onClick={handleGithubSignin}
+          size = "large"
           variant="outlined" 
           fullWidth
-          sx={{
-              width: '100%',
-              border: '1px solid',
-              borderColor: 'divider',
-              paddingY: '3',
-              display: 'flex',
-              justifyContent: 'center',
-              gap: '2',
-              color: 'text.primary',
-              fontFamily: 'Poppins, sans-serif',
-              textTransform: 'none', // Set text transform to none so that the text is not capitalized
-              '&:hover': {
-              backgroundColor: 'background.paper'
-              }
-          }}
+          sx={ buttonStyle }
           >
-            Sign In with Github &nbsp;
             <Image src={'/github.svg'} alt="Git" width={25} height={25} />
+            &nbsp;
+            Sign In with Github 
+            &nbsp;
           </Button>
         </Grid>
+
       </Grid>
     </form>
   );

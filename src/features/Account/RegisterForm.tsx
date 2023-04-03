@@ -26,8 +26,11 @@ const Register = () => {
   return (
     <form onSubmit={formik.handleSubmit}> 
       <Grid container direction="column" spacing={2} >
+
+        {/* Username field */}
         <Grid item xs={12}>
           <TextField
+            error = {formik.errors.username && formik.touched.username ? true : false}
             variant="outlined"
             label="Username"
             name="username"
@@ -41,14 +44,12 @@ const Register = () => {
             }}
             {...formik.getFieldProps('username')}
           />
-          {formik.errors.username && formik.touched.username ? (
-            <Typography variant="caption" color="error">
-              {formik.errors.username as string}
-            </Typography>
-          ) : null}
         </Grid>
+
+        {/* Email field */}
         <Grid item xs={12}>
           <TextField
+            error = {formik.errors.email && formik.touched.email ? true : false}
             variant="outlined"
             label="Email"
             name="email"
@@ -62,14 +63,12 @@ const Register = () => {
             }}
             {...formik.getFieldProps('email')}
           />
-          {formik.errors.email && formik.touched.email ? (
-            <Typography variant="caption" color="error">
-              {formik.errors.email as string}
-            </Typography>
-          ) : null}
         </Grid>
+
+        {/* Password field */}
         <Grid item xs={12}>
           <TextField
+            error = {formik.errors.password && formik.touched.password ? true : false}
             variant="outlined"
             label="Password"
             name="password"
@@ -84,14 +83,12 @@ const Register = () => {
             }}
             {...formik.getFieldProps('password')}
           />
-          {formik.errors.password && formik.touched.password ? (
-            <Typography variant="caption" color="error">
-              {formik.errors.password as string}
-            </Typography>
-          ) : null}
         </Grid>
+
+        {/* Confirm Password field */}
         <Grid item xs={12}>
           <TextField
+            error = {formik.errors.cpassword && formik.touched.cpassword ? true : false}
             variant="outlined"
             label="Confirm password"
             name="cpassword"
@@ -106,12 +103,9 @@ const Register = () => {
             }}
             {...formik.getFieldProps('cpassword')}
           />
-          {formik.errors.cpassword && formik.touched.cpassword ? (
-            <Typography variant="caption" color="error">
-              {formik.errors.cpassword as string}
-            </Typography>
-          ) : null}
         </Grid>
+        
+        {/* Submit Button */}
         <Grid item xs={12}>
           <Button type="submit" variant="contained" color="primary" fullWidth 
             sx={{
