@@ -5,9 +5,8 @@ import { InputAdornment } from '@mui/material';
 import { signIn } from 'next-auth/react';
 import {useFormik} from 'formik';
 import { loginValidate } from './validate';
-import { buttonStyle } from './loginTheme';
-import { getSession } from 'next-auth/react';
-
+import { useRouter } from 'next/router';
+import { oauthButtonStyle, oauthButtonProps } from './loginTheme';
 
 const LoginForm = () => {
   const formik = useFormik({
@@ -16,47 +15,32 @@ const LoginForm = () => {
       password: '',
     },
     validate : loginValidate,
-    onSubmit: onSubmit
+    onSubmit: onSubmitCredentials,
   });
 
-  async function onSubmit(values){
-    console.log(`onSubmit function called. values: \n ${values.email} \n ${values.password}`);
+  const router = useRouter();
+  const callbackUrl = (router.query?.callbackUrl as string) || '/'
 
+  async function onSubmitCredentials(values){
     const status = await signIn('credentials', {
-      // redirect: false,
       email: values.email,
       password: values.password,
-      callbackUrl: '/',
+      callbackUrl: callbackUrl,
     });
+  }
 
-    console.log(`NextAuth signIn function finished. Status:`);
-    console.log(status);
-  }
-  // "email": "samuelhansen16@gmail.com",
-  // "password": "admin123"
-  
-  // Google Handler Function
-  async function handleGoogleSignin() {
-    signIn('google',{callbackUrl: 'https://www.rodeoco.live/'});
-  }
-  // GitHub Handler Function
-  async function handleGithubSignin() {
-    signIn('github',{callbackUrl: 'https://www.rodeoco.live/'});
+  const onSubmitOauth = async (providerId: 'github' | 'google') => {
+    signIn(providerId, { callbackUrl: callbackUrl})
   }
 
   return (
     <form onSubmit={formik.handleSubmit}>
       <Grid container direction="column" spacing={2} sx={{fontFamily:'Poppins, sans-serif'}} >
-        
-        {/* Email field */}
         <Grid item xs={12}>
-          <TextField
+          <TextField variant="outlined" sx={{fontFamily:'Poppins, sans-serif'}} fullWidth
             error= {formik.errors.email && formik.touched.email ? true : false}
-            variant="outlined"
             label="Email"
             name="email"
-            fullWidth
-            sx={{fontFamily:'Poppins, sans-serif'}}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -67,17 +51,12 @@ const LoginForm = () => {
             {...formik.getFieldProps('email')}
           />
         </Grid>
-
-        {/* Password field */}
         <Grid item xs={12}>
-          <TextField
+          <TextField variant="outlined" sx={{fontFamily:'Poppins, sans-serif'}} fullWidth
             error= {formik.errors.password && formik.touched.password ? true : false}
-            variant="outlined"
             label="Password"
             name="password"
             type="password"
-            fullWidth
-            sx={{fontFamily:'Poppins, sans-serif'}}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -88,54 +67,27 @@ const LoginForm = () => {
             {...formik.getFieldProps('password')}
           />
         </Grid>
-
-        {/* Login Button */}
         <Grid item xs={12}>
-          <Button 
-            type="submit" 
-            variant="contained" 
-            color="inherit" fullWidth 
-            sx={{
-              ":hover": {backgroundColor: '#9b5729'},
-              background: '#CF7F49',
-              color: 'white',
-              }}>
-            Login
+          <Button type="submit" variant="contained" color="inherit" fullWidth sx={{ ":hover": {backgroundColor: '#9b5729'}, background: '#CF7F49', color: 'white' }}>
+            Log in
           </Button>
         </Grid>
-        
-        {/* Google Sign In Button */}
         <Grid item xs={12}>
-          <Button 
-            onClick={handleGoogleSignin}
-            size = "large"
-            variant="outlined" 
-            fullWidth
-            sx= { buttonStyle }
-            >
-              <Image src={'/google.svg'} alt="Google" width={20} height={20} />
-              &nbsp;
-              Sign In with Google 
-              &nbsp;
+          <Button onClick={() => onSubmitOauth('google')} sx={oauthButtonStyle} {...oauthButtonProps} >
+            <Image src={'/google.svg'} alt="Google" width={20} height={20}/>
+            <span style={{paddingLeft: '10px'}}>
+              Sign in with Google
+            </span>
           </Button>
         </Grid>
-
-        {/* GitHub Sign In Button */}
         <Grid item xs={12}>
-        <Button 
-          onClick={handleGithubSignin}
-          size = "large"
-          variant="outlined" 
-          fullWidth
-          sx={ buttonStyle }
-          >
+          <Button onClick={() => onSubmitOauth('github')} sx={oauthButtonStyle} {...oauthButtonProps} >
             <Image src={'/github.svg'} alt="Git" width={25} height={25} />
-            &nbsp;
-            Sign In with Github 
-            &nbsp;
+            <span style={{paddingLeft: '10px'}}>
+              Sign in with Github
+            </span>
           </Button>
         </Grid>
-
       </Grid>
     </form>
   );
