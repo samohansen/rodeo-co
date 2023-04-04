@@ -21,7 +21,7 @@ const DeleteRodeoModal: React.FC<Props> = ({rodeo, onClose}) => {
     setIsSubmitting(true)
     await axios.delete(`/api/rodeos/${rodeo.id}`)
     router.replace('/rodeos');
-    // setIsSubmitting(false) // change timing with this
+    // setIsSubmitting(false) // change load UI timing with this?
   }
 
   return (

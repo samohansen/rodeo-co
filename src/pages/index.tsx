@@ -1,19 +1,10 @@
 import { Box, Button, Typography } from '@mui/material';
-import {getSession, useSession, signOut} from 'next-auth/react';
 import type { NextPageWithLayout } from '@common/types';
 import type { ReactElement } from 'react';
 import LeftNavLayout from '@common/layouts/LeftNavLayout';
 import styles from '@features/Home.module.css';
 
-const session = getSession();
-
-if (session) {
-  console.log('index.tsx session: ');
-  console.log(session);
-}
-
 const Home: NextPageWithLayout = () => {
-
   return (
     <>  
       <Box className={styles.photoSectionBox}>

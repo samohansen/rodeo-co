@@ -10,7 +10,6 @@ import { registerValidate } from './validate';
 const Register = () => {
   const formik = useFormik({
     initialValues: {
-      username: '',
       email: '',
       password: '',
       cpassword: '',
@@ -27,12 +26,10 @@ const Register = () => {
     <form onSubmit={formik.handleSubmit}> 
       <Grid container direction="column" spacing={2} >
         <Grid item xs={12}>
-          <TextField
+          <TextField variant="outlined" fullWidth
             error = {formik.errors.email && formik.touched.email ? true : false}
-            variant="outlined"
             label="Email"
             name="email"
-            fullWidth
             InputProps={{
               endAdornment: (
                 <InputAdornment position="start">
@@ -43,15 +40,12 @@ const Register = () => {
             {...formik.getFieldProps('email')}
           />
         </Grid>
-        {/* Password field */}
         <Grid item xs={12}>
-          <TextField
+          <TextField variant="outlined" fullWidth
             error = {formik.errors.password && formik.touched.password ? true : false}
-            variant="outlined"
             label="Password"
             name="password"
             type="password"
-            fullWidth
             InputProps={{
               endAdornment: (
                 <InputAdornment position="start">
@@ -64,13 +58,11 @@ const Register = () => {
         </Grid>
         {/* Confirm Password field */}
         <Grid item xs={12}>
-          <TextField
+          <TextField variant="outlined" fullWidth
             error = {formik.errors.cpassword && formik.touched.cpassword ? true : false}
-            variant="outlined"
             label="Confirm password"
             name="cpassword"
             type="password"
-            fullWidth
             InputProps={{
               endAdornment: (
                 <InputAdornment position="start">
@@ -81,25 +73,6 @@ const Register = () => {
             {...formik.getFieldProps('cpassword')}
           />
         </Grid>
-        <Grid item xs={12}>
-          <TextField
-            error = {formik.errors.cpassword && formik.touched.cpassword ? true : false}
-            variant="outlined"
-            label="Confirm password"
-            name="cpassword"
-            type="password"
-            fullWidth
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="start">
-                  <HiFingerPrint />
-                </InputAdornment>
-              ),
-            }}
-            {...formik.getFieldProps('cpassword')}
-          />
-        </Grid>
-        {/* Submit Button */}
         <Grid item xs={12}>
           <Button type="submit" variant="contained" color="primary" fullWidth 
             sx={{ ":hover": {backgroundColor: '#3C343B'}, background: '#CF7F49', color: 'white', }}

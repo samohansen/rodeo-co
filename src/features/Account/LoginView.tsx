@@ -52,10 +52,10 @@ const LoginView = () => {
                 <a className='text-blue-700'>Sign up</a>
               </Link>
             </> : <>
-              Already have an account?{' '}
               <Link legacyBehavior href={'/login'}>
                 <a className='text-blue-700'>Log in</a>
               </Link>
+              {' '}to sign up with Google, or if<br/>you already have an account
             </>}
           </Typography>
         </Grid>

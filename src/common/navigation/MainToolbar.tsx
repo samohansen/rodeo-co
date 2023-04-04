@@ -1,10 +1,8 @@
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
-import { useSession, signOut } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import logo from 'public/logo.png';
-import { Divider, Typography } from '@mui/material';
-import BasicBreadcrumbs from '@common/navigation/Breadcrumbs'
 import CircularProgress from '@mui/material/CircularProgress';
 import AccountMenu from './AccountMenu';
 

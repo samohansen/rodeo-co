@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import LeftNav from "@common/navigation/LeftNav";
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import {getSession, useSession, signOut} from 'next-auth/react';
+import {useSession} from 'next-auth/react';
 
 type Props = {
   children?: ReactNode | ReactNode[];

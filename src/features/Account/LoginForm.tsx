@@ -30,7 +30,7 @@ const LoginForm = () => {
   }
 
   const onSubmitOauth = async (providerId: 'github' | 'google') => {
-    signIn(providerId, { callbackUrl: callbackUrl})
+    signIn(providerId, {callbackUrl: callbackUrl})
   }
 
   return (

@@ -53,6 +53,8 @@ export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
 }
 
+// Sam's work, for reference - I think we can just copy-paste whatever isn't already in there,
+// but I didn't have time to test and I didn't want to break anything
 const options = {
   providers: [
     CredentialsProvider({
