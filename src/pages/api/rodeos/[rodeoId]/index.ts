@@ -8,15 +8,9 @@ export default async function handler(req, res) {
   // create new event, attached to rodeo
   if (req.method === 'POST') {
     try {
-      const { name, time, minAge, maxAge, fee, prize } = req.body;
       const event = await prisma.rodeoEvent.create({
         data: {
-          name,
-          time,
-          minAge,
-          maxAge,
-          fee,
-          prize,
+          ...req.body,
           rodeo: {
             connect: { id: rodeoId }
           }

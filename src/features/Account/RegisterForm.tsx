@@ -26,27 +26,6 @@ const Register = () => {
   return (
     <form onSubmit={formik.handleSubmit}> 
       <Grid container direction="column" spacing={2} >
-
-        {/* Username field */}
-        <Grid item xs={12}>
-          <TextField
-            error = {formik.errors.username && formik.touched.username ? true : false}
-            variant="outlined"
-            label="Username"
-            name="username"
-            fullWidth
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="start">
-                  <HiUser />
-                </InputAdornment>
-              ),
-            }}
-            {...formik.getFieldProps('username')}
-          />
-        </Grid>
-
-        {/* Email field */}
         <Grid item xs={12}>
           <TextField
             error = {formik.errors.email && formik.touched.email ? true : false}
@@ -64,7 +43,6 @@ const Register = () => {
             {...formik.getFieldProps('email')}
           />
         </Grid>
-
         {/* Password field */}
         <Grid item xs={12}>
           <TextField
@@ -84,7 +62,6 @@ const Register = () => {
             {...formik.getFieldProps('password')}
           />
         </Grid>
-
         {/* Confirm Password field */}
         <Grid item xs={12}>
           <TextField
@@ -104,15 +81,28 @@ const Register = () => {
             {...formik.getFieldProps('cpassword')}
           />
         </Grid>
-        
+        <Grid item xs={12}>
+          <TextField
+            error = {formik.errors.cpassword && formik.touched.cpassword ? true : false}
+            variant="outlined"
+            label="Confirm password"
+            name="cpassword"
+            type="password"
+            fullWidth
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="start">
+                  <HiFingerPrint />
+                </InputAdornment>
+              ),
+            }}
+            {...formik.getFieldProps('cpassword')}
+          />
+        </Grid>
         {/* Submit Button */}
         <Grid item xs={12}>
           <Button type="submit" variant="contained" color="primary" fullWidth 
-            sx={{
-              ":hover": {backgroundColor: '#3C343B'},
-              background: '#CF7F49',
-              color: 'white',
-            }}
+            sx={{ ":hover": {backgroundColor: '#3C343B'}, background: '#CF7F49', color: 'white', }}
           >
             Register
           </Button>
