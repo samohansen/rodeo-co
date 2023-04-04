@@ -1,10 +1,12 @@
 import Image from 'next/image'
-import { Grid, TextField, Button, Typography } from '@mui/material/';
+import { Grid, TextField, Button, Typography, Divider } from '@mui/material/';
 import {HiFingerPrint, HiAtSymbol} from 'react-icons/hi';
 import { InputAdornment } from '@mui/material';
-import {useSession, signIn, signOut} from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import {useFormik} from 'formik';
 import { loginValidate } from './validate';
+import { useRouter } from 'next/router';
+import { oauthButtonStyle, oauthButtonProps } from './loginTheme';
 
 const LoginForm = () => {
   const formik = useFormik({
@@ -13,32 +15,32 @@ const LoginForm = () => {
       password: '',
     },
     validate : loginValidate,
-    onSubmit: onSubmit
+    onSubmit: onSubmitCredentials,
   });
 
-  async function onSubmit(values){
-    console.log(values);
+  const router = useRouter();
+  const callbackUrl = (router.query?.callbackUrl as string) || '/'
+
+  async function onSubmitCredentials(values){
+    const status = await signIn('credentials', {
+      email: values.email,
+      password: values.password,
+      callbackUrl: callbackUrl,
+    });
   }
-  
-  // Google Handler Function
-  async function handleGoogleSignin() {
-    signIn('google',{callbackUrl: 'https://www.rodeoco.live/'});
-  }
-  // GitHub Handler Function
-  async function handleGithubSignin() {
-    signIn('github',{callbackUrl: 'https://www.rodeoco.live/'});
+
+  const onSubmitOauth = async (providerId: 'github' | 'google') => {
+    signIn(providerId, {callbackUrl: callbackUrl})
   }
 
   return (
     <form onSubmit={formik.handleSubmit}>
       <Grid container direction="column" spacing={2} sx={{fontFamily:'Poppins, sans-serif'}} >
         <Grid item xs={12}>
-          <TextField
-            variant="outlined"
+          <TextField variant="outlined" sx={{fontFamily:'Poppins, sans-serif'}} fullWidth
+            error= {formik.errors.email && formik.touched.email ? true : false}
             label="Email"
             name="email"
-            fullWidth
-            sx={{fontFamily:'Poppins, sans-serif'}}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -48,20 +50,13 @@ const LoginForm = () => {
             }}
             {...formik.getFieldProps('email')}
           />
-          {formik.errors.email && formik.touched.email ? (
-            <Typography variant="caption" color="error">
-              {formik.errors.email as string}
-            </Typography>
-          ) : null}
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            variant="outlined"
+          <TextField variant="outlined" sx={{fontFamily:'Poppins, sans-serif'}} fullWidth
+            error= {formik.errors.password && formik.touched.password ? true : false}
             label="Password"
             name="password"
             type="password"
-            fullWidth
-            sx={{fontFamily:'Poppins, sans-serif'}}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -71,70 +66,27 @@ const LoginForm = () => {
               }}
             {...formik.getFieldProps('password')}
           />
-          {formik.errors.password && formik.touched.password ? (
-            <Typography variant="caption" color="secondary">
-              {formik.errors.password as string}
-            </Typography>
-          ) : null}
         </Grid>
         <Grid item xs={12}>
-          <Button type="submit" variant="contained" color="inherit" fullWidth sx={{
-              ":hover": {backgroundColor: '#3C343B'},
-              background: '#CF7F49',
-              color: 'white',
-              // textTransform: 'none' // Set text transform to none so that the text is not capitalized
-              }}>
-            Login
+          <Button type="submit" variant="contained" color="inherit" fullWidth sx={{ ":hover": {backgroundColor: '#9b5729'}, background: '#CF7F49', color: 'white' }}>
+            Log in
+          </Button>
+        </Grid>
+        {/* todo: add divider here */}
+        <Grid item xs={12}>
+          <Button onClick={() => onSubmitOauth('google')} sx={oauthButtonStyle} {...oauthButtonProps} >
+            <Image src={'/google.svg'} alt="Google" width={20} height={20}/>
+            <span style={{paddingLeft: '10px'}}>
+              Sign in with Google
+            </span>
           </Button>
         </Grid>
         <Grid item xs={12}>
-        <Button 
-          onClick={handleGoogleSignin}
-          variant="outlined" 
-          fullWidth
-          sx={{
-              width: '100%',
-              border: '1px solid',
-              borderColor: 'divider',
-              paddingY: '3',
-              display: 'flex',
-              justifyContent: 'center',
-              gap: '2',
-              color: 'text.primary',
-              fontFamily: 'Poppins, sans-serif',
-              textTransform: 'none', // Set text transform to none so that the text is not capitalized
-              '&:hover': {
-              backgroundColor: 'background.paper'
-              }
-          }}
-          >
-            Sign In with Google &nbsp;
-            <Image src={'/google.svg'} alt="Google" width={20} height={20} />
-          </Button>
-        </Grid>
-        <Grid item xs={12}>
-        <Button 
-          onClick={handleGithubSignin}
-          variant="outlined" 
-          fullWidth
-          sx={{
-              width: '100%',
-              border: '1px solid',
-              borderColor: 'divider',
-              paddingY: '3',
-              display: 'flex',
-              justifyContent: 'center',
-              gap: '2',
-              color: 'text.primary',
-              fontFamily: 'Poppins, sans-serif',
-              textTransform: 'none', // Set text transform to none so that the text is not capitalized
-              '&:hover': {
-              backgroundColor: 'background.paper'
-              }
-          }}
-          >
-            Sign In with Github &nbsp;
+          <Button onClick={() => onSubmitOauth('github')} sx={oauthButtonStyle} {...oauthButtonProps} >
             <Image src={'/github.svg'} alt="Git" width={25} height={25} />
+            <span style={{paddingLeft: '10px'}}>
+              Sign in with Github
+            </span>
           </Button>
         </Grid>
       </Grid>

@@ -12,14 +12,18 @@ const RodeosGrid: React.FC<Props> = ({rodeos}) => {
 
   return (
     <Grid container spacing={3} justifyContent='flex-start'>
-      {rodeos?.map(rodeo => (
-        <Grid item xs={12} sm={6} md={4} key={rodeo.id} sx={{display: 'flex', justifyContent: 'center'}}>
-          <RodeoCard 
-            rodeo={rodeo}
-            onClick={() => router.push(`/rodeos/${encodeURIComponent(rodeo.id)}`)}
-          />
-        </Grid>
-      ))}
+      {rodeos.length ? (
+        rodeos.map(rodeo => (
+          <Grid item xs={12} sm={6} md={4} key={rodeo.id} sx={{display: 'flex', justifyContent: 'center'}}>
+            <RodeoCard 
+              rodeo={rodeo}
+              onClick={() => router.push(`/rodeos/${encodeURIComponent(rodeo.id)}`)}
+            />
+          </Grid>
+        ))
+      ) : (
+        <Grid item>No rodeos</Grid>
+      )}
     </Grid>
   )
 }

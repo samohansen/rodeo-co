@@ -9,15 +9,20 @@ import TabPanel from '@common/dataDisplay/TabPanel';
 import RodeoDashboardLayout from '@features/RodeoDashboard/RodeoDashboardLayout'
 import CreateRodeoFormInterface from '@features/RodeoDashboard/RodeoForms/CreateRodeoFormInterface';
 import RodeosGrid from '@features/RodeoDashboard/RodeosGrid';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@api/auth/[...nextauth]';
 
 type Props = {
   rodeos: nRodeo[];
 }
 
 const prisma = new PrismaClient()
-export async function getServerSideProps () {
+export async function getServerSideProps (context) {
+  const session = await getServerSession(context.req, context.res, authOptions);
+
   const rodeos = await prisma.rodeo.findMany({
-    orderBy: { date: 'asc' }
+    orderBy: { date: 'asc' },
+    where: { adminId: session.user.id }
   });
 
   return {

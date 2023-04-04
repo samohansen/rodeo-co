@@ -18,7 +18,9 @@
     "paths": {
       "@common/*": ["src/common/*"],
       "@features/*": ["src/features/*"],
-    }
+      "@api/*": ["src/pages/api/*"]
+    },
+    "typeRoots": ["types"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

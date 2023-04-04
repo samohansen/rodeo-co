@@ -1,15 +1,26 @@
+import { getServerSession } from 'next-auth/next';
 import { PrismaClient } from '@prisma/client';
+import { authOptions } from '@api/auth/[...nextauth]';
 
 const prisma = new PrismaClient();
 
 export default async function handler(req, res) {
+  const session = await getServerSession(req, res, authOptions);
+  if (!session) {
+    return res.status(401).json({ message: 'Unauthorized.' });
+  }
+
   if (req.method === 'POST') {
     try {
+      const user = await prisma.user.findUnique({
+        where: { email: session.user.email }
+      })
+
       const rodeo = await prisma.rodeo.create({
         data: {
           ...req.body,
           admin: { 
-            connect: { email: 'admin@test.com'}
+            connect: { id: user.id}
           }
         }
       })
@@ -18,7 +29,6 @@ export default async function handler(req, res) {
     } catch (e) {
       res.status(500).json(e);
     }
-
   }
   else {
     res.setHeader('Allow', ['POST']);

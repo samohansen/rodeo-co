@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -6,53 +7,66 @@ import { HiAtSymbol, HiFingerPrint, HiUser } from 'react-icons/hi';
 import { InputAdornment } from '@mui/material';
 import { useFormik } from 'formik';
 import { registerValidate } from './validate';
+import { oauthButtonStyle, oauthButtonProps } from './loginTheme';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/router';
+
 
 const Register = () => {
   const formik = useFormik({
     initialValues: {
-      username: '',
       email: '',
       password: '',
       cpassword: '',
+      userType: '',
     },
     validate: registerValidate,
     onSubmit: onSubmit
   });
 
+  const router = useRouter();
+  const callbackUrl = (router.query?.callbackUrl as string) || '/'
+
   async function onSubmit(values) {
-    console.log(values);
+    const options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(values)
+    }
+
+    await fetch(`/api/auth/signup`, options)
+      .then(res => res.json())
+      .then(data => {
+        if (data.error) {
+          console.log(data.error);
+        }
+        if (data) {
+          if (data.user) {
+            signIn('credentials', {
+              email: values.email,
+              password: values.password,
+              callbackUrl: callbackUrl,
+            });
+          }
+        }
+      })
+
+  }
+
+  const onSubmitOauth = async (providerId: 'github' | 'google') => {
+    signIn(providerId, {callbackUrl: callbackUrl})
   }
 
   return (
     <form onSubmit={formik.handleSubmit}> 
       <Grid container direction="column" spacing={2} >
+        
+        {/* Email field */}
         <Grid item xs={12}>
-          <TextField
-            variant="outlined"
-            label="Username"
-            name="username"
-            fullWidth
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="start">
-                  <HiUser />
-                </InputAdornment>
-              ),
-            }}
-            {...formik.getFieldProps('username')}
-          />
-          {formik.errors.username && formik.touched.username ? (
-            <Typography variant="caption" color="error">
-              {formik.errors.username as string}
-            </Typography>
-          ) : null}
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            variant="outlined"
+          <TextField variant="outlined" fullWidth
+            error = {formik.errors.email && formik.touched.email ? true : false}
             label="Email"
             name="email"
-            fullWidth
             InputProps={{
               endAdornment: (
                 <InputAdornment position="start">
@@ -62,19 +76,15 @@ const Register = () => {
             }}
             {...formik.getFieldProps('email')}
           />
-          {formik.errors.email && formik.touched.email ? (
-            <Typography variant="caption" color="error">
-              {formik.errors.email as string}
-            </Typography>
-          ) : null}
         </Grid>
+
+        {/* Password field */}
         <Grid item xs={12}>
-          <TextField
-            variant="outlined"
+          <TextField variant="outlined" fullWidth
+            error = {formik.errors.password && formik.touched.password ? true : false}
             label="Password"
             name="password"
             type="password"
-            fullWidth
             InputProps={{
               endAdornment: (
                 <InputAdornment position="start">
@@ -84,19 +94,15 @@ const Register = () => {
             }}
             {...formik.getFieldProps('password')}
           />
-          {formik.errors.password && formik.touched.password ? (
-            <Typography variant="caption" color="error">
-              {formik.errors.password as string}
-            </Typography>
-          ) : null}
         </Grid>
+
+        {/* Confirm Password field */}
         <Grid item xs={12}>
-          <TextField
-            variant="outlined"
+          <TextField variant="outlined" fullWidth
+            error = {formik.errors.cpassword && formik.touched.cpassword ? true : false}
             label="Confirm password"
             name="cpassword"
             type="password"
-            fullWidth
             InputProps={{
               endAdornment: (
                 <InputAdornment position="start">
@@ -106,21 +112,52 @@ const Register = () => {
             }}
             {...formik.getFieldProps('cpassword')}
           />
-          {formik.errors.cpassword && formik.touched.cpassword ? (
-            <Typography variant="caption" color="error">
-              {formik.errors.cpassword as string}
-            </Typography>
-          ) : null}
         </Grid>
+
+        {/* Select user type (Participant or Organizer) */}
+        <Grid item xs={12}>
+          <TextField variant="outlined" fullWidth
+            error = {formik.errors.userType && formik.touched.userType ? true : false}
+            label="How will you use Rodeo Co?"
+            name="userType"
+            select
+            SelectProps={{
+              native: true,
+            }}
+            {...formik.getFieldProps('userType')}
+          >
+            <option value=""></option>
+            <option value="participant">I want to enter rodeo events</option>
+            <option value="admin">I am a rodeo producer</option>
+          </TextField>
+        </Grid>
+
+        {/* Register Button */}
         <Grid item xs={12}>
           <Button type="submit" variant="contained" color="primary" fullWidth 
-            sx={{
-              ":hover": {backgroundColor: '#3C343B'},
-              background: '#CF7F49',
-              color: 'white',
-            }}
+            sx={{ ":hover": {backgroundColor: '#9b5729'}, background: '#CF7F49', color: 'white', }}
           >
             Register
+          </Button>
+        </Grid>
+
+        {/* Google Register */}
+        <Grid item xs={12}>
+          <Button onClick={() => onSubmitOauth('google')} sx={oauthButtonStyle} {...oauthButtonProps} >
+            <Image src={'/google.svg'} alt="Google" width={20} height={20}/>
+            <span style={{paddingLeft: '10px'}}>
+              Register with Google
+            </span>
+          </Button>
+        </Grid>
+
+        {/* GitHub Register */}
+        <Grid item xs={12}>
+          <Button onClick={() => onSubmitOauth('github')} sx={oauthButtonStyle} {...oauthButtonProps} >
+            <Image src={'/github.svg'} alt="Git" width={25} height={25} />
+            <span style={{paddingLeft: '10px'}}>
+              Register with Github
+            </span>
           </Button>
         </Grid>
       </Grid>

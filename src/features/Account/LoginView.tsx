@@ -16,7 +16,7 @@ const LoginView = () => {
     <>
       <Head>
         <title>
-          {isLoginPage ? 'Log in' : 'RodeoCo - Register'}
+          {isLoginPage ? 'Log in' : 'Rodeo Co - Register'}
         </title>
       </Head>
       <Grid container direction="column" alignItems="center" spacing={3}>
@@ -26,16 +26,16 @@ const LoginView = () => {
               fontSize: 'xl',
               fontWeight: 'bold',
               paddingTop: '4',
-              fontFamily: 'Poppins, sans-serif',
+              fontFamily: 'inherit',
             }}
           >
-            Welcome to RodeoCo
+            Welcome to Rodeo Co
           </Typography>
           <Typography variant="body1" align="center" gutterBottom sx={{
               width: '75%',
               margin: 'auto',
               color: 'text.secondary',
-              fontFamily: 'Poppins, sans-serif',
+              fontFamily: 'inherit',
             }}
           >
             {isLoginPage ? 'Log in' : 'Register'} to browse or create rodeos and events.
@@ -45,17 +45,17 @@ const LoginView = () => {
           {isLoginPage ? <LoginForm/> : <RegisterForm/>}
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="body1" align="center" gutterBottom sx={{color: 'text.secondary'}}>
+          <Typography variant="body1" align="center" gutterBottom sx={{color: 'text.secondary', fontFamily: 'inherit'}}>
             {isLoginPage ? <>
               Don't have an account yet?{' '}
               <Link legacyBehavior href={'/register'}>
                 <a className='text-blue-700'>Sign up</a>
               </Link>
             </> : <>
-              Already have an account?{' '}
               <Link legacyBehavior href={'/login'}>
                 <a className='text-blue-700'>Log in</a>
               </Link>
+              {' '}to sign up with Google, or if<br/>you already have an account
             </>}
           </Typography>
         </Grid>

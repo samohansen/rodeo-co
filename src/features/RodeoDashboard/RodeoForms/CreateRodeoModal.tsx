@@ -31,8 +31,7 @@ const CreateRodeoModal: React.FC<Props> = ({defaultValues, onSubmit, onClose}) =
     mode: "onBlur",
     defaultValues,
     resolver: yupResolver(validationSchema)
-  })
-
+  });
   
   return (
     <Dialog open={true} onClose={onClose}>
