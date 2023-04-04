@@ -11,9 +11,6 @@ import { oauthButtonStyle, oauthButtonProps } from './loginTheme';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
 
-// NOTE: LocalHost hard-coded here -- need a better way for prod
-// - Sam
-
 
 const Register = () => {
   const formik = useFormik({
@@ -37,7 +34,7 @@ const Register = () => {
       body: JSON.stringify(values)
     }
 
-    await fetch('http://localhost:3000/api/auth/signup', options)
+    await fetch(`${callbackUrl}api/auth/signup`, options)
       .then(res => res.json())
       .then(data => {
         console.log(data);
@@ -48,7 +45,6 @@ const Register = () => {
           router.push('/login');
         }
       })
-
   }
 
   const onSubmitOauth = async (providerId: 'github' | 'google') => {
