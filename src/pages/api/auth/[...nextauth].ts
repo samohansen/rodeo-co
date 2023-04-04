@@ -24,6 +24,9 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     async session({session, token}) {
+      // to include other user info with session, update 
+        // - types/next-auth.d.ts, and
+        // - jwt callback
       session.user.type = token.type;
       session.user.id = token.sub;
       return session;
@@ -33,6 +36,7 @@ export const authOptions: NextAuthOptions = {
     signIn: '/login',
     newUser: '/account',
   },
+  // NOTE: If a user has already logged in with a provider and tries another provider, we will get OAuthAccountNotLinked error
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
@@ -50,6 +54,7 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GITHUB_SECRET,
     }),
     CredentialsProvider({
+      // The name to display on the sign in form (e.g. 'Sign in with...')
       name: 'credentials',
       credentials: {
         email: { label: "Email", type: "text" },
