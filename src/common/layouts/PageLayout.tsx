@@ -6,7 +6,7 @@ type Props = {
   children?: ReactNode | ReactNode[];
 }
 
-// Use this for any page layout without a left nav
+// Use this for any page layout that should never have a leftNav
 // (Including if that page has another layout—in that case, wrap this around it)
 const PageLayout: React.FC<Props> = ({children}) => {
   return (

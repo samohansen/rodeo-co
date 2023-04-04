@@ -1,0 +1,18 @@
+.photoSectionBox {
+  height: calc(100vh / 2.75);
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: center;
+  background-image: url(/desertimage.jpg);
+  background-size: cover;
+  background-position: center;
+  text-align: left;
+  padding-left: 4rem;
+  padding-right: 4rem;
+  font-family: Poppins, sans-serif;
+  @media (min-width: 1000px) {
+      padding-left: 10rem;
+      padding-right: 10rem
+  }
+}

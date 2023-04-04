@@ -8,7 +8,8 @@ const nextConfig = {
         protocol: 'https',
         hostname: '**.imgur.com',
       }
-    ]
+    ],
+    domains: ['lh3.googleusercontent.com']
   }
 }
 

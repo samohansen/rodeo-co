@@ -11,3 +11,15 @@
   position: relative;
   overflow: hidden;
 }
+
+.innerBox {
+  margin: auto;
+  background-color: #F9FAFB;
+  border-radius: md;
+  width: 80%;
+  height: 90%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4;
+  padding: 3
+}
