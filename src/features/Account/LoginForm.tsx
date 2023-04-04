@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { Grid, TextField, Button, Typography } from '@mui/material/';
+import { Grid, TextField, Button, Typography, Divider } from '@mui/material/';
 import {HiFingerPrint, HiAtSymbol} from 'react-icons/hi';
 import { InputAdornment } from '@mui/material';
 import { signIn } from 'next-auth/react';
@@ -72,6 +72,7 @@ const LoginForm = () => {
             Log in
           </Button>
         </Grid>
+        {/* todo: add divider here */}
         <Grid item xs={12}>
           <Button onClick={() => onSubmitOauth('google')} sx={oauthButtonStyle} {...oauthButtonProps} >
             <Image src={'/google.svg'} alt="Google" width={20} height={20}/>
