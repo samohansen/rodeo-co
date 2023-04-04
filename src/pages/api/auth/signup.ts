@@ -28,6 +28,6 @@ export default async function handler(req, res) {
       type: userType,
     }
   });
-
+  
   res.status(201).json({status: true, user: newUser});
 }

@@ -34,17 +34,23 @@ const Register = () => {
       body: JSON.stringify(values)
     }
 
-    await fetch(`${callbackUrl}api/auth/signup`, options)
+    await fetch(`/api/auth/signup`, options)
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         if (data.error) {
           console.log(data.error);
         }
         if (data) {
-          router.push('/login');
+          if (data.user) {
+            signIn('credentials', {
+              email: values.email,
+              password: values.password,
+              callbackUrl: callbackUrl,
+            });
+          }
         }
       })
+
   }
 
   const onSubmitOauth = async (providerId: 'github' | 'google') => {
@@ -122,7 +128,7 @@ const Register = () => {
           >
             <option value=""></option>
             <option value="participant">I want to enter rodeo events</option>
-            <option value="admin">I will be organizing/hosting rodeos</option>
+            <option value="admin">I am a rodeo producer</option>
           </TextField>
         </Grid>
 

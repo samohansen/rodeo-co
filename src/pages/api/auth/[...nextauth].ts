@@ -13,8 +13,7 @@ const prisma = new PrismaClient();
 export const authOptions: NextAuthOptions = {
   debug: true,
   session: {
-    strategy: 'jwt', // force jwt instead of Prisma adapter default (db sessions)
-    // this also should resolve the final roadblock to actually using credential sessions, but we've been down that road unsuccessfully maybe too many times haha
+    strategy: 'jwt', // force jwt instead of Prisma adapter default (db sessions) -- You're a genius Grace!
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   callbacks: {
@@ -25,9 +24,6 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     async session({session, token}) {
-      // to include other user info with session, update 
-        // - types/next-auth.d.ts, and
-        // - jwt callback
       session.user.type = token.type;
       session.user.id = token.sub;
       return session;
@@ -37,7 +33,6 @@ export const authOptions: NextAuthOptions = {
     signIn: '/login',
     newUser: '/account',
   },
-  // NOTE: If a user has already logged in with a provider and tries another provider, we will get OAuthAccountNotLinked error
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
@@ -55,7 +50,6 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GITHUB_SECRET,
     }),
     CredentialsProvider({
-      // The name to display on the sign in form (e.g. 'Sign in with...')
       name: 'credentials',
       credentials: {
         email: { label: "Email", type: "text" },
@@ -85,67 +79,6 @@ export const authOptions: NextAuthOptions = {
       }}),
   ],
   adapter: PrismaAdapter(prisma),
-}
-
-// Sam's work, for reference - I think we can just copy-paste whatever isn't already in there,
-// but I didn't have time to test and I didn't want to break anything
-const options = {
-  providers: [
-    CredentialsProvider({
-      // The name to display on the sign in form (e.g. 'Sign in with...')
-      name: 'credentials',
-      credentials: {
-        email: { label: "Email", type: "text" },
-        password: {  label: "Password", type: "password" }
-      },
-      async authorize(credentials) {
-        console.log('authorize method called');
-        if (!prisma) { throw new Error('Prisma connection not established'); }
-
-        // check user exists
-        const user = await prisma.user.findUnique({
-          where: { email: credentials.email, },
-        });
-        
-        if(!user) {
-          throw new Error('User not found');
-        }
-
-        // compare password
-        const checkPassword = await compare(credentials.password, user.password);
-        if (checkPassword) {
-          console.log('password correct (matches DB hash)');
-        }
-
-        // incorrect password
-        if(!checkPassword || user.email !== credentials.email) {
-          throw new Error('Username & password do not match');
-        }
-
-        return user;
-      }}),
-
-    GitHubProvider({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
-    }),
-    GoogleProvider({
-      clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET,
-      authorization: {
-        params: {
-          prompt: "consent",
-          access_type: "offline",
-          response_type: "code"
-        }
-      }
-    })
-  ],
-  pages: {
-    signIn: '../../login',
-  },
-  adapter: PrismaAdapter(prisma),
-  secret: process.env.NEXTAUTH_SECRET,
 };
 
 export default (req, res): NextApiHandler => NextAuth(req, res, authOptions);
