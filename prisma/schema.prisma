@@ -37,7 +37,6 @@ model Session {
 }
 
 model VerificationToken {
-  id         Int      @id @default(autoincrement())
   identifier String
   token      String   @unique
   expires    DateTime
@@ -48,21 +47,22 @@ model VerificationToken {
 enum UserType {
   admin
   participant
+  new
 }
 
 model User {
   id          String  @id @default(cuid())
   email       String  @unique
   // bandaid solution to get Google Auth working
-  name        String?
-  image       String?
-  emailVerified Boolean?
+  name          String?
+  image         String?
+  emailVerified DateTime?
   // end of Google OAuth fields --
   firstName   String?
   lastName    String?
   birthdate   DateTime?
   password    String? // temporary
-  type        UserType @default(admin)     
+  type        UserType  @default(new)
   rodeos      Rodeo[]       // in practice, should be null for any users of UserType participant
   entries     EventEntry[]  // in practice, should be null for any users of UserType admin
 
