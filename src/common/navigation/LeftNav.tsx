@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState, useEffect} from 'react';
 import type { LeftNavMenuItem } from '@common/types';
 import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
@@ -8,13 +8,13 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import { useRouter } from 'next/navigation';
 import HomeIcon from '@mui/icons-material/Home';
 import PeopleIcon from '@mui/icons-material/People';
-import EventAvailableIcon from '@mui/icons-material/EventAvailable';
+import EmojiEvents from '@mui/icons-material/EmojiEvents';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { useRouter, usePathname } from 'next/navigation';
 
-const LEFT_NAV_WIDTH = 220;
+const LEFT_NAV_WIDTH = 200;
 const ADMIN_MENU_ITEMS: LeftNavMenuItem[] = [{
   label: 'Home',
   path: '/',
@@ -22,29 +22,48 @@ const ADMIN_MENU_ITEMS: LeftNavMenuItem[] = [{
 }, {
   label: 'Rodeos',
   path: '/rodeos',
-  icon: <EventAvailableIcon />
+  icon: <EmojiEvents />
 }, {
-  label: 'Participants - Coming Soon!',
+  label: 'Participants',
   path: '/participants',
   icon: <PeopleIcon />
 }];
+
 const PARTICIPANT_MENU_ITEMS: LeftNavMenuItem[] = [{
   label: 'Home',
   path: '/',
   icon: <HomeIcon/>
 }, {
-  label: 'My events',
+  label: 'Rodeos',
   path: '/rodeos',
-  icon: <EventAvailableIcon />
+  icon: <EmojiEvents />
 }, {
   label: 'Account',
-  path: '/participants',
+  path: '/account',
   icon: <AccountCircleIcon />
 }];
 
-const LeftNav: React.FC = () => {
-  const menuItems = ADMIN_MENU_ITEMS;
+type Props = {
+  userType: 'admin' | 'participant' | 'new';
+}
+
+const LeftNav: React.FC<Props> = ({userType}) => {
+  const menuItems = userType === 'admin' ? ADMIN_MENU_ITEMS : PARTICIPANT_MENU_ITEMS
   const router = useRouter();
+  const activePath = usePathname();
+  const [selected, setSelected] = useState('');
+
+  useEffect(() => {
+    menuItems?.forEach(({path, label}) => {
+      if (activePath.startsWith(path)) {
+        if (activePath === '/') {
+          setSelected('Home')
+        } else {
+          setSelected(label)
+        }
+      }
+    })
+  }, [activePath])
 
   return (
     <Drawer
@@ -56,21 +75,22 @@ const LeftNav: React.FC = () => {
           width: LEFT_NAV_WIDTH,
           boxSizing: 'border-box',
           color: 'black',
-          bgcolor: '#B9CFED' // #CCCCC1
+          bgcolor: '#CCCCC1',
         },
       }}
     >
       <Toolbar />
-      <Divider />
-      <List>
-        {menuItems.map((menuItem) => (
-          <ListItem key={menuItem.label} disablePadding>
-            <ListItemButton href={menuItem.path}>
-            {/* <ListItemButton onClick={() => router.push(menuItem.path)}> */}
-              <ListItemIcon>
-                {menuItem.icon}
+      <List sx={{padding: 0}}>
+        {menuItems?.map(({label, path, icon}) => (
+          <ListItem key={label} disablePadding>
+            <ListItemButton 
+              selected={selected === label}
+              onClick={() => router.push(path)}
+            >
+              <ListItemIcon sx={{minWidth: '40px'}}>
+                {icon}
               </ListItemIcon>
-              <ListItemText primary={menuItem.label} />
+              <ListItemText primary={label} />
             </ListItemButton>
           </ListItem>
         ))}

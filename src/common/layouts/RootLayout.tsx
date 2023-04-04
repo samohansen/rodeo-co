@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import Head from "next/head";
 import MainToolbar from "@common/navigation/MainToolbar";
 import Box from '@mui/material/Box';
@@ -13,7 +13,7 @@ const RootLayout: React.FC<Props> = ({children}) => {
   return (
     <div>
       <Head>
-        <title>RodeoCo</title>
+        <title>Rodeo Co</title>
         <meta name="description" content="Capstone by GF, SH, and HH" />
         <link rel="icon" href="/hat-md.png" />
       </Head>

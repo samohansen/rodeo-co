@@ -12,7 +12,7 @@ const MainToolbar: React.FC = () => {
   const isLoadingUser = status === 'loading';
 
   return (
-    <AppBar position="fixed" sx={{bgcolor:'white', zIndex: (theme) => theme.zIndex.drawer + 1}}>
+    <AppBar sx={{bgcolor:'white', zIndex: (theme) => theme.zIndex.drawer + 1, borderBottom: '1px solid rgba(0, 0, 0, 0.3)'}} elevation={0}>
       <Toolbar sx={{ justifyContent: 'space-between' }}>
         <a href='/'> <img src={logo.src} alt="logo" width="150" height="45" /></a>
         {isLoadingUser ? (

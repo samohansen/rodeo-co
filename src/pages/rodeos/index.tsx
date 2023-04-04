@@ -4,7 +4,7 @@ import { PrismaClient } from '@prisma/client'
 import { useMemo } from "react";
 import { partitionRodeos } from "@common/utils";
 import OpenModalButton from '@common/navigation/OpenModalButton';
-import LeftNavLayout from '@common/layouts/LeftNavLayout'
+import PageLayout from '@common/layouts/PageLayout'
 import TabPanel from '@common/dataDisplay/TabPanel';
 import RodeoDashboardLayout from '@features/RodeoDashboard/RodeoDashboardLayout'
 import CreateRodeoFormInterface from '@features/RodeoDashboard/RodeoForms/CreateRodeoFormInterface';
@@ -58,9 +58,9 @@ const RodeoDashboard: NextPageWithLayout<Props> = ({rodeos = []}) => {
 
 RodeoDashboard.getLayout = function getLayout(page: ReactElement) {
   return (
-    <LeftNavLayout>
+    <PageLayout>
       {page}
-    </LeftNavLayout>
+    </PageLayout>
   )
 };
 

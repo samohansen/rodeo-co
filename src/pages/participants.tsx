@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import type { NextPageWithLayout } from '@common/types';
 import type { ReactElement } from 'react';
-import LeftNavLayout from '@common/layouts/LeftNavLayout';
+import PageLayout from '@common/layouts/PageLayout';
 
 const Participants: NextPageWithLayout = () => {
   return (
@@ -44,7 +44,7 @@ const Participants: NextPageWithLayout = () => {
                 fontFamily: 'inherit',
               }}
             >
-              Participant Tracking
+              Participant tracking
             </Typography>
             <Typography
               variant="h4"
@@ -84,7 +84,7 @@ const Participants: NextPageWithLayout = () => {
           fontFamily: 'inherit',
         }}
       >
-        Track Participants' Season Rankings
+        Track season rankings
       </Typography>
 
       {/* THREE COLUMNS */}
@@ -98,16 +98,17 @@ const Participants: NextPageWithLayout = () => {
           margin: '0 auto',
         }}
       >
+        {/* todo: this column is half the width for some reason */}
         {/* FIRST COLUMN */}
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <Box sx={{ width: '5rem', height: '5rem', mb: 2 }}>
             <img src="/icon1.png" alt="icon1" width={80} height={80} />
           </Box>
           <Typography variant="h6" sx={{ mb: 1, fontWeight: 'bold', color: 'text.secondary', fontFamily: 'inherit' }}>
-            View Event Rankings
+            View rankings
           </Typography>
           <Typography variant="body1" sx={{ mb: 2, fontFamily: 'inherit' }}>
-            See how participants ranked in real time
+            See how entrants ranked in real time
           </Typography>
         </Box>
 
@@ -117,10 +118,10 @@ const Participants: NextPageWithLayout = () => {
             <img src="/icon2.png" alt="icon2" width={80} height={80} />
           </Box>
           <Typography variant="h6" sx={{ mb: 1, fontWeight: 'bold', color: 'text.secondary', fontFamily: 'inherit' }}>
-            Easy to Apply
+            Publish results
           </Typography>
           <Typography variant="body1" sx={{ mb: 2, fontFamily: 'inherit' }}>
-            Participants can join rodeos from the site.
+            When you're ready, update everyone with one click
           </Typography>
         </Box>
 
@@ -130,10 +131,10 @@ const Participants: NextPageWithLayout = () => {
             <img src="/icon3.png" alt="icon3" width={80} height={80} />
           </Box>
           <Typography variant="h6" sx={{ mb: 1, fontWeight: 'bold', color: 'text.secondary', fontFamily: 'inherit' }}>
-            Accessible Information
+            Get insights
           </Typography>
           <Typography variant="body1" sx={{ mb: 2, fontFamily: 'inherit' }}>
-            Events, participants, and rankings will all be stored in one place.
+            See trends across participants, horses, and event types
           </Typography>
         </Box>
       </Box>
@@ -144,9 +145,9 @@ const Participants: NextPageWithLayout = () => {
 
 Participants.getLayout = function getLayout(page: ReactElement) {
   return (
-    <LeftNavLayout>
+    <PageLayout>
       {page}
-    </LeftNavLayout>
+    </PageLayout>
   )
 };
 

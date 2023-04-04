@@ -66,7 +66,7 @@ const LoginView = () => {
 
 LoginView.getLayout = function getLayout(page: ReactElement) {
   return (
-    <PageLayout>
+    <PageLayout includeLeftNav={false}>
       <LoginLayout>
         {page}
       </LoginLayout>

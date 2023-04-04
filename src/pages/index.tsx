@@ -1,7 +1,7 @@
 import { Box, Button, Typography } from '@mui/material';
 import type { NextPageWithLayout } from '@common/types';
 import type { ReactElement } from 'react';
-import LeftNavLayout from '@common/layouts/LeftNavLayout';
+import PageLayout from '@common/layouts/PageLayout';
 import styles from '@features/Home.module.css';
 
 const Home: NextPageWithLayout = () => {
@@ -25,7 +25,7 @@ const Home: NextPageWithLayout = () => {
               fontFamily: 'inherit'
             }}
           >
-            Plan, manage, and wrangle your rodeos with ease - all in one place!
+            Wrangle your rodeos with ease - all in one place!
           </Typography>
           <Button
             href='/rodeos'
@@ -69,7 +69,7 @@ const Home: NextPageWithLayout = () => {
             fontFamily: 'inherit',
           }}
         >
-          Easily Plan and Manage Your Events
+          Easily plan and manage your events
         </Typography>
         {/* THREE COLUMNS */}
         <Box
@@ -83,15 +83,16 @@ const Home: NextPageWithLayout = () => {
           }}
         >
           {/* FIRST COLUMN */}
+          {/* todo: this column is half the width for some reason */}
           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <Box sx={{ width: '5rem', height: '5rem', mb: 2 }}>
               <img src="/icon1.png" alt="icon1" width={80} height={80} />
             </Box>
             <Typography variant="h6" sx={{ mb: 1, fontWeight: 'bold', color: 'text.secondary', fontFamily: 'inherit' }}>
-              Create Rodeos and Add Events
+              Flexible rodeos and events
             </Typography>
             <Typography variant="body1" sx={{ mb: 2, fontFamily: 'inherit' }}>
-              Have full control over the events you create
+              Have full control over the details
             </Typography>
           </Box>
           {/* SECOND COLUMN */}
@@ -100,10 +101,10 @@ const Home: NextPageWithLayout = () => {
               <img src="/icon2.png" alt="icon2" width={80} height={80} />
             </Box>
             <Typography variant="h6" sx={{ mb: 1, fontWeight: 'bold', color: 'text.secondary', fontFamily: 'inherit' }}>
-              Easy to Apply
+              Easy to apply
             </Typography>
             <Typography variant="body1" sx={{ mb: 2, fontFamily: 'inherit' }}>
-              Participants can join your rodeos from the site. No work from you is required.
+              Participants can see your rodeos and enter events autonomously
             </Typography>
           </Box>
           {/* THIRD COLUMN */}
@@ -112,10 +113,10 @@ const Home: NextPageWithLayout = () => {
               <img src="/icon3.png" alt="icon3" width={80} height={80} />
             </Box>
             <Typography variant="h6" sx={{ mb: 1, fontWeight: 'bold', color: 'text.secondary', fontFamily: 'inherit' }}>
-              Accessible Information
+              Accessible information
             </Typography>
             <Typography variant="body1" sx={{ mb: 2, fontFamily: 'inherit' }}>
-              Events, participants, and rankings will all be stored in one place.
+              Events, participants, and rankings are all here
             </Typography>
           </Box>
         </Box>
@@ -174,9 +175,9 @@ const Home: NextPageWithLayout = () => {
 
 Home.getLayout = function getLayout(page: ReactElement) {
   return (
-    <LeftNavLayout>
+    <PageLayout>
       {page}
-    </LeftNavLayout>
+    </PageLayout>
   )
 };
 

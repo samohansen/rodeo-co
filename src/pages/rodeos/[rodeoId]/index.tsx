@@ -9,7 +9,7 @@ import EventsList from '@features/RodeoDashboard/RodeoView/EventsList';
 import OpenModalButton from '@common/navigation/OpenModalButton';
 import CreateEventFormInterface from '@features/RodeoDashboard/RodeoForms/CreateEventFormInterface';
 import CreateRodeoFormInterface from '@features/RodeoDashboard/RodeoForms/CreateRodeoFormInterface';
-import LeftNavLayout from '@common/layouts/LeftNavLayout'
+import PageLayout from '@common/layouts/PageLayout'
 import RodeoDashboardLayout from '@features/RodeoDashboard/RodeoDashboardLayout'
 import Button from '@mui/material/Button';
 import DeleteRodeoModal from '@features/RodeoDashboard/RodeoForms/DeleteRodeoModal';
@@ -92,9 +92,9 @@ const RodeoView: NextPageWithLayout<Props> = ({rodeo, prevHref}) => {
 
 RodeoView.getLayout = function getLayout(page: ReactElement) {
   return (
-    <LeftNavLayout>
+    <PageLayout>
       {page}
-    </LeftNavLayout>
+    </PageLayout>
   )
 };
 
