@@ -5,7 +5,7 @@ import { PrismaClient } from '@prisma/client';
 import TabPanel from '@common/dataDisplay/TabPanel';
 import BasicTable from '@common/dataDisplay/BasicTable';
 import EventDetails from '@features/RodeoDashboard/EventView/EventDetails';
-import LeftNavLayout from '@common/layouts/LeftNavLayout'
+import PageLayout from '@common/layouts/PageLayout'
 import RodeoDashboardLayout from '@features/RodeoDashboard/RodeoDashboardLayout'
 import { buildEventTitleString } from "@common/utils";
 import OpenModalButton from '@common/navigation/OpenModalButton';
@@ -87,9 +87,9 @@ const EventView: NextPageWithLayout<Props> = ({event}) => {
 
 EventView.getLayout = function getLayout(page: ReactElement) {
   return (
-    <LeftNavLayout>
+    <PageLayout>
       {page}
-    </LeftNavLayout>
+    </PageLayout>
   )
 };
 

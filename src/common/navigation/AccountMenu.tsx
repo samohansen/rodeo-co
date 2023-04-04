@@ -38,6 +38,16 @@ export default function AccountMenu({user}) {
     handleClose()
   }
 
+  const getAvatar = (user) => {
+    return user.image ? (
+      <Avatar sx={{ width: 32, height: 32 }} src={user.image}></Avatar>
+    ) : user.name?.length > 1 ? (
+      <Avatar sx={{ width: 32, height: 32 }}>{user.name.split(' ')[0][0]}' '{user.name.split(' ')[1][0]}</Avatar>
+    ) : (
+      <Avatar sx={{ width: 32, height: 32 }}>{user.email.charAt(0).toUpperCase()}</Avatar>
+    )
+  }
+
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -52,7 +62,7 @@ export default function AccountMenu({user}) {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }} src={user?.image}></Avatar>
+            {getAvatar(user)}
           </IconButton>
         </Tooltip>
       </Box>
@@ -92,7 +102,8 @@ export default function AccountMenu({user}) {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem onClick={handleAccountClick}>
-          <Avatar /> {user.email}
+          {getAvatar(user)}
+          {user.email} {/* todo: style this nicely, with an "Account" label and stuff */}
         </MenuItem>
         <Divider />
         {/* <MenuItem onClick={handleClose}>
