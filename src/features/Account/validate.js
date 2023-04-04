@@ -27,8 +27,8 @@ export function registerValidate(values){
   }
   if (!values.password) {
     errors.password = "Required";
-  } else if(values.password.length < 8 || values.password.length > 30) {
-    errors.password = "Must have 8-30 characters";
+  } else if(values.password.length < 6 || values.password.length > 30) {
+    errors.password = "Must have 6-30 characters";
   } else if(values.password.includes(" ")) {
     errors.password = "Invalid Password";
   }
@@ -38,6 +38,10 @@ export function registerValidate(values){
     errors.cpassword = "Passwords do not match."
   } else if (values.cpassword.includes(" ")) {
     errors.cpassword = "Invalid Password"
+  }
+
+  if (!values.userType || values.userType === "") {
+    errors.userType = "Required";
   }
 
   return errors;

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -6,6 +7,13 @@ import { HiAtSymbol, HiFingerPrint, HiUser } from 'react-icons/hi';
 import { InputAdornment } from '@mui/material';
 import { useFormik } from 'formik';
 import { registerValidate } from './validate';
+import { oauthButtonStyle, oauthButtonProps } from './loginTheme';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/router';
+
+// NOTE: LocalHost hard-coded here -- need a better way for prod
+// - Sam
+
 
 const Register = () => {
   const formik = useFormik({
@@ -13,18 +21,45 @@ const Register = () => {
       email: '',
       password: '',
       cpassword: '',
+      userType: '',
     },
     validate: registerValidate,
     onSubmit: onSubmit
   });
 
+  const router = useRouter();
+  const callbackUrl = (router.query?.callbackUrl as string) || '/'
+
   async function onSubmit(values) {
-    console.log(values);
+    const options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(values)
+    }
+
+    await fetch('http://localhost:3000/api/auth/signup', options)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        if (data.error) {
+          console.log(data.error);
+        }
+        if (data) {
+          router.push('/login');
+        }
+      })
+
+  }
+
+  const onSubmitOauth = async (providerId: 'github' | 'google') => {
+    signIn(providerId, {callbackUrl: callbackUrl})
   }
 
   return (
     <form onSubmit={formik.handleSubmit}> 
       <Grid container direction="column" spacing={2} >
+        
+        {/* Email field */}
         <Grid item xs={12}>
           <TextField variant="outlined" fullWidth
             error = {formik.errors.email && formik.touched.email ? true : false}
@@ -40,6 +75,8 @@ const Register = () => {
             {...formik.getFieldProps('email')}
           />
         </Grid>
+
+        {/* Password field */}
         <Grid item xs={12}>
           <TextField variant="outlined" fullWidth
             error = {formik.errors.password && formik.touched.password ? true : false}
@@ -56,6 +93,7 @@ const Register = () => {
             {...formik.getFieldProps('password')}
           />
         </Grid>
+
         {/* Confirm Password field */}
         <Grid item xs={12}>
           <TextField variant="outlined" fullWidth
@@ -73,11 +111,51 @@ const Register = () => {
             {...formik.getFieldProps('cpassword')}
           />
         </Grid>
+
+        {/* Select user type (Participant or Organizer) */}
+        <Grid item xs={12}>
+          <TextField variant="outlined" fullWidth
+            error = {formik.errors.userType && formik.touched.userType ? true : false}
+            label="How will you use Rodeo Co?"
+            name="userType"
+            select
+            SelectProps={{
+              native: true,
+            }}
+            {...formik.getFieldProps('userType')}
+          >
+            <option value=""></option>
+            <option value="participant">I want to enter rodeo events</option>
+            <option value="admin">I will be organizing/hosting rodeos</option>
+          </TextField>
+        </Grid>
+
+        {/* Register Button */}
         <Grid item xs={12}>
           <Button type="submit" variant="contained" color="primary" fullWidth 
-            sx={{ ":hover": {backgroundColor: '#3C343B'}, background: '#CF7F49', color: 'white', }}
+            sx={{ ":hover": {backgroundColor: '#9b5729'}, background: '#CF7F49', color: 'white', }}
           >
             Register
+          </Button>
+        </Grid>
+
+        {/* Google Register */}
+        <Grid item xs={12}>
+          <Button onClick={() => onSubmitOauth('google')} sx={oauthButtonStyle} {...oauthButtonProps} >
+            <Image src={'/google.svg'} alt="Google" width={20} height={20}/>
+            <span style={{paddingLeft: '10px'}}>
+              Register with Google
+            </span>
+          </Button>
+        </Grid>
+
+        {/* GitHub Register */}
+        <Grid item xs={12}>
+          <Button onClick={() => onSubmitOauth('github')} sx={oauthButtonStyle} {...oauthButtonProps} >
+            <Image src={'/github.svg'} alt="Git" width={25} height={25} />
+            <span style={{paddingLeft: '10px'}}>
+              Register with Github
+            </span>
           </Button>
         </Grid>
       </Grid>

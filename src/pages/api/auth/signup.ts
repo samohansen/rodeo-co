@@ -11,7 +11,7 @@ export default async function handler(req, res) {
     return res.status(404).json({error: "Don't have form data."});
   }
 
-  const {username, email, password} = req.body;
+  const {username, email, password, userType} = req.body;
   const checkExisting = await prisma.user.findUnique({
     where: {email},
   });
@@ -25,6 +25,7 @@ export default async function handler(req, res) {
       name: username,
       email: email,
       password: hashedPassword,
+      type: userType,
     }
   });
 
