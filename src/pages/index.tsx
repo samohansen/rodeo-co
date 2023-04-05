@@ -96,7 +96,7 @@ const Home: NextPageWithLayout = () => {
                 flexDirection: { xs: 'column', md: 'row' },
                 justifyContent: 'space-between',
                 gap: '3rem',
-                maxWidth: '75%',
+                maxWidth: '90%',
                 margin: 'auto',
               }}
             >
