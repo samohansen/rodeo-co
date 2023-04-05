@@ -1,9 +1,8 @@
-import Stack from '@mui/material/Stack';
-import { useRouter } from 'next/router';
 import type { nRodeoEvent } from '@common/types'
+import Stack from '@mui/material/Stack';
+import Badge from '@mui/material/Badge';
 import EventItem from './EventItem'
 import { useSession } from 'next-auth/react';
-import Badge from '@mui/material/Badge';
 
 type Props = {
   events: nRodeoEvent[];
@@ -11,7 +10,6 @@ type Props = {
 }
 
 const EventsList: React.FC<Props> = ({events, editingEvents}) => {
-  const router = useRouter();
   const {data: session} = useSession();
   const isParticipant = session?.user?.type === "participant";
 
@@ -21,11 +19,10 @@ const EventsList: React.FC<Props> = ({events, editingEvents}) => {
         const listItem = (
           <EventItem 
             event={event}
-            onEventClick={() => router.push(`/rodeos/${encodeURIComponent(event.rodeoId)}/${encodeURIComponent(event.id)}`)}
+            eventHref={`/rodeos/${encodeURIComponent(event.rodeoId)}/${encodeURIComponent(event.id)}`}
             editingEvents={editingEvents}
           />
         )
-
         if (isParticipant) {
           // todo: instead, browse participant entries for this event
           if (event.entries.some(entry => entry.participantId === session.user.id)) {

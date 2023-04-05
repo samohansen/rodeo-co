@@ -16,11 +16,15 @@ export async function middleware(req: NextRequest) {
   // if user.type === "new", redirect to /account
   else if (token.type === "new" && pathName !== "/account") {
     return NextResponse.redirect(new URL("/account", req.url))
+  } 
+  // only let participants see their entries
+  else if (token.type !== "participant" && pathName === "/entries") {
+    return NextResponse.redirect(new URL("/", req.url))
   }
   return NextResponse.next();
 }
 
 export const config = {
   // matcher: ['/rodeos/:path*', '/account', '/participants', '/api/rodeos/:path*', '/api/auth/account']
-  matcher: ['/rodeos/:path*', '/account', '/participants', '/api/rodeos/:path*']
+  matcher: ['/rodeos/:path*', '/account', '/participants', '/api/rodeos/:path*', '/entries']
 }
