@@ -32,7 +32,7 @@ const NewUserView: NextPageWithLayout = () => {
     mode: "onBlur",
     defaultValues: {
       name: '',
-      birthdate: null,
+      birthdate: new Date('Jan 1, 1970'),
       type: '',
     },
     resolver: yupResolver(validationSchema)
@@ -40,7 +40,11 @@ const NewUserView: NextPageWithLayout = () => {
 
   const onSubmit = async (data) => {
     const res = await axios.patch(`api/auth/account`, data);
-    const {user, token} = res.data;
+
+    // seed admin data
+    if (res.data.user.type === "admin") {
+      await axios.get(`api/seed`)
+    }
     // // sign in again to force refresh of session after change to user
     // await signIn('direct_jwt', {
     //   token: token,
@@ -50,8 +54,6 @@ const NewUserView: NextPageWithLayout = () => {
     // })
     await signOut()
   };
-
-  const [accountType, setAccountType] = useState('participant');
 
   return (
     <Dialog open={true} sx={{fontFamily: 'Poppins, sans-serif'}}>
@@ -65,12 +67,12 @@ const NewUserView: NextPageWithLayout = () => {
           <br/>
           This data will be attached to your rodeos and events, and may be visible to others.
           <br/>
-          Choosing an account type is <strong>required</strong> to proceed. This account setting is permanent, so please choose carefully!
-          <br/>
-          After setting your account details, you will be asked to sign in again.
+          Choosing an account type is required to proceed. This account setting is permanent, so please choose carefully!
+          <br/><br/>
+          After setting your account details, <strong>you will be asked to sign in again.</strong> Thank you!
         </DialogContentText>
         <form>
-          <Container sx={{display: 'flex', flexDirection: 'column', gap: 3, width: '320px', paddingTop: 1}} >
+          <Container sx={{display: 'flex', flexDirection: 'column', gap: 3, width: '320px', paddingTop: 2}} >
             <TextInput 
               label="Full name"
               name="name"
