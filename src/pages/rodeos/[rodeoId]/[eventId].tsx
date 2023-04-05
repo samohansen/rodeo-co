@@ -13,6 +13,7 @@ import CreateEventFormInterface from '@features/RodeoDashboard/RodeoForms/Create
 import Box from '@mui/material/Box';
 import { useSession } from 'next-auth/react';
 import styles from '@features/RodeoDashboard/RodeoView/RodeoView.module.css'
+import EventEntryInterface from '@features/RodeoDashboard/RodeoForms/EventEntryInterface';
 
 type Props = {
   event: nRodeoEvent;
@@ -47,7 +48,7 @@ const EventView: NextPageWithLayout<Props> = ({event}) => {
   
   const participantData = event.entries.map(
     entry => ({
-      name: `${entry.participant.firstName} ${entry.participant.lastName}`,
+      name: entry.participant.name || entry.participant.email,
       horse: entry.horseName,
       time: entry.time
     })
@@ -60,6 +61,11 @@ const EventView: NextPageWithLayout<Props> = ({event}) => {
         path: `/rodeos/${encodeURIComponent(event.rodeoId)}`,
         linkText: event.rodeo.name,
       }}
+      rightHeaderComponent={!isAdmin && (
+        <OpenModalButton buttonText='Enter event' buttonProps={{variant: 'contained'}}>
+          <EventEntryInterface event={event} participantId={session?.user.id} />
+        </OpenModalButton>
+      )}
     >
       <TabPanel tabNames={['Event details', `Entries (${participantData.length})`, 'Rankings']} >
         <Box className={styles.panel} >
@@ -80,10 +86,10 @@ const EventView: NextPageWithLayout<Props> = ({event}) => {
               data={participantData}
             />
           ) : (
-            "No participants have signed up for this event yet"
+            "No one has entered this event yet"
           )}
         <div>
-          [event rankings]
+          Coming soon!
         </div>
       </TabPanel>
     </RodeoDashboardLayout>

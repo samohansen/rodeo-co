@@ -30,7 +30,16 @@ export async function getServerSideProps(context) {
 
   const rodeo = await prisma.rodeo.findUnique({
     where: {id: rodeoId},
-    include: {events: {orderBy: {name: 'asc'}}}
+    include: {
+      events: {
+        orderBy: {name: 'asc'},
+        include: {
+          entries: {
+            include: {participant: true}
+          },
+        }
+      }
+    }
   });
 
   return {
@@ -58,7 +67,7 @@ const RodeoView: NextPageWithLayout<Props> = ({rodeo, prevHref}) => {
       back={{
         linkText: 'All rodeos',
         // saves time - back() is quicker, so do that if the user actually came from /rodeos
-        ...(prevHref.endsWith('/rodeos') ? { 
+        ...(prevHref?.endsWith('/rodeos') ? { 
           onClick: () => router.back()
         } : {
           path: '/rodeos',
