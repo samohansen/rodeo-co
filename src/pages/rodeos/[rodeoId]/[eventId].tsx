@@ -10,6 +10,9 @@ import RodeoDashboardLayout from '@features/RodeoDashboard/RodeoDashboardLayout'
 import { buildEventTitleString } from "@common/utils";
 import OpenModalButton from '@common/navigation/OpenModalButton';
 import CreateEventFormInterface from '@features/RodeoDashboard/RodeoForms/CreateEventFormInterface';
+import Box from '@mui/material/Box';
+import { useSession } from 'next-auth/react';
+import styles from '@features/RodeoDashboard/RodeoView/RodeoView.module.css'
 
 type Props = {
   event: nRodeoEvent;
@@ -39,6 +42,9 @@ export async function getServerSideProps(context) {
 }
 
 const EventView: NextPageWithLayout<Props> = ({event}) => {
+  const {data: session} = useSession();
+  const isAdmin = session?.user?.type === "admin";
+  
   const participantData = event.entries.map(
     entry => ({
       name: `${entry.participant.firstName} ${entry.participant.lastName}`,
@@ -55,20 +61,19 @@ const EventView: NextPageWithLayout<Props> = ({event}) => {
         linkText: event.rodeo.name,
       }}
     >
-      <TabPanel
-        tabNames={['Event details', `Entries (${participantData.length})`, 'Rankings']}
-      >
-        <>
-          <EventDetails event={event} />
-          <OpenModalButton 
-            buttonText='Edit event'
-          >
-            <CreateEventFormInterface
-              editing={true}
-              event={event}
-            />
-          </OpenModalButton>
-        </>
+      <TabPanel tabNames={['Event details', `Entries (${participantData.length})`, 'Rankings']} >
+        <Box className={styles.panel} >
+          <Box className={styles.panelContent}>
+            <EventDetails event={event} />
+          </Box>
+          {isAdmin && (
+            <Box className={styles.panelActions} >
+              <OpenModalButton buttonText='Edit event'>
+                <CreateEventFormInterface editing={true} event={event} />
+              </OpenModalButton>
+            </Box>
+          )}            
+        </Box>
         {!!participantData.length ? (
             <BasicTable
               head={['Name', 'Horse', 'Time']}

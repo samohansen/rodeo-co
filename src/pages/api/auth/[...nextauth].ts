@@ -20,13 +20,6 @@ export const authOptions: NextAuthOptions = {
     async jwt({token, user}) {
       if (user) {
         token.type = user.type;
-        // token.user = {
-        //   email: user.email,
-        //   id: user.id,
-        //   image: user.image,
-        //   name: user.name,
-        //   type: user.type
-        // }
       }
       return token;
     },
@@ -36,8 +29,6 @@ export const authOptions: NextAuthOptions = {
         // - jwt callback
       session.user.type = token.type;
       session.user.id = token.sub;
-      // session.user = token.user;
-
       
       return session;
     },
@@ -87,23 +78,22 @@ export const authOptions: NextAuthOptions = {
         return user;
       }
     }),
-    CredentialsProvider({
-      id: 'direct_jwt',
-      credentials: {
-        user: {label: "user", type: "any"},
-        token: {label: "token", type: "any"}
-      },
-      async authorize(credentials: any): Promise<any> {
-      // async authorize(credentials: DirectJwtAuthParams): Promise<WithAdditionalParams<User>> => {
-        const { user, token } = credentials;
+    // CredentialsProvider({
+    //   id: 'direct_jwt',
+    //   credentials: {
+    //     user: {label: "user", type: "object"},
+    //     token: {label: "token", type: "object"}
+    //   },
+    //   async authorize(credentials, req) {
+    //   // async authorize(credentials: DirectJwtAuthParams): Promise<WithAdditionalParams<User>> => {
+    //     const { user, token } = credentials;
 
-        return {
-          token: token,
-          user: user,
-        }
-      }
-    })
-
+    //     return {
+    //       token: token,
+    //       user: user,
+    //     }
+    //   }
+    // })
   ],
   adapter: PrismaAdapter(prisma),
 };

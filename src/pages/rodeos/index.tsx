@@ -12,27 +12,39 @@ import RodeosGrid from '@features/RodeoDashboard/RodeosGrid';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@api/auth/[...nextauth]';
 
-type Props = {
-  rodeos: nRodeo[];
-}
-
 const prisma = new PrismaClient()
 export async function getServerSideProps (context) {
   const session = await getServerSession(context.req, context.res, authOptions);
+  const isAdmin = session.user.type === "admin";
+
+  const where = isAdmin
+    ? { adminId: session.user.id }
+    : {}
 
   const rodeos = await prisma.rodeo.findMany({
     orderBy: { date: 'asc' },
-    where: { adminId: session.user.id }
+    where: where,
+    include: {
+      admin: {
+        select: {name: true, email: true}
+      }
+    }
   });
 
   return {
     props: {
-      rodeos: JSON.parse(JSON.stringify(rodeos))
+      rodeos: JSON.parse(JSON.stringify(rodeos)),
+      isAdmin: isAdmin
     }
   }
 }
 
-const RodeoDashboard: NextPageWithLayout<Props> = ({rodeos = []}) => {
+type Props = {
+  rodeos: nRodeo[];
+  isAdmin: boolean;
+}
+
+const RodeoDashboard: NextPageWithLayout<Props> = ({rodeos = [], isAdmin}) => {
   const [pastRodeos, futureRodeos] = useMemo(
     () => partitionRodeos(rodeos), 
     [rodeos]
@@ -41,11 +53,11 @@ const RodeoDashboard: NextPageWithLayout<Props> = ({rodeos = []}) => {
   return (
     <RodeoDashboardLayout
       pageTitle='Rodeos'
-      rightHeaderComponent={
+      rightHeaderComponent={isAdmin && (
         <OpenModalButton buttonText='Add new rodeo'>
           <CreateRodeoFormInterface/>
         </OpenModalButton>
-      }
+      )}
     >
       <TabPanel tabNames={['Upcoming', 'Past', 'All']}>
         <RodeosGrid rodeos={futureRodeos}/>

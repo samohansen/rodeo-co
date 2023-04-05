@@ -15,6 +15,9 @@ import Button from '@mui/material/Button';
 import DeleteRodeoModal from '@features/RodeoDashboard/RodeoForms/DeleteRodeoModal';
 import { compareObjNames } from '@common/utils';
 import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
+import Box from '@mui/material/Box';
+import styles from '@features/RodeoDashboard/RodeoView/RodeoView.module.css'
 
 type Props = {
   rodeo: nRodeo;
@@ -43,6 +46,8 @@ const RodeoView: NextPageWithLayout<Props> = ({rodeo, prevHref}) => {
   const [editingEvents, setEditingEvents] = useState(false);
   const events = JSON.parse(JSON.stringify(rodeo.events)); // todo: don't need to stringify and parse?
   // todo: handle null
+  const {data: session} = useSession();
+  const isAdmin = session?.user?.type === "admin";
 
   // necessary because Postgres collation is deterministic (case-sensitive) and Prisma doesn't support ignoring that in the query
   events.sort(compareObjNames); 
@@ -62,30 +67,46 @@ const RodeoView: NextPageWithLayout<Props> = ({rodeo, prevHref}) => {
       rightHeaderComponent={''}
     >
       <TabPanel tabNames={['Events List', 'Information']} disabled={editingEvents}>
-        <>
-          <EventsList events={events} editingEvents={editingEvents}/>
-          <OpenModalButton buttonText='Add new event' buttonProps={{disabled: editingEvents}} >
-            <CreateEventFormInterface rodeoId={rodeo.id}/>
-          </OpenModalButton>
-          {!!events.length ? (
-            <Button 
-              onClick={() => setEditingEvents(!editingEvents)} 
-              {...(editingEvents && {variant: 'contained'})} 
-              sx={{width: '111px'}}
-            >
-              {editingEvents ? 'End edits' : 'Bulk edit'}
-            </Button>
-          ) : editingEvents && setEditingEvents(!editingEvents) } {/* ensures "add event" is re-enabled after last event is deleted */}
-        </>
-        <>
-          <RodeoDetails {...rodeo} />
-          <OpenModalButton buttonText='Edit rodeo'>
-            <CreateRodeoFormInterface editing={true} rodeo={rodeo} />
-          </OpenModalButton>
-          <OpenModalButton buttonText='Delete rodeo' buttonProps={{color: 'error'}}>
-            <DeleteRodeoModal rodeo={rodeo}/>
-          </OpenModalButton>
-        </>
+        <Box className={styles.panel} >
+          <Box className={styles.panelContent}>
+            <EventsList events={events} editingEvents={editingEvents}/>
+          </Box>
+          {isAdmin && (
+            <Box className={styles.panelActions} >
+              <OpenModalButton buttonText='Add new event' buttonProps={{disabled: editingEvents}} >
+                <CreateEventFormInterface rodeoId={rodeo.id}/>
+              </OpenModalButton>
+              <> {/* this is only wrapped in a fragment because Box was being pissy about being given JS in the ternary */}
+                {!!events.length ? (
+                  <Button sx={{width: '111px'}}
+                    onClick={() => setEditingEvents(!editingEvents)} 
+                    {...(editingEvents && {variant: 'contained'})} 
+                  >
+                    {editingEvents ? 'End edits' : 'Bulk edit'}
+                  </Button>
+                ) : (
+                  // ensures "add event" is re-enabled after last event is deleted
+                  editingEvents && setEditingEvents(!editingEvents)
+                )} 
+              </>
+            </Box>
+          )}            
+        </Box>
+        <Box className={styles.panel} >
+          <Box className={styles.panelContent}>
+            <RodeoDetails {...rodeo} />
+          </Box>
+          {isAdmin && (
+            <Box className={styles.panelActions} >
+              <OpenModalButton buttonText='Edit rodeo'>
+                <CreateRodeoFormInterface editing={true} rodeo={rodeo} />
+              </OpenModalButton>
+              <OpenModalButton buttonText='Delete rodeo' buttonProps={{color: 'error'}}>
+                <DeleteRodeoModal rodeo={rodeo}/>
+              </OpenModalButton>
+            </Box>
+          )}
+        </Box>
       </TabPanel>
     </RodeoDashboardLayout>
   )
