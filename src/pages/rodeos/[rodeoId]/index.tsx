@@ -33,7 +33,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       rodeo: JSON.parse(JSON.stringify(rodeo)),
-      prevHref: context.req.headers.referer // todo: this isn't a reliable way to tell what's up
+      prevHref: context.req.headers.referer || null // todo: this isn't a reliable way to tell what's up
     }
   }
 }
@@ -42,7 +42,8 @@ const RodeoView: NextPageWithLayout<Props> = ({rodeo, prevHref}) => {
   const router = useRouter();
   const [editingEvents, setEditingEvents] = useState(false);
   const events = JSON.parse(JSON.stringify(rodeo.events)); // todo: don't need to stringify and parse?
-  
+  // todo: handle null
+
   // necessary because Postgres collation is deterministic (case-sensitive) and Prisma doesn't support ignoring that in the query
   events.sort(compareObjNames); 
 

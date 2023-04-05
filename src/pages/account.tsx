@@ -3,6 +3,8 @@ import { useSession } from 'next-auth/react';
 import type { NextPageWithLayout } from '@common/types';
 import type { ReactElement } from 'react';
 import PageLayout from '@common/layouts/PageLayout';
+import NewUserView from '@features/Account/NewUserView';
+import CircularProgress from '@mui/material/CircularProgress';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import EditAccountForm from '@features/Account/EditAccountForm';

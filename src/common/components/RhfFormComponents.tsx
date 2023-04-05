@@ -16,13 +16,6 @@ type TextInputProps = Props & {
   textFieldProps?: TextFieldProps; // MUI TextField props like multiline, etc
 }
 
-type SelectInputProps = Props & {
-  menuItems: {
-    label: string;
-    value: any;
-  }[]
-}
-
 export const TextInput: React.FC<TextInputProps> = ({
   name, 
   control, 
@@ -48,12 +41,22 @@ export const TextInput: React.FC<TextInputProps> = ({
   )
 }
 
+type SelectInputProps = Props & {
+  menuItems: {
+    label: string;
+    value: any;
+    [rest:string]: any;
+  }[]
+  style?: any; 
+}
+
 export const SelectInput: React.FC<SelectInputProps> = ({
   name, 
   control, 
   label, 
   rules,
   menuItems, 
+  style,
 }) => {
   return (
     <Controller
@@ -61,11 +64,11 @@ export const SelectInput: React.FC<SelectInputProps> = ({
       rules={rules}
       control={control}
       render={({ field }) => (
-        <FormControl>
+        <FormControl style={style}>
           <InputLabel id={label}>{label}</InputLabel>
           <Select {...field} labelId={label} label={label}>
             {menuItems.map(menuItem => (
-              <MenuItem key={menuItem.value} value={menuItem.value}>
+              <MenuItem key={menuItem.value} value={menuItem.value} {...menuItem.rest}>
                 {menuItem.label}
               </MenuItem>
             ))}

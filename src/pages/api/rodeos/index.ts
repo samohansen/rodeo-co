@@ -1,26 +1,22 @@
-import { getServerSession } from 'next-auth/next';
 import { PrismaClient } from '@prisma/client';
-import { authOptions } from '@api/auth/[...nextauth]';
+import { getToken } from 'next-auth/jwt';
 
 const prisma = new PrismaClient();
 
 export default async function handler(req, res) {
-  const session = await getServerSession(req, res, authOptions);
-  if (!session) {
-    return res.status(401).json({ message: 'Unauthorized.' });
+  const token = await getToken({req})
+
+  if (token.type !== 'admin') {
+    return res.status(401).json({ message: 'Must be authorized as rodeo producer' });
   }
 
   if (req.method === 'POST') {
     try {
-      const user = await prisma.user.findUnique({
-        where: { email: session.user.email }
-      })
-
       const rodeo = await prisma.rodeo.create({
         data: {
           ...req.body,
           admin: { 
-            connect: { id: user.id}
+            connect: { id: token.sub}
           }
         }
       })

@@ -56,8 +56,11 @@ const CreateRodeoFormInterface: React.FC<Props> = ({editing = false, rodeo, onCl
       router.replace(path); // forces a client-side transition to same route, refreshing server side props but maintaining other state (i think)
     } 
     else {
+      // todo2: or perhaps initialize loading *here*
+      // followup: yes, methinks here
       const res = await axios.post('/api/rodeos', data);
-      router.push(`/rodeos/${encodeURIComponent(res.data.id)}`);
+      router.push(`/rodeos/${encodeURIComponent(res.data.id)}`); // redirect to new rodeo's page
+      // todo: add loader here? I *think* that would be effective
     }
     onClose();
   }

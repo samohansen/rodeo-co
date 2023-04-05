@@ -50,7 +50,6 @@ const Register = () => {
           }
         }
       })
-
   }
 
   const onSubmitOauth = async (providerId: 'github' | 'google') => {

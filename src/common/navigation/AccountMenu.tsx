@@ -43,9 +43,9 @@ export default function AccountMenu({user}) {
       <Avatar sx={{ width: 32, height: 32 }} src={user.image}></Avatar>
     ) : user.name ? (
       <Avatar sx={{ width: 32, height: 32 }}>{user.name.charAt(0).toUpperCase()}</Avatar>
-    ) : (
+    ) : user.email ? (
       <Avatar sx={{ width: 32, height: 32 }}>{user.email.charAt(0).toUpperCase()}</Avatar>
-    )
+    ) : <Avatar sx={{ width: 32, height: 32 }}></Avatar>
   }
 
   return (
