@@ -1,19 +1,16 @@
-import { Box, Button, Typography, Grid } from '@mui/material';
 import type { NextPageWithLayout } from '@common/types';
 import type { ReactElement } from 'react';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
 import PageLayout from '@common/layouts/PageLayout';
 import styles from '@features/Home.module.css';
 
 const Home: NextPageWithLayout = () => {
   return (
     <>  
-      <Grid 
-        container 
-        spacing={2}
-        direction="column"
-        
-      >
-
+      <Grid container spacing={2} direction="column" >
         <Grid item xs={12} md={4} >
           {/* Section 1 -- Hero img and main header */}
           <Box className={styles.photoSectionBox}>

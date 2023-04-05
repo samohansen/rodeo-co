@@ -1,6 +1,7 @@
-import { Box, Typography } from '@mui/material';
 import type { NextPageWithLayout } from '@common/types';
 import type { ReactElement } from 'react';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import PageLayout from '@common/layouts/PageLayout';
 
 const Participants: NextPageWithLayout = () => {

@@ -1,7 +1,7 @@
+import type { nRodeo } from "@common/types";
 import Grid from "@mui/material/Grid";
 import RodeoCard from '@features/RodeoDashboard/RodeoCard';
 import { useRouter } from 'next/router';
-import { nRodeo } from "@common/types";
 
 type Props = {
   rodeos: nRodeo[];

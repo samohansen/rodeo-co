@@ -1,8 +1,9 @@
 import type { ReactElement } from 'react';
+import type { nRodeo, NextPageWithLayout } from '@common/types';
 import { useState } from 'react';
 import { PrismaClient } from '@prisma/client'
-import type { nRodeo } from '@common/types';
-import type { NextPageWithLayout } from '@common/types';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import TabPanel from '@common/dataDisplay/TabPanel';
 import RodeoDetails from '@features/RodeoDashboard/RodeoView/RodeoDetails';
 import EventsList from '@features/RodeoDashboard/RodeoView/EventsList';
@@ -11,12 +12,10 @@ import CreateEventFormInterface from '@features/RodeoDashboard/RodeoForms/Create
 import CreateRodeoFormInterface from '@features/RodeoDashboard/RodeoForms/CreateRodeoFormInterface';
 import PageLayout from '@common/layouts/PageLayout'
 import RodeoDashboardLayout from '@features/RodeoDashboard/RodeoDashboardLayout'
-import Button from '@mui/material/Button';
 import DeleteRodeoModal from '@features/RodeoDashboard/RodeoForms/DeleteRodeoModal';
 import { compareObjNames } from '@common/utils';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
-import Box from '@mui/material/Box';
 import styles from '@features/RodeoDashboard/RodeoView/RodeoView.module.css'
 
 type Props = {

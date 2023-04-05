@@ -1,6 +1,5 @@
 import type { ReactElement } from 'react';
-import type { nRodeoEvent } from '@common/types';
-import type { NextPageWithLayout } from '@common/types';
+import type { nRodeoEvent, NextPageWithLayout } from '@common/types';
 import { PrismaClient } from '@prisma/client';
 import TabPanel from '@common/dataDisplay/TabPanel';
 import BasicTable from '@common/dataDisplay/BasicTable';

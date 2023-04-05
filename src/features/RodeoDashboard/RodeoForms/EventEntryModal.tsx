@@ -1,11 +1,12 @@
-import { Button, Container, Dialog } from '@mui/material';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
-import {TextInput} from '@common/components/RhfFormComponents'
-import type { EventFormModel } from "./CreateEventFormInterface";
-import { useForm, Controller } from "react-hook-form";
+import { TextInput } from '@common/components/RhfFormComponents'
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { EntryModel } from './EventEntryInterface';

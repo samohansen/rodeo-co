@@ -1,8 +1,8 @@
+import type { Rodeo } from '@prisma/client';
 import axios from 'axios';
 import CreateRodeoModal from "./CreateRodeoModal";
-import type { Rodeo } from '@prisma/client';
 import { useRouter, usePathname }  from 'next/navigation';
-import {rodeoImageUrls} from '@common/utils';
+import { rodeoImageUrls } from '@common/utils';
 
 export type RodeoFormModel = {
   name: string;

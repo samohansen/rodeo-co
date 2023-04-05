@@ -1,12 +1,10 @@
 import type { ReactElement } from 'react';
-import type { nEventEntry, nRodeo, nRodeoEvent } from '@common/types';
-import type { NextPageWithLayout } from '@common/types';
+import type { nEventEntry, NextPageWithLayout } from '@common/types';
 import { PrismaClient } from '@prisma/client'
+import { getToken } from 'next-auth/jwt';import Box from '@mui/material/Box';
 import PageLayout from '@common/layouts/PageLayout'
 import RodeoDashboardLayout from '@features/RodeoDashboard/RodeoDashboardLayout'
-import Box from '@mui/material/Box';
 import EntriesList from '@features/EntriesList';
-import { getToken } from 'next-auth/jwt';
 
 type Props = {
   entries: nEventEntry[]

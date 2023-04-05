@@ -1,4 +1,6 @@
-import { Button, Dialog } from '@mui/material';
+import type { nRodeo } from '@common/types';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -6,7 +8,6 @@ import DialogContentText from '@mui/material/DialogContentText';
 import { useRouter }  from 'next/navigation';
 import { useState } from 'react';
 import axios from 'axios';
-import { nRodeo } from '@common/types';
 
 type Props = {
   rodeo: nRodeo;

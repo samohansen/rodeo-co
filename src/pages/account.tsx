@@ -1,12 +1,11 @@
 import { Avatar, Box, Button, Typography, Dialog, DialogActions, Divider, DialogContent, DialogTitle, TextField } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 import { useSession } from 'next-auth/react';
 import type { NextPageWithLayout } from '@common/types';
 import type { ReactElement } from 'react';
 import PageLayout from '@common/layouts/PageLayout';
-import NewUserView from '@features/Account/NewUserView';
-import CircularProgress from '@mui/material/CircularProgress';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import NewUserView from '@features/Account/NewUserView';
 import EditAccountForm from '@features/Account/EditAccountForm';
 
 
