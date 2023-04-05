@@ -41,8 +41,8 @@ export default function AccountMenu({user}) {
   const getAvatar = (user) => {
     return user.image ? (
       <Avatar sx={{ width: 32, height: 32 }} src={user.image}></Avatar>
-    ) : user.name?.length > 1 ? (
-      <Avatar sx={{ width: 32, height: 32 }}>{user.name.split(' ')[0][0]}' '{user.name.split(' ')[1][0]}</Avatar>
+    ) : user.name ? (
+      <Avatar sx={{ width: 32, height: 32 }}>{user.name.charAt(0).toUpperCase()}</Avatar>
     ) : (
       <Avatar sx={{ width: 32, height: 32 }}>{user.email.charAt(0).toUpperCase()}</Avatar>
     )
