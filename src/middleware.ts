@@ -13,10 +13,14 @@ export async function middleware(req: NextRequest) {
     url.searchParams.set("callbackUrl", pathName);
     return NextResponse.redirect(url);
   } 
-  // if user.type === "new", redirect to /account
-  else if (token.type === "new" && pathName !== "/account") {
-    return NextResponse.redirect(new URL("/account", req.url))
-  } 
+  // if user.type === "new", redirect
+  else if (token.type === "new" && pathName !== "/new-user") {
+    return NextResponse.redirect(new URL("/new-user", req.url))
+  }
+  // // but otherwise, don't let them visit the new user page
+  else if (token.type !== "new" && pathName === "/new-user")  {
+    return NextResponse.redirect(new URL("/", req.url))
+  }
   // only let participants see their entries
   else if (token.type !== "participant" && pathName === "/entries") {
     return NextResponse.redirect(new URL("/", req.url))
@@ -26,5 +30,5 @@ export async function middleware(req: NextRequest) {
 
 export const config = {
   // matcher: ['/rodeos/:path*', '/account', '/participants', '/api/rodeos/:path*', '/api/auth/account']
-  matcher: ['/rodeos/:path*', '/account', '/participants', '/api/rodeos/:path*', '/entries']
+  matcher: ['/rodeos/:path*', '/account', '/participants', '/api/rodeos/:path*', '/entries', '/new-user']
 }

@@ -17,13 +17,9 @@ export async function getServerSideProps (context) {
   const session = await getServerSession(context.req, context.res, authOptions);
   const isAdmin = session.user.type === "admin";
 
-  const where = isAdmin
-    ? { adminId: session.user.id }
-    : {}
-
   const rodeos = await prisma.rodeo.findMany({
     orderBy: { date: 'asc' },
-    where: where,
+    where: isAdmin ? { adminId: session.user.id } : {},
     include: {
       admin: {
         select: {name: true, email: true}
