@@ -19,7 +19,7 @@ const EditProfileInterface: React.FC<Props> = ({user, onClose}) => {
 
   const defaultValues = {
     name: data?.name || '',
-    birthdate: data?.birthdate || null,
+    birthdate: data?.birthdate || new Date('Jan 1, 1970'),
   }
 
   const router = useRouter();

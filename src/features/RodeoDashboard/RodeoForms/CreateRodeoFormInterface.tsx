@@ -39,11 +39,20 @@ const CreateRodeoFormInterface: React.FC<Props> = ({editing = false, rodeo, onCl
 
   // todo: if loading data, show loading UI
 
+  // for some reason, initializing with nextWeek doesn't work unless it's defined separately
+  let date; 
+  if (data?.date) {
+    date = data.date
+  } else {
+    const nextWeek = Date.now() + (7 * 24 * 60 * 60 * 1000)
+    date = new Date(nextWeek)
+  }
+
   // prepare default form values
   const defaultValues = {
     name: data?.name || '',
     location: data?.location || '',
-    date: new Date(data?.date) || new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // todo: make this actually work
+    date: date,
     notes: data?.notes || '',
     imgSrc: data?.imgSrc || rodeoImageUrls[Math.floor(Math.random() * 11)]
   }

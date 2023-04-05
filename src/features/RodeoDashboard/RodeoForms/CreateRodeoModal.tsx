@@ -59,7 +59,6 @@ const CreateRodeoModal: React.FC<Props> = ({defaultValues, onSubmit, onClose}) =
             <Controller 
               name="date"
               control={control}
-              // defaultValue={new Date(Date.now() + 7*24*60*60*1000)} \\ todo: get this to actually work
               render={({field: {ref, ...fieldProps}}) => (
                 <DatePicker 
                   {...fieldProps}

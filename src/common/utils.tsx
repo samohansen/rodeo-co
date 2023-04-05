@@ -22,6 +22,14 @@ export function buildEventAgeString({minAge, maxAge}: {minAge: number | string, 
     : ''
 }
 
+export function buildEventAgeStringNoParen({minAge, maxAge}: {minAge: number | string, maxAge: number | string}): string {
+  return minAge 
+    ? `${minAge}${maxAge ?  `-${maxAge}` : '+'}`
+    : maxAge 
+    ? `up to ${maxAge}` 
+    : ''
+}
+
 export const buildEventTitleString = (event) => {
   return `${event.name}${buildEventAgeString(event)}`
 }

@@ -60,7 +60,11 @@ const EventView: NextPageWithLayout<Props> = ({event}) => {
         path: `/rodeos/${encodeURIComponent(event.rodeoId)}`,
         linkText: event.rodeo.name,
       }}
-      rightHeaderComponent={!isAdmin && (
+      rightHeaderComponent={isAdmin ? (
+        <OpenModalButton buttonText='Edit details' buttonProps={{variant: 'contained'}}>
+          <CreateEventFormInterface editing={true} event={event} />
+        </OpenModalButton>
+      ) : (
         <OpenModalButton buttonText='Enter event' buttonProps={{variant: 'contained'}}>
           <EventEntryInterface event={event} participantId={session?.user.id} />
         </OpenModalButton>
@@ -71,17 +75,17 @@ const EventView: NextPageWithLayout<Props> = ({event}) => {
           <Box className={styles.panelContent}>
             <EventDetails event={event} />
           </Box>
-          {isAdmin && (
+          {/* {isAdmin && (
             <Box className={styles.panelActions} >
               <OpenModalButton buttonText='Edit event'>
                 <CreateEventFormInterface editing={true} event={event} />
               </OpenModalButton>
             </Box>
-          )}            
+          )}             */}
         </Box>
         {!!participantData.length ? (
             <BasicTable
-              head={['Name', 'Horse', 'Time']}
+              head={['Name', 'Horse', 'Run time']}
               data={participantData}
             />
           ) : (
