@@ -5,15 +5,15 @@ import type { ReactElement } from 'react';
 import PageLayout from '@common/layouts/PageLayout';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import EditAccountForm from '@features/Account/EditAccountForm';
 
 
 const Account: NextPageWithLayout = () => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const user = session?.user;
   const [isEditing, setIsEditing] = useState(false);
   const [username, setUsername] = useState(session?.user?.name ?? '');
   const [accountType, setAccountType] = useState(session?.user?.type ?? '');
-  const router = useRouter();
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -21,7 +21,6 @@ const Account: NextPageWithLayout = () => {
 
   const handleSaveClick = async () => {
     setIsEditing(false);
-    console.log('saving changes to user');
     // gather the data from the form
     const formData = { email: email , name: username, type: accountType };
 
@@ -31,11 +30,9 @@ const Account: NextPageWithLayout = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
     });
-    console.log(formData)
-    console.log(response);
 
     // update the user's session
-    
+
   };
 
   const handleCancelClick = () => {
@@ -105,7 +102,18 @@ const Account: NextPageWithLayout = () => {
             </Button>
           </Box>
 
-          {/* Edit Profile Modal  */}
+          <EditAccountForm 
+            isEditing={isEditing} 
+            handleCancelClick={handleCancelClick}
+            setIsEditing={setIsEditing} 
+            username={username} 
+            setUsername={setUsername} 
+            accountType={accountType} 
+            setAccountType={setAccountType}
+            handleSaveClick={handleSaveClick}
+          />
+
+          {/* Edit Profile Modal 
             <Dialog open={isEditing} onClose={handleCancelClick} sx={{fontFamily: 'Poppins, sans-serif'}}>
 
               <DialogTitle sx={{fontFamily:'inherit' }}>Edit Profile</DialogTitle>
@@ -165,7 +173,7 @@ const Account: NextPageWithLayout = () => {
                       Save
                   </Button>
                 </DialogActions>
-          </Dialog>
+          </Dialog> */}
         </Box>
 
         <Divider sx={{ my: 2 }} />
