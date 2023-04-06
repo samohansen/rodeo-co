@@ -29,14 +29,14 @@ const ActionAreaCard: React.FC<Props> = ({onClick, title, bodyLine1, bodyLine2, 
           <Typography gutterBottom variant="h5" component="div">
             {title}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body1" color="text.secondary">
             {bodyLine1}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {bodyLine2}
           </Typography>
           {bodyLine3 && (
-            <Typography variant="caption" color="text.secondary">
+            <Typography variant="caption" color="gray">
               {bodyLine3}
             </Typography>
           )}

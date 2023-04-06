@@ -89,12 +89,12 @@ const EventView: NextPageWithLayout<Props> = ({event}) => {
             data={participantData}
           />
         ) : (
-          <Typography variant='subtitle1' color="gray">
+          <Typography variant='subtitle1' color="text.secondary">
             No one has entered this event yet
           </Typography>
         )}
         <div>
-          <Typography variant='overline' color="gray">
+          <Typography variant='overline' color="text.secondary">
             Coming soon!
           </Typography>
         </div>

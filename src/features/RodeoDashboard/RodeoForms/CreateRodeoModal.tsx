@@ -75,8 +75,6 @@ const CreateRodeoModal: React.FC<Props> = ({defaultValues, onSubmit, onClose}) =
               name="imgSrc"
               control={control}
               menuItems={[
-                // {label: 'Imgur 1', value: rodeoImageUrls[9]},
-                {label: 'Bunny 1', value: rodeoImageUrls[10]},
                 {label: 'Rodeo 1', value: rodeoImageUrls[0]},
                 {label: 'Rodeo 2', value: rodeoImageUrls[1]},
                 {label: 'Rodeo 3', value: rodeoImageUrls[2]},
@@ -85,7 +83,7 @@ const CreateRodeoModal: React.FC<Props> = ({defaultValues, onSubmit, onClose}) =
                 {label: 'Rodeo 6', value: rodeoImageUrls[5]},
                 {label: 'Rodeo 7', value: rodeoImageUrls[6]},
                 {label: 'Rodeo 8', value: rodeoImageUrls[7]},
-                {label: 'Rodeo 9', value: rodeoImageUrls[8]},
+                {label: 'Bunny 1', value: rodeoImageUrls[10]},
               ]}
             />
             <TextInput

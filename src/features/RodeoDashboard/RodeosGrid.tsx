@@ -24,7 +24,7 @@ const RodeosGrid: React.FC<Props> = ({rodeos}) => {
         ))
       ) : (
         <Grid item>
-          <Typography variant='subtitle1' color="gray">
+          <Typography variant='subtitle1' color="text.secondary">
             No rodeos
           </Typography>
         </Grid>

@@ -103,26 +103,14 @@ export default function AccountMenu({user}) {
       >
         <MenuItem onClick={handleAccountClick}>
           {getAvatar(user)}
-          {user.email} {/* todo: style this nicely, with an "Account" label and stuff */}
+          <Typography variant="body2" color="text.secondary">{user.email}</Typography>
         </MenuItem>
         <Divider />
-        {/* <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <PersonAdd fontSize="small" />
-          </ListItemIcon>
-          Add another account
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
-        </MenuItem> */}
         <MenuItem onClick={handleLogoutClick}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-          Logout
+          <Typography variant="button" color="text.secondary">Log out</Typography>
         </MenuItem>
       </Menu>
     </>

@@ -13,19 +13,19 @@ const EventDetails: React.FC<Props> = ({event}) => {
   return (
     <Box>
       <Box>
-        <Typography variant='overline' color="gray">Entry fee</Typography>
-        <Typography variant='body1'>{fee ? `$${fee}` : 'None'}</Typography>
+        <Typography variant='overline' color="text.secondary">Entry fee</Typography>
+        <Typography variant='body1' color="text.primary">{fee ? `$${fee}` : 'None'}</Typography>
       </Box>
       {minAge || maxAge ? (
         <Box sx={{paddingTop: 2}}>
-          <Typography variant='overline' color="gray">Age limits</Typography>
-          <Typography variant='body1'>{buildEventAgeStringNoParen({minAge, maxAge})}</Typography>
+          <Typography variant='overline' color="text.secondary">Age limits</Typography>
+          <Typography variant='body1' color="text.primary">{buildEventAgeStringNoParen({minAge, maxAge})}</Typography>
         </Box>
       ) : null}
       {time ? (
         <Box sx={{paddingTop: 2}}>
-          <Typography variant='overline' color="gray">Scheduled time</Typography>
-          <Typography variant='body1'>{formatDate(time)}</Typography>
+          <Typography variant='overline' color="text.secondary">Scheduled time</Typography>
+          <Typography variant='body1' color="text.primary">{formatDate(time)}</Typography>
         </Box>
       ) : null}
     </Box>
