@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react';
 import type { nRodeo, NextPageWithLayout } from '@common/types';
-import { PrismaClient } from '@prisma/client'
+import prisma from 'src/prisma';
 import { useMemo, useState } from "react";
 import { partitionRodeos } from "@common/utils";
 import OpenModalButton from '@common/navigation/OpenModalButton';
@@ -19,7 +19,6 @@ import axios from 'axios';
 import { useRouter, usePathname } from 'next/navigation'
 import LoadingBackdrop from '@common/navigation/LoadingBackdrop';
 
-const prisma = new PrismaClient()
 export async function getServerSideProps (context) {
   const session = await getServerSession(context.req, context.res, authOptions);
   const isAdmin = session.user.type === "admin";

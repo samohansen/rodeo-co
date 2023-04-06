@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react';
 import type { nRodeo, NextPageWithLayout } from '@common/types';
 import { useState } from 'react';
-import { PrismaClient } from '@prisma/client'
+import prisma from 'src/prisma';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -26,7 +26,6 @@ type Props = {
   prevHref: string;
 }
 
-const prisma = new PrismaClient()
 export async function getServerSideProps(context) {
   const {rodeoId} = context.query;
 

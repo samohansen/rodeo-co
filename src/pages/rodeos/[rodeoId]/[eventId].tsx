@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react';
 import type { nRodeoEvent, NextPageWithLayout } from '@common/types';
-import { PrismaClient } from '@prisma/client';
+import prisma from 'src/prisma';
 import TabPanel from '@common/dataDisplay/TabPanel';
 import BasicTable from '@common/dataDisplay/BasicTable';
 import EventDetails from '@features/RodeoDashboard/EventView/EventDetails';
@@ -19,7 +19,6 @@ type Props = {
   event: nRodeoEvent;
 }
 
-const prisma = new PrismaClient()
 export async function getServerSideProps(context) {
   const {eventId} = context.query;
 

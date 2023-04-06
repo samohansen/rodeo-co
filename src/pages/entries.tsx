@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react';
 import type { nEventEntry, NextPageWithLayout } from '@common/types';
-import { PrismaClient } from '@prisma/client'
+import prisma from 'src/prisma';
 import { getToken } from 'next-auth/jwt';import Box from '@mui/material/Box';
 import PageLayout from '@common/layouts/PageLayout'
 import RodeoDashboardLayout from '@features/RodeoDashboard/RodeoDashboardLayout'
@@ -11,7 +11,6 @@ type Props = {
   entries: nEventEntry[]
 }
 
-const prisma = new PrismaClient()
 export async function getServerSideProps({req, res, query}) {
   const token = await getToken({req})
 

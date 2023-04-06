@@ -1,14 +1,12 @@
 import NextAuth from 'next-auth';
 import { NextApiHandler } from 'next';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import { PrismaClient } from '@prisma/client';
+import prisma from 'src/prisma';
 import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { compare } from 'bcryptjs';
 import type { NextAuthOptions } from 'next-auth'
-
-const prisma = new PrismaClient();
 
 export const authOptions: NextAuthOptions = {
   debug: true,

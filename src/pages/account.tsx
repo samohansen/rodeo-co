@@ -1,16 +1,19 @@
-import { Avatar, Box, Button, Typography, Dialog, DialogActions, Divider, DialogContent, DialogTitle, TextField } from '@mui/material';
-import CircularProgress from '@mui/material/CircularProgress';
-import { useSession } from 'next-auth/react';
 import type { NextPageWithLayout } from '@common/types';
 import type { ReactElement } from 'react';
+import type { User } from '@prisma/client'
+import Box from '@mui/material/Box';
+import Avatar from '@mui/material/Avatar';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
+import CircularProgress from '@mui/material/CircularProgress';
+import { useSession } from 'next-auth/react';
 import PageLayout from '@common/layouts/PageLayout';
 import OpenModalButton from '@common/navigation/OpenModalButton';
 import EditProfileInterface from '@features/Account/EditProfileInterface';
-import { PrismaClient, User } from '@prisma/client'
+import prisma from 'src/prisma';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@api/auth/[...nextauth]';
 
-const prisma = new PrismaClient()
 export async function getServerSideProps (context) {
   const session = await getServerSession(context.req, context.res, authOptions);
 
