@@ -28,7 +28,7 @@ const EventsList: React.FC<Props> = ({events, editingEvents}) => {
           if (event.entries.some(entry => entry.participantId === session.user.id)) {
             return (
               <li key={event.id} style={{listStyleType: 'none', marginBlock: '.4em'}}>
-                <Badge badgeContent={'Entered ✓'} color="secondary">
+                <Badge badgeContent={'Entered ✓'} color="primary">
                   {listItem}
                 </Badge>
               </li>
