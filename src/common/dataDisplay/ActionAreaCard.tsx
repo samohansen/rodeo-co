@@ -14,9 +14,10 @@ type Props = {
 // Not sure how best to handle images for this guy. Putting it off for now. 
 const ActionAreaCard: React.FC<Props> = ({onClick, title, bodyLine1, bodyLine2, bodyLine3, imgSrc}) => {
   return (
-    <Card style={{maxWidth: '360px', minWidth:'250px'}}>
+    <Card style={{maxWidth: '300px', minWidth:'200px', width: '100%'}}>
       <CardActionArea
         onClick={onClick}
+        sx={{height: '100%'}}
       >
         <AspectRatio minHeight={140} maxHeight={200} ratio="3/2">
           <CardMedia
