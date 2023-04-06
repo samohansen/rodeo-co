@@ -3,6 +3,7 @@ import type { NextPageWithLayout } from '@common/types';
 import { SessionProvider } from 'next-auth/react';
 import RootLayout from "@common/layouts/RootLayout"
 import {useRouter} from 'next/router';
+import { StyledEngineProvider } from '@mui/material/styles';
 import '../styles/globals.css'
 
 type AppPropsWithLayout = AppProps & {
@@ -16,11 +17,13 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout ?? ((page) => page)
 
   return (
-    <SessionProvider session={pageProps.session}>
-      <RootLayout>
-        {getLayout(<Component {...pageProps} />)}
-      </RootLayout>
-    </SessionProvider>
+    <StyledEngineProvider injectFirst>
+      <SessionProvider session={pageProps.session}>
+        <RootLayout>
+          {getLayout(<Component {...pageProps} />)}
+        </RootLayout>
+      </SessionProvider>
+    </StyledEngineProvider>
   );
 }
 
