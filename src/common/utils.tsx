@@ -1,5 +1,7 @@
 import { nRodeo } from "./types";
 
+export const BASE_URL = process.env.NODE_ENV === "production" ? "https://www.rodeoco.live" : "http://localhost:3000"
+
 export const rodeoImageUrls = [
   '/1.png',
   '/2.png',

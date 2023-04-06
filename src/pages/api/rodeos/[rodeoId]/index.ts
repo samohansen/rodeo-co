@@ -1,6 +1,4 @@
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import prisma from 'src/prisma';
 
 export default async function handler(req, res) {
   const { rodeoId } = req.query
@@ -45,7 +43,7 @@ export default async function handler(req, res) {
     }
   }
   else {
-    res.setHeader('Allow', ['POST', 'DELETE', 'PATCH' ]);
+    res.setHeader('Allow', ['POST', 'DELETE', 'PATCH']);
     res
       .status(405)
       .json({ message: `HTTP method ${req.method} is not supported.` });

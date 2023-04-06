@@ -1,8 +1,7 @@
-import { PrismaClient } from '@prisma/client';
+import prisma from 'src/prisma';
 import { hash } from 'bcryptjs';
 
 export default async function handler(req, res) {
-  const prisma = new PrismaClient();
 
   if (req.method !== 'POST') {
     return res.status(405).json({message: 'HTTP method not valid - only POST Accepted'});

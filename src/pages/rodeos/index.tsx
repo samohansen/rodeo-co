@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react';
 import type { nRodeo, NextPageWithLayout } from '@common/types';
-import { PrismaClient } from '@prisma/client'
+import prisma from 'src/prisma';
 import { useMemo, useState } from "react";
 import { partitionRodeos } from "@common/utils";
 import OpenModalButton from '@common/navigation/OpenModalButton';
@@ -19,7 +19,6 @@ import axios from 'axios';
 import { useRouter, usePathname } from 'next/navigation'
 import LoadingBackdrop from '@common/navigation/LoadingBackdrop';
 
-const prisma = new PrismaClient()
 export async function getServerSideProps (context) {
   const session = await getServerSession(context.req, context.res, authOptions);
   const isAdmin = session.user.type === "admin";
@@ -54,7 +53,7 @@ const RodeoDashboard: NextPageWithLayout<Props> = ({rodeos = [], isAdmin}) => {
 
   const runSeed = async () => {
     setIsLoading(true);
-    await axios.get(`api/seed`);
+    await axios.get(`api/rodeos/seed`);
     router.replace(pathName);
     setIsLoading(false);
   }
@@ -75,10 +74,17 @@ const RodeoDashboard: NextPageWithLayout<Props> = ({rodeos = [], isAdmin}) => {
     >
       {isAdmin && rodeos.length === 0 ? (
         <Box sx={{padding: 3}}>
-          <Typography>
-            There are no rodeos to display. Create a new one or click below to generate samples.
-          </Typography>
-          <Button onClick={() => runSeed()} variant='contained'>Sample rodeos</Button>
+          <Box>
+            <Typography variant='subtitle1' color="gray">
+              There are no rodeos to display. <br/>
+            </Typography>
+            <Typography variant='subtitle2' color="gray">
+              Create a new one or click below to generate samples.
+            </Typography>
+          </Box>
+          <Box sx={{paddingTop: 2}}>
+            <Button onClick={() => runSeed()} variant='contained'>Sample rodeos</Button>
+          </Box>
         </Box>
       ) : (
         <TabPanel tabNames={['Upcoming', 'Past', 'All']}>

@@ -43,7 +43,7 @@ const NewUserView: NextPageWithLayout = () => {
 
     // seed admin data
     if (res.data.user.type === "admin") {
-      await axios.get(`api/seed`)
+      await axios.get(`api/rodeos/seed`)
     }
     // // sign in again to force refresh of session after change to user
     // await signIn('direct_jwt', {

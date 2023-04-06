@@ -30,5 +30,6 @@ export async function middleware(req: NextRequest) {
 
 export const config = {
   // matcher: ['/rodeos/:path*', '/account', '/participants', '/api/rodeos/:path*', '/api/auth/account']
-  matcher: ['/rodeos/:path*', '/account', '/participants', '/api/rodeos/:path*', '/entries', '/new-user']
+  // matcher: ['/rodeos/:path*', '/account', '/participants', '/api/rodeos/:path*', '/entries', '/new-user']
+  matcher: ['/rodeos/:path*', '/account', '/participants', '/entries', '/new-user'] // removing api/rodeos for now to get around seed session issue
 }
