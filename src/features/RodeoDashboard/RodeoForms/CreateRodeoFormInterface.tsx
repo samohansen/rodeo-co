@@ -14,6 +14,7 @@ export type RodeoFormModel = {
 
 type Props = {
   onClose?: () => void;
+  setIsLoading?: (any) => void;
 } & ({
   editing: true;
   rodeo: Rodeo;
@@ -22,7 +23,7 @@ type Props = {
   rodeo?: never;
 })
 
-const CreateRodeoFormInterface: React.FC<Props> = ({editing = false, rodeo, onClose}) => {
+const CreateRodeoFormInterface: React.FC<Props> = ({editing = false, rodeo, onClose, setIsLoading}) => {
   // in other areas of the app, we're using next/router instead of next/navigation
   // todo: LEARN MORE ABOUT ROUTING and the differences between next 13 and <13
   const router = useRouter();
@@ -67,6 +68,7 @@ const CreateRodeoFormInterface: React.FC<Props> = ({editing = false, rodeo, onCl
     else {
       // todo2: or perhaps initialize loading *here*
       // followup: yes, methinks here
+      setIsLoading(true)
       const res = await axios.post('/api/rodeos', data);
       router.push(`/rodeos/${encodeURIComponent(res.data.id)}`); // redirect to new rodeo's page
       // todo: add loader here? I *think* that would be effective

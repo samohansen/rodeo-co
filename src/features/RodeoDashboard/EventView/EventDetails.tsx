@@ -12,16 +12,16 @@ const EventDetails: React.FC<Props> = ({event}) => {
 
   return (
     <Box>
-      {time ? (
-        <Box>
-          <Typography variant='overline' color="gray">Scheduled time</Typography>
-          <Typography variant='body1'>{formatDate(time)}</Typography>
-        </Box>
-      ) : null}
       {minAge || maxAge ? (
-        <Box sx={{paddingTop: 2}}>
+        <Box>
           <Typography variant='overline' color="gray">Age limits</Typography>
           <Typography variant='body1'>{buildEventAgeStringNoParen({minAge, maxAge})}</Typography>
+        </Box>
+      ) : null}
+      {time ? (
+        <Box sx={{paddingTop: 2}}>
+          <Typography variant='overline' color="gray">Scheduled time</Typography>
+          <Typography variant='body1'>{formatDate(time)}</Typography>
         </Box>
       ) : null}
         <Box sx={{paddingTop: 2}}>

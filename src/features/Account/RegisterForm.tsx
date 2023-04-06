@@ -39,11 +39,6 @@ const Register = () => {
     if (data.error) {
       console.log(data.error);
     } else if (data.user) {
-      // seed admin data
-      if (data.user.type === "admin") {
-        await axios.get(`api/seed`)
-      }
-
       signIn('credentials', {
         email: values.email,
         password: values.password,
