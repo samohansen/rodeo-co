@@ -1,6 +1,7 @@
-import { buildEventAgeString, formatDate } from "@common/utils";
-import PageDetails from "@common/dataDisplay/PageDetails";
+import { buildEventAgeStringNoParen, formatDate } from "@common/utils";
 import type { RodeoEvent } from "@prisma/client";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
 type Props = {
   event: RodeoEvent;
@@ -10,14 +11,24 @@ const EventDetails: React.FC<Props> = ({event}) => {
   const {time, minAge, maxAge, fee, prize} = event;
 
   return (
-    <PageDetails
-      headers={['Scheduled time', 'Age limits', 'Entry fee', 'Prize pot']}
-    >
-      <p>{formatDate(time)}</p>
-      <p>{buildEventAgeString({minAge, maxAge})}</p>
-      <p>${fee}</p>
-      <p>${prize}</p>
-    </PageDetails>
+    <Box>
+      {minAge || maxAge ? (
+        <Box>
+          <Typography variant='overline' color="gray">Age limits</Typography>
+          <Typography variant='body1'>{buildEventAgeStringNoParen({minAge, maxAge})}</Typography>
+        </Box>
+      ) : null}
+      {time ? (
+        <Box sx={{paddingTop: 2}}>
+          <Typography variant='overline' color="gray">Scheduled time</Typography>
+          <Typography variant='body1'>{formatDate(time)}</Typography>
+        </Box>
+      ) : null}
+        <Box sx={{paddingTop: 2}}>
+          <Typography variant='overline' color="gray">Entry fee</Typography>
+          <Typography variant='body1'>{fee ? `$${fee}` : 'None'}</Typography>
+        </Box>
+    </Box>
   )
 }
 

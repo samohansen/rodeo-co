@@ -1,9 +1,9 @@
+import type { AppProps } from 'next/app'
+import type { NextPageWithLayout } from '@common/types';
 import { SessionProvider } from 'next-auth/react';
 import RootLayout from "@common/layouts/RootLayout"
-import type { AppProps } from 'next/app'
-import '../styles/globals.css'
 import {useRouter} from 'next/router';
-import type { NextPageWithLayout } from '@common/types';
+import '../styles/globals.css'
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout

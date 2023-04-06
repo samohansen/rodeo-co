@@ -29,6 +29,7 @@ export const authOptions: NextAuthOptions = {
         // - jwt callback
       session.user.type = token.type;
       session.user.id = token.sub;
+      
       return session;
     },
   },
@@ -54,16 +55,13 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GITHUB_SECRET,
     }),
     CredentialsProvider({
-      // The name to display on the sign in form (e.g. 'Sign in with...')
-      name: 'credentials',
+      id: 'credentials',
       credentials: {
         email: { label: "Email", type: "text" },
         password: {  label: "Password", type: "password" }
       },
       async authorize(credentials) {
         if (!prisma) { throw new Error('Prisma connection not established'); }
-
-        // check user exists
         const user = await prisma.user.findUnique({
           where: { email: credentials.email, },
         });
@@ -72,16 +70,30 @@ export const authOptions: NextAuthOptions = {
           throw new Error('User not found');
         }
 
-        // compare password
         const checkPassword = await compare(credentials.password, user.password);
-
-        // incorrect password
         if(!checkPassword || user.email !== credentials.email) {
           throw new Error('Username & password do not match');
         }
-
+        
         return user;
-      }}),
+      }
+    }),
+    // CredentialsProvider({
+    //   id: 'direct_jwt',
+    //   credentials: {
+    //     user: {label: "user", type: "object"},
+    //     token: {label: "token", type: "object"}
+    //   },
+    //   async authorize(credentials, req) {
+    //   // async authorize(credentials: DirectJwtAuthParams): Promise<WithAdditionalParams<User>> => {
+    //     const { user, token } = credentials;
+
+    //     return {
+    //       token: token,
+    //       user: user,
+    //     }
+    //   }
+    // })
   ],
   adapter: PrismaAdapter(prisma),
 };

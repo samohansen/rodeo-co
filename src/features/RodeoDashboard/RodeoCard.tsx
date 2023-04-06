@@ -9,6 +9,7 @@ const RodeoCard = ({rodeo, onClick}) => {
       title={name}
       bodyLine1={location}
       bodyLine2={formatDate(date)}
+      bodyLine3={`Organizer: ${rodeo.admin.name || rodeo.admin.email}`}
       onClick={onClick}
       imgSrc={rodeo.imgSrc || '/1.png'}
     />

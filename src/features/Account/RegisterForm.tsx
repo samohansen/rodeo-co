@@ -10,7 +10,7 @@ import { registerValidate } from './validate';
 import { oauthButtonStyle, oauthButtonProps } from './loginTheme';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
-
+import axios from 'axios';
 
 const Register = () => {
   const formik = useFormik({
@@ -34,23 +34,17 @@ const Register = () => {
       body: JSON.stringify(values)
     }
 
-    await fetch(`/api/auth/signup`, options)
-      .then(res => res.json())
-      .then(data => {
-        if (data.error) {
-          console.log(data.error);
-        }
-        if (data) {
-          if (data.user) {
-            signIn('credentials', {
-              email: values.email,
-              password: values.password,
-              callbackUrl: callbackUrl,
-            });
-          }
-        }
-      })
-
+    const res = await axios.post(`/api/auth/signup`, values)
+    const {data} = res;
+    if (data.error) {
+      console.log(data.error);
+    } else if (data.user) {
+      signIn('credentials', {
+        email: values.email,
+        password: values.password,
+        callbackUrl: callbackUrl,
+      });
+    }
   }
 
   const onSubmitOauth = async (providerId: 'github' | 'google') => {

@@ -11,7 +11,7 @@ import CreateEventFormInterface from '../RodeoForms/CreateEventFormInterface';
 import LoadingBackdrop from '@common/navigation/LoadingBackdrop';
 import styles from './EventItem.module.css'
 
-const EventItem = ({event, onEventClick, editingEvents}) => {
+const EventItem = ({event, eventHref, editingEvents}) => {
   const router = useRouter();
   const path = usePathname();
   
@@ -30,14 +30,12 @@ const EventItem = ({event, onEventClick, editingEvents}) => {
   }
 
   return (<>
-    <Button 
-      className={styles.chip}
+    <Button className={styles.chip}
       {...(editingEvents ? {
-        onClick: undefined,
         disableRipple: true,
         sx: {'&:hover': {cursor: 'default'}}
       } : {
-        onClick: () => onEventClick(event),
+        href: eventHref
       })}
     >
       <Box component='span' className={styles.chipText}>

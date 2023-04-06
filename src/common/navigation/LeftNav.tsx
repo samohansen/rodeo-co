@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
 import type { LeftNavMenuItem } from '@common/types';
+import React, {useState, useEffect} from 'react';
 import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
@@ -11,7 +11,7 @@ import ListItemText from '@mui/material/ListItemText';
 import HomeIcon from '@mui/icons-material/Home';
 import PeopleIcon from '@mui/icons-material/People';
 import EmojiEvents from '@mui/icons-material/EmojiEvents';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Today from '@mui/icons-material/Today';
 import { useRouter, usePathname } from 'next/navigation';
 
 const LEFT_NAV_WIDTH = 200;
@@ -22,7 +22,7 @@ const ADMIN_MENU_ITEMS: LeftNavMenuItem[] = [{
 }, {
   label: 'Rodeos',
   path: '/rodeos',
-  icon: <EmojiEvents />
+  icon: <Today />
 }, {
   label: 'Participants',
   path: '/participants',
@@ -36,11 +36,11 @@ const PARTICIPANT_MENU_ITEMS: LeftNavMenuItem[] = [{
 }, {
   label: 'Rodeos',
   path: '/rodeos',
-  icon: <EmojiEvents />
+  icon: <Today />
 }, {
-  label: 'Account',
-  path: '/account',
-  icon: <AccountCircleIcon />
+  label: 'My events',
+  path: '/entries',
+  icon: <EmojiEvents />
 }];
 
 type Props = {
