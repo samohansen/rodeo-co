@@ -5,6 +5,7 @@ import { getToken } from 'next-auth/jwt';import Box from '@mui/material/Box';
 import PageLayout from '@common/layouts/PageLayout'
 import RodeoDashboardLayout from '@features/RodeoDashboard/RodeoDashboardLayout'
 import EntriesList from '@features/EntriesList';
+import Typography from "@mui/material/Typography";
 
 type Props = {
   entries: nEventEntry[]
@@ -33,7 +34,13 @@ const EntriesView: NextPageWithLayout<Props> = ({entries}) => {
   return (
     <RodeoDashboardLayout pageTitle='All entries' >
       <Box sx={{padding: 3}}>
-        <EntriesList entries={entries}/>
+        {!!entries.length ? (
+          <EntriesList entries={entries}/>
+        ) : (
+          <Typography variant='subtitle1' color="gray">
+            You have not entered any events.
+          </Typography>
+        )}
       </Box>
     </RodeoDashboardLayout>
   )

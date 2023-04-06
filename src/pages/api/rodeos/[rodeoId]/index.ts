@@ -45,7 +45,7 @@ export default async function handler(req, res) {
     }
   }
   else {
-    res.setHeader('Allow', ['POST', 'DELETE', 'PATCH' ]);
+    res.setHeader('Allow', ['POST', 'DELETE', 'PATCH']);
     res
       .status(405)
       .json({ message: `HTTP method ${req.method} is not supported.` });

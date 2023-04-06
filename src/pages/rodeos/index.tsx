@@ -54,7 +54,7 @@ const RodeoDashboard: NextPageWithLayout<Props> = ({rodeos = [], isAdmin}) => {
 
   const runSeed = async () => {
     setIsLoading(true);
-    await axios.get(`api/seed`);
+    await axios.get(`api/rodeos/seed`);
     router.replace(pathName);
     setIsLoading(false);
   }
@@ -75,10 +75,17 @@ const RodeoDashboard: NextPageWithLayout<Props> = ({rodeos = [], isAdmin}) => {
     >
       {isAdmin && rodeos.length === 0 ? (
         <Box sx={{padding: 3}}>
-          <Typography>
-            There are no rodeos to display. Create a new one or click below to generate samples.
-          </Typography>
-          <Button onClick={() => runSeed()} variant='contained'>Sample rodeos</Button>
+          <Box>
+            <Typography variant='subtitle1' color="gray">
+              There are no rodeos to display. <br/>
+            </Typography>
+            <Typography variant='subtitle2' color="gray">
+              Create a new one or click below to generate samples.
+            </Typography>
+          </Box>
+          <Box sx={{paddingTop: 2}}>
+            <Button onClick={() => runSeed()} variant='contained'>Sample rodeos</Button>
+          </Box>
         </Box>
       ) : (
         <TabPanel tabNames={['Upcoming', 'Past', 'All']}>

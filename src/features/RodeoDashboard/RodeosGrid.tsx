@@ -2,6 +2,7 @@ import type { nRodeo } from "@common/types";
 import Grid from "@mui/material/Grid";
 import RodeoCard from '@features/RodeoDashboard/RodeoCard';
 import { useRouter } from 'next/router';
+import Typography from "@mui/material/Typography";
 
 type Props = {
   rodeos: nRodeo[];
@@ -22,7 +23,11 @@ const RodeosGrid: React.FC<Props> = ({rodeos}) => {
           </Grid>
         ))
       ) : (
-        <Grid item>No rodeos</Grid>
+        <Grid item>
+          <Typography variant='subtitle1' color="gray">
+            No rodeos
+          </Typography>
+        </Grid>
       )}
     </Grid>
   )

@@ -10,6 +10,7 @@ import { buildEventTitleString } from "@common/utils";
 import OpenModalButton from '@common/navigation/OpenModalButton';
 import CreateEventFormInterface from '@features/RodeoDashboard/RodeoForms/CreateEventFormInterface';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import { useSession } from 'next-auth/react';
 import styles from '@features/RodeoDashboard/RodeoView/RodeoView.module.css'
 import EventEntryInterface from '@features/RodeoDashboard/RodeoForms/EventEntryInterface';
@@ -84,15 +85,19 @@ const EventView: NextPageWithLayout<Props> = ({event}) => {
           )}             */}
         </Box>
         {!!participantData.length ? (
-            <BasicTable
-              head={['Name', 'Horse', 'Run time']}
-              data={participantData}
-            />
-          ) : (
-            "No one has entered this event yet"
-          )}
+          <BasicTable
+            head={['Name', 'Horse', 'Run time']}
+            data={participantData}
+          />
+        ) : (
+          <Typography variant='subtitle1' color="gray">
+            No one has entered this event yet
+          </Typography>
+        )}
         <div>
-          Coming soon!
+          <Typography variant='overline' color="gray">
+            Coming soon!
+          </Typography>
         </div>
       </TabPanel>
     </RodeoDashboardLayout>

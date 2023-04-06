@@ -12,8 +12,12 @@ const EventDetails: React.FC<Props> = ({event}) => {
 
   return (
     <Box>
+      <Box>
+        <Typography variant='overline' color="gray">Entry fee</Typography>
+        <Typography variant='body1'>{fee ? `$${fee}` : 'None'}</Typography>
+      </Box>
       {minAge || maxAge ? (
-        <Box>
+        <Box sx={{paddingTop: 2}}>
           <Typography variant='overline' color="gray">Age limits</Typography>
           <Typography variant='body1'>{buildEventAgeStringNoParen({minAge, maxAge})}</Typography>
         </Box>
@@ -24,10 +28,6 @@ const EventDetails: React.FC<Props> = ({event}) => {
           <Typography variant='body1'>{formatDate(time)}</Typography>
         </Box>
       ) : null}
-        <Box sx={{paddingTop: 2}}>
-          <Typography variant='overline' color="gray">Entry fee</Typography>
-          <Typography variant='body1'>{fee ? `$${fee}` : 'None'}</Typography>
-        </Box>
     </Box>
   )
 }

@@ -39,11 +39,11 @@ const CreateRodeoModal: React.FC<Props> = ({defaultValues, onSubmit, onClose}) =
     <Dialog open={true} onClose={onClose}>
       <DialogTitle>Create rodeo</DialogTitle>
       <DialogContent>
-        <DialogContentText paddingBottom={2}>
+        {/* <DialogContentText paddingBottom={2}>
           Enter key rodeo information here; you'll be able to add events later.
-        </DialogContentText>
+        </DialogContentText> */}
         <form>
-          <Container sx={{display: 'flex', flexDirection: 'column', gap: 3, width: '250px'}} >
+          <Container sx={{paddingTop: 2, display: 'flex', flexDirection: 'column', gap: 3, width: '250px'}} >
             <TextInput 
               label="Rodeo name"
               name="name"
@@ -75,7 +75,7 @@ const CreateRodeoModal: React.FC<Props> = ({defaultValues, onSubmit, onClose}) =
               name="imgSrc"
               control={control}
               menuItems={[
-                {label: 'Imgur 1', value: rodeoImageUrls[9]},
+                // {label: 'Imgur 1', value: rodeoImageUrls[9]},
                 {label: 'Bunny 1', value: rodeoImageUrls[10]},
                 {label: 'Rodeo 1', value: rodeoImageUrls[0]},
                 {label: 'Rodeo 2', value: rodeoImageUrls[1]},
