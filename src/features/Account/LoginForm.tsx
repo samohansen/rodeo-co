@@ -1,5 +1,6 @@
+import * as React from 'react';
 import Image from 'next/image'
-import { Grid, TextField, Button, Typography, Divider } from '@mui/material/';
+import { Grid, TextField, Button, Typography, Divider, IconButton } from '@mui/material/';
 import {HiFingerPrint, HiAtSymbol} from 'react-icons/hi';
 import { InputAdornment } from '@mui/material';
 import { signIn } from 'next-auth/react';
@@ -7,6 +8,8 @@ import {useFormik} from 'formik';
 import { loginValidate } from './validate';
 import { useRouter } from 'next/router';
 import { oauthButtonStyle, oauthButtonProps } from './loginTheme';
+import { VisibilityOff, Visibility } from '@mui/icons-material';
+
 
 const LoginForm = () => {
   const formik = useFormik({
@@ -19,7 +22,14 @@ const LoginForm = () => {
   });
 
   const router = useRouter();
-  const callbackUrl = (router.query?.callbackUrl as string) || '/'
+  const callbackUrl = (router.query?.callbackUrl as string) || '/';
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
 
   async function onSubmitCredentials(values){
     const status = await signIn('credentials', {
@@ -42,8 +52,8 @@ const LoginForm = () => {
             label="Email"
             name="email"
             InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
+              endAdornment: (
+                <InputAdornment position="end">
                   <HiAtSymbol />
                 </InputAdornment>
               ),
@@ -56,14 +66,21 @@ const LoginForm = () => {
             error= {formik.errors.password && formik.touched.password ? true : false}
             label="Password"
             name="password"
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <HiFingerPrint />
-                </InputAdornment>
+              endAdornment: (
+                <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
               ),
-              }}
+            }}
             {...formik.getFieldProps('password')}
           />
         </Grid>

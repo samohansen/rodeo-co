@@ -1,16 +1,18 @@
+import * as React from 'react';
 import Image from 'next/image';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { HiAtSymbol, HiFingerPrint, HiUser } from 'react-icons/hi';
-import { InputAdornment } from '@mui/material';
+import { IconButton, InputAdornment } from '@mui/material';
 import { useFormik } from 'formik';
 import { registerValidate } from './validate';
 import { oauthButtonStyle, oauthButtonProps } from './loginTheme';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
+import { VisibilityOff, Visibility } from '@mui/icons-material';
 
 const Register = () => {
   const formik = useFormik({
@@ -25,7 +27,14 @@ const Register = () => {
   });
 
   const router = useRouter();
-  const callbackUrl = (router.query?.callbackUrl as string) || '/'
+  const callbackUrl = (router.query?.callbackUrl as string) || '/';
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
 
   async function onSubmit(values) {
     const options = {
@@ -63,7 +72,7 @@ const Register = () => {
             name="email"
             InputProps={{
               endAdornment: (
-                <InputAdornment position="start">
+                <InputAdornment position="end">
                   <HiAtSymbol/>
                 </InputAdornment>
               ),
@@ -74,16 +83,25 @@ const Register = () => {
 
         {/* Password field */}
         <Grid item xs={12}>
-          <TextField variant="outlined" fullWidth
+          <TextField 
+            variant="outlined" 
+            fullWidth
             error = {formik.errors.password && formik.touched.password ? true : false}
             label="Password"
             name="password"
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             InputProps={{
               endAdornment: (
-                <InputAdornment position="start">
-                  <HiFingerPrint />
-                </InputAdornment>
+                <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
               ),
             }}
             {...formik.getFieldProps('password')}
@@ -96,12 +114,19 @@ const Register = () => {
             error = {formik.errors.cpassword && formik.touched.cpassword ? true : false}
             label="Confirm password"
             name="cpassword"
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             InputProps={{
               endAdornment: (
-                <InputAdornment position="start">
-                  <HiFingerPrint />
-                </InputAdornment>
+                <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
               ),
             }}
             {...formik.getFieldProps('cpassword')}
