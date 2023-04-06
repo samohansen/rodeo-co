@@ -92,10 +92,10 @@ const RodeoView: NextPageWithLayout<Props> = ({rodeo, prevHref}) => {
             {!events.length && (
               <Box>
                 <Box>
-                  <Typography variant='subtitle1' color="gray">
+                  <Typography variant='subtitle1' color="text.secondary">
                     There are no events to display. <br/>
                   </Typography>
-                  <Typography variant='caption' color="gray">
+                  <Typography variant='caption' color="text.secondary">
                     Create a new one or click below to generate samples.
                   </Typography>
                 </Box>

@@ -75,10 +75,10 @@ const RodeoDashboard: NextPageWithLayout<Props> = ({rodeos = [], isAdmin}) => {
       {isAdmin && rodeos.length === 0 ? (
         <Box sx={{padding: 3}}>
           <Box>
-            <Typography variant='subtitle1' color="gray">
+            <Typography variant='subtitle1' color="text.secondary">
               There are no rodeos to display. <br/>
             </Typography>
-            <Typography variant='subtitle2' color="gray">
+            <Typography variant='subtitle2' color="text.secondary">
               Create a new one or click below to generate samples.
             </Typography>
           </Box>

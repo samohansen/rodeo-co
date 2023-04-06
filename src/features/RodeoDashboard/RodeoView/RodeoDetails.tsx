@@ -14,17 +14,17 @@ const RodeoDetails: React.FC<Props> = ({location, date, notes}) => {
   return (
     <Box>
       <Box>
-        <Typography variant='overline' color="gray">Location</Typography>
-        <Typography variant='body1'>{location}</Typography>
+        <Typography variant='overline' color="text.secondary">Location</Typography>
+        <Typography variant='body1' color="text.primary">{location}</Typography>
       </Box>
       <Box sx={{paddingTop: 2}}>
-        <Typography variant='overline' color="gray">Date</Typography>
-        <Typography variant='body1'>{formatDate(date)}</Typography>
+        <Typography variant='overline' color="text.secondary">Date</Typography>
+        <Typography variant='body1' color="text.primary">{formatDate(date)}</Typography>
       </Box>
       {notes ? (
         <Box sx={{paddingTop: 2}}>
-          <Typography variant='overline' color="gray">Notes</Typography>
-          <Typography variant='body1'>{notes}</Typography>
+          <Typography variant='overline' color="text.secondary">Notes</Typography>
+          <Typography variant='body1' color="text.primary">{notes}</Typography>
         </Box>
       ) : null}
     </Box>

@@ -36,7 +36,7 @@ const EntriesView: NextPageWithLayout<Props> = ({entries}) => {
         {!!entries.length ? (
           <EntriesList entries={entries}/>
         ) : (
-          <Typography variant='subtitle1' color="gray">
+          <Typography variant='subtitle1' color="text.secondary">
             You have not entered any events.
           </Typography>
         )}
