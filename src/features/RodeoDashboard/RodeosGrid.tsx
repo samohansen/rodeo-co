@@ -12,10 +12,10 @@ const RodeosGrid: React.FC<Props> = ({rodeos}) => {
   const router = useRouter();
 
   return (
-    <Grid container spacing={3} justifyContent='flex-start'>
+    <Grid container spacing={3} justifyContent="flex-start" >
       {rodeos.length ? (
         rodeos.map(rodeo => (
-          <Grid item xs={12} sm={6} md={4} key={rodeo.id} sx={{display: 'flex', justifyContent: 'center'}}>
+          <Grid item xs={12} sm={6} md={4} key={rodeo.id} sx={{display: 'flex', justifyContent: 'center', marginBottom: 'auto'}}>
             <RodeoCard 
               rodeo={rodeo}
               onClick={() => router.push(`/rodeos/${encodeURIComponent(rodeo.id)}`)}
